@@ -34,3 +34,28 @@ Independent verification performed by ChatGPT against GitHub `main`:
 Result: **PASS / VERIFIED**.
 
 Roadmap effect (per existing technical baseline): A-01 moves verified criteria from 19/25 to 20/25, i.e. verified coverage from 76/100 to 80/100. The roadmap/progress ledger itself remains governed by the Google Drive authority boundary documented in `TESTING_SOURCE_OF_TRUTH.md`.
+
+## A-02 — Human-gated proposal -> validated SemanticEvent
+
+**Status: ACTIVE — IMPLEMENTATION PASS / HUMAN GATE PENDING**
+
+Implementation evidence on GitHub `main`:
+
+- `ADAPTER/src/governance.js`
+- `ADAPTER/src/apply-approved-proposal.js`
+- `ADAPTER/test/governance.test.js`
+- `ADAPTER/A02_TEST_OUTPUT.txt`
+- `ADAPTER/A02_IMPLEMENTATION_TEST_REPORT.md`
+- `ADAPTER/A02_HUMAN_GATE_VERIFICATION.md`
+
+Local executable implementation result recorded before commit:
+
+- 9 tests
+- 9 passed
+- 0 failed
+
+The test suite verifies that no approval yields zero mutation, an MCP/agent actor cannot self-approve, stale project/stream versions are rejected, an explicit HUMAN approval yields a validated `decision.changed` event, accepted state writes approval/validation/transaction/event journals, and the control CLI consumes an existing approval receipt rather than synthesizing one.
+
+A-02 is **not VERIFIED** yet. The remaining gate is an external run using the real A-01 proposal `proposal:d29bd255-e1da-43b9-a62b-fa25c34e2499` after a concrete human approval receipt is committed by the control side. Codex must then consume that receipt, apply the governed proposal, commit the resulting semantic evidence, and ChatGPT must independently verify that evidence on GitHub `main`.
+
+Roadmap coverage remains **20/25 = 80/100** until that human-gated external evidence is accepted.
