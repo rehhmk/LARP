@@ -1,0 +1,14 @@
+{
+  "approvalId": "approval:v02-human-01",
+  "proposalId": "proposal:83482952-6f6d-421a-a985-d7731b39f344",
+  "approved": true,
+  "actor": {
+    "kind": "HUMAN",
+    "id": "human:project-owner"
+  },
+  "statement": "Use OAuth2 authorization-code flow with PKCE S256 and enforce RFC 7636 verifier syntax.",
+  "approvalSource": "explicit user command ::approve proposal:83482952-6f6d-421a-a985-d7731b39f344",
+  "phase1EvidenceCommit": "1fca09a6a89ecfdd6ad041d28b1034bf4502e545",
+  "semanticMutationApplied": false,
+  "recordedDate": "2026-09-07"
+}
