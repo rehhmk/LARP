@@ -93,17 +93,17 @@ The local V-02 harness proves source-derived state can produce a CURRENT Context
 3. **V02-L03** governed bootstrap + identical-seed no-op
 4. **V02-L04** compile is non-mutating + changed seed → `SEED_DIVERGENCE`
 5. **V02-L05** source-derived state → ContextBundle → proposal → HUMAN governance → SemanticEvent → replay match
-6. **V02-L06** independent clean bootstraps produce same logical projection
+6. **V02-L06** independent clean bootstraps produce the same logical projection
 
 Result: **6/6 PASS**.
 
-## Regression CI
+## Final regression CI
 
 Workflow:
 
 - `.github/workflows/v02-build.yml`
-- run: `34157735231`
-- job: `101852942568`
+- final PR-head run: `34157799894`
+- final job: `101853133174`
 - conclusion: **SUCCESS**
 
 Substantive test results:
@@ -117,7 +117,13 @@ Substantive test results:
 
 Total deterministic tests: **47/47 PASS** plus compile smoke PASS.
 
-The legacy V-01 workflow also passed for the same V-02 branch head used immediately before this report was added.
+The legacy V-01 workflow also passed on the final PR head.
+
+## Merge evidence
+
+- PR: `#3 build(v02): language-to-runtime vertical slice`
+- implementation PR head: `027682ccf7895eca08bef2ac30d93e9347a0e973`
+- merge commit: `e3d28fa94711761049e07aa9de7a60a497a3e60a`
 
 ## Real-run support
 
