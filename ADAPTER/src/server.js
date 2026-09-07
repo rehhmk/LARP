@@ -56,7 +56,7 @@ async function handle(message) {
       success(id, {
         protocolVersion,
         capabilities: { tools: { listChanged: false } },
-        serverInfo: { name: 'larp-a01-adapter', version: '0.1.0' },
+        serverInfo: { name: 'larp-adapter', version: '0.2.0' },
       });
       return;
     }
@@ -118,7 +118,7 @@ async function handle(message) {
   }
 }
 
-console.error(`LARP A-01 MCP adapter listening on stdio; project=${projectPath}`);
+console.error(`LARP MCP adapter 0.2.0 listening on stdio; project=${projectPath}`);
 const rl = createInterface({ input: process.stdin, crlfDelay: Infinity });
 rl.on('line', (line) => {
   if (!line.trim()) return;
