@@ -12,9 +12,9 @@ Policy: `TESTING_SOURCE_OF_TRUTH.md`
 - M5 Agent Integration: **CLOSED**
 - M6 Functional Vertical Slice: **ACTIVE**
 - V-01: **VERIFIED**
-- Next roadmap criterion: **V-02**
+- V-02: **ACTIVE — ACCEPTED CRITERION / BUILD PENDING**
 
-Roadmap/spec authority remains Google Drive. GitHub is authoritative for executable evidence.
+Roadmap/spec authority remains Google Drive. GitHub is authoritative for executable evidence. Because the accepted V-02 definition was created and explicitly human-approved in this chat, GitHub now contains the authoritative accepted criterion pending later Drive reconciliation.
 
 ---
 
@@ -120,18 +120,49 @@ Coverage effect: **21/25 → 22/25; 84/100 → 88/100**.
 
 ---
 
-## V-02 — Functional Vertical Slice criterion #2
+## V-02 — Language → Runtime Vertical Slice
 
-**Status: PLANNED — DEFINITION MUST COME FROM ROADMAP AUTHORITY**
+**Status: ACTIVE — ACCEPTED CRITERION / BUILD PENDING**
 
-GitHub currently contains no accepted V-02 definition or acceptance criteria. Do not infer or invent V-02 from V-01.
+Accepted definition:
 
-Required next step: read the authoritative Google Drive roadmap/progress ledger and materialize the accepted V-02 scope before implementation begins.
+> Prove the complete LARP language-to-runtime path end to end: a real `*.larp` program compiles to LARP IR, initializes governed semantic state, supplies a real coding agent through MCP, accepts only human-governed mutation, and can replay accepted history to the same final projection.
 
-Google Drive availability was blocked during the latest `::next`, so V-02 definition reconciliation remains pending.
+Acceptance anchors:
+
+- Proposal: `VERTICAL_SLICE/V02_PROPOSAL.md`
+- Proposal commit: `811297d92c2a4b2a0fba3ff2ce61fb14fa814d05`
+- Human-accepted decision: `VERTICAL_SLICE/V02_DECISION.md`
+- Decision commit: `26a6bebb7a0ddf10437ca50301c566b8dfdb7a7f`
+
+Required causal path:
+
+```text
+*.larp
+→ compiler
+→ LARP IR
+→ explicit governed seed bootstrap
+→ semantic state
+→ ContextBundle
+→ MCP
+→ real Codex work
+→ context-bound non-mutating proposal
+→ explicit HUMAN approval
+→ deterministic validation
+→ committed SemanticEvent
+→ source/history separation proof
+→ replay from zero
+→ same logical final projection
+```
+
+The full 25 acceptance conditions and failure conditions are canonical in `VERTICAL_SLICE/V02_PROPOSAL.md`.
+
+Coverage remains **22/25 = 88/100** until executable evidence passes independent verification.
+
+Next execution unit: **build V-02 implementation/harness/evidence protocol**.
 
 ---
 
 ## Compatibility note
 
-Native MCP `2026-07-28` dual-era serving remains tracked as `GAP-MCP-2026`; it is not retroactively required for V-01 verification unless the roadmap authority promotes it into a criterion.
+Native MCP `2026-07-28` dual-era serving remains tracked as `GAP-MCP-2026`; it is not part of V-02 unless separately promoted.
