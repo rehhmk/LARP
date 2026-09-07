@@ -1,0 +1,11 @@
+diff --git a/VERTICAL_SLICE/v01/work/auth-policy.js b/VERTICAL_SLICE/v01/work/auth-policy.js
+index 21c652f..a627a71 100644
+--- a/VERTICAL_SLICE/v01/work/auth-policy.js
++++ b/VERTICAL_SLICE/v01/work/auth-policy.js
+@@ -2,5 +2,5 @@ export const AUTH_POLICY = Object.freeze({
+   flow: 'authorization_code',
+   pkce: 'S256',
+   dpop: true,
+-  governingDecisionVersion: 2,
++  governingDecisionVersion: 3,
+ });

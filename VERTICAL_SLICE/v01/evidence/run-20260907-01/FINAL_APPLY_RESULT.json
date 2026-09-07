@@ -1,0 +1,65 @@
+{
+  "status": "APPLIED",
+  "proposalId": "proposal:7aaed0ea-144e-47ff-b7ae-154c5347ed97",
+  "approvalId": "approval:v01-final-human-02",
+  "semanticMutationApplied": true,
+  "projectPosition": 2,
+  "targetStreamVersion": 3,
+  "event": {
+    "event_id": "event:8f2a8ac2-24c6-4b92-b78a-71239ac2519b",
+    "project_id": "v01-demo",
+    "event_type": "decision.changed",
+    "schema_version": 1,
+    "stream_id": "decision:auth",
+    "stream_version": 3,
+    "transaction_id": "tx:8f2a8ac2-24c6-4b92-b78a-71239ac2519b",
+    "transaction_index": 0,
+    "project_position": 2,
+    "command_id": "proposal:7aaed0ea-144e-47ff-b7ae-154c5347ed97",
+    "causation_ref": "proposal:7aaed0ea-144e-47ff-b7ae-154c5347ed97",
+    "correlation_id": "approval:v01-final-human-02",
+    "actor_ref": "human:project-owner",
+    "machine_id": "decision.lifecycle",
+    "machine_version": "0.1",
+    "validation_receipt_ref": "validation:8f2a8ac2-24c6-4b92-b78a-71239ac2519b",
+    "recorded_at": "2026-09-07T17:41:22.950Z",
+    "payload": {
+      "targetId": "decision:auth",
+      "before": {
+        "statement": "Use OAuth2 authorization-code flow with PKCE S256 and DPoP-bound access tokens."
+      },
+      "after": {
+        "statement": "Use OAuth2 authorization-code flow with PKCE S256 and require DPoP-bound access tokens for public clients."
+      }
+    }
+  },
+  "transaction": {
+    "transactionId": "tx:8f2a8ac2-24c6-4b92-b78a-71239ac2519b",
+    "projectId": "v01-demo",
+    "proposalId": "proposal:7aaed0ea-144e-47ff-b7ae-154c5347ed97",
+    "approvalId": "approval:v01-final-human-02",
+    "status": "COMMITTED",
+    "eventCount": 1,
+    "recordedAt": "2026-09-07T17:41:22.950Z"
+  },
+  "validationReceipt": {
+    "validationReceiptId": "validation:8f2a8ac2-24c6-4b92-b78a-71239ac2519b",
+    "result": "ACCEPTED",
+    "proposalId": "proposal:7aaed0ea-144e-47ff-b7ae-154c5347ed97",
+    "approvalId": "approval:v01-final-human-02",
+    "targetId": "decision:auth",
+    "previousStreamVersion": 2,
+    "nextStreamVersion": 3,
+    "previousProjectPosition": 1,
+    "nextProjectPosition": 2,
+    "beforeStatement": "Use OAuth2 authorization-code flow with PKCE S256 and DPoP-bound access tokens.",
+    "afterStatement": "Use OAuth2 authorization-code flow with PKCE S256 and require DPoP-bound access tokens for public clients.",
+    "actor": {
+      "kind": "HUMAN",
+      "id": "human:project-owner",
+      "name": "Project Owner"
+    },
+    "recordedAt": "2026-09-07T17:41:22.950Z"
+  },
+  "projectFileHashAfter": "a3aa86f465595e1099ab9f37d7a45553a94af5f8911bf336532b3f5c1ba810e4"
+}

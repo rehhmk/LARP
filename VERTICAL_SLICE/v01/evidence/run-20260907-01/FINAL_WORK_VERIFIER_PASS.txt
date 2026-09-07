@@ -1,0 +1,2 @@
+exit=0
+{"status":"PASS","projectId":"v01-demo","projectPosition":2,"decisionVersion":3,"expectsDpop":true,"authPolicy":{"flow":"authorization_code","pkce":"S256","dpop":true,"governingDecisionVersion":3}}

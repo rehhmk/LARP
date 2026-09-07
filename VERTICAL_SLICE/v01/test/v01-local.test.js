@@ -13,7 +13,7 @@ const ROOT = resolve(new URL('..', import.meta.url).pathname);
 const REPO = resolve(ROOT, '../..');
 const SERVER = join(REPO, 'ADAPTER/src/server.js');
 const FIXTURE = join(ROOT, 'fixture/project.initial.json');
-const WORK = join(ROOT, 'work/auth-policy.js');
+const POLICY_FIXTURE = join(ROOT, 'fixture/auth-policy.initial.js');
 const VERIFIER = join(ROOT, 'work/verify-auth-policy.js');
 
 async function countJsonl(path) {
@@ -32,7 +32,7 @@ async function setup() {
   const runtimeDir = join(dir, '.larp/runtime');
   const policyPath = join(dir, 'auth-policy.js');
   await cp(FIXTURE, projectPath);
-  await cp(WORK, policyPath);
+  await cp(POLICY_FIXTURE, policyPath);
   const client = new LineMcpClient({
     command: process.execPath,
     args: [SERVER, '--project', projectPath, '--runtime-dir', runtimeDir, '--coverage', '84'],

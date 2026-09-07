@@ -1,0 +1,144 @@
+V-01 Phase 3 Regression Test Output
+
+Initial required-run result
+===========================
+
+Command: (cd VERTICAL_SLICE/v01 && npm test)
+Exit: 1
+
+
+> larp-v01-functional-slice@0.1.0 test
+> node --test test/v01-local.test.js
+
+✖ V01-L01 full local causal chain enforces stale blocking and requires rehydrate (62.6165ms)
+✔ V01-L02 unbound proposal is rejected with zero journal append (31.19125ms)
+✔ V01-L03 STALE_NON_BLOCKING context may propose but receipt carries drift (42.022833ms)
+✔ V01-L04 explicit ContextBundle fingerprint mismatch is rejected before append (36.946709ms)
+✔ V01-L05 full ContextBundle can bind proposal after MCP server restart (67.023125ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 4
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 279.496125
+
+✖ failing tests:
+
+test at test/v01-local.test.js:65:1
+✖ V01-L01 full local causal chain enforces stale blocking and requires rehydrate (62.6165ms)
+  Error: Command failed: /opt/homebrew/Cellar/node/26.5.0/bin/node /Users/enzotriches/Documents/LARP/VERTICAL_SLICE/v01/work/verify-auth-policy.js /var/folders/02/djvvmyf52xz7p06515t_vzj80000gn/T/larp-v01-T1ook0/project.json /var/folders/02/djvvmyf52xz7p06515t_vzj80000gn/T/larp-v01-T1ook0/auth-policy.js
+  node:internal/modules/run_main:107
+      triggerUncaughtException(
+      ^
+
+  AssertionError [ERR_ASSERTION]: AUTH_POLICY.dpop=true does not reflect decision:auth expectation dpop=false
+
+  true !== false
+
+      at file:///Users/enzotriches/Documents/LARP/VERTICAL_SLICE/v01/work/verify-auth-policy.js:28:8 {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+  Node.js v26.5.0
+
+      at genericNodeError (node:internal/errors:999:15)
+      at wrappedFn (node:internal/errors:544:14)
+      at ChildProcess.exithandler (node:child_process:417:12)
+      at ChildProcess.emit (node:events:509:20)
+      at maybeClose (node:internal/child_process:1125:16)
+      at ChildProcess._handle.onexit (node:internal/child_process:305:5) {
+    code: 1,
+    killed: false,
+    signal: null,
+    cmd: '/opt/homebrew/Cellar/node/26.5.0/bin/node /Users/enzotriches/Documents/LARP/VERTICAL_SLICE/v01/work/verify-auth-policy.js /var/folders/02/djvvmyf52xz7p06515t_vzj80000gn/T/larp-v01-T1ook0/project.json /var/folders/02/djvvmyf52xz7p06515t_vzj80000gn/T/larp-v01-T1ook0/auth-policy.js',
+    stdout: '',
+    stderr: "node:internal/modules/run_main:107\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: AUTH_POLICY.dpop=true does not reflect decision:auth expectation dpop=false\n\ntrue !== false\n\n    at file:///Users/enzotriches/Documents/LARP/VERTICAL_SLICE/v01/work/verify-auth-policy.js:28:8 {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: true,\n  expected: false,\n  operator: 'strictEqual',\n  diff: 'simple'\n}\n\nNode.js v26.5.0\n"
+  }
+
+Diagnosis and correction
+========================
+
+V01-L01 copied the evolving real-run work/auth-policy.js as its deterministic B0 policy while project.initial.json remained the non-DPoP seed. The harness was corrected to copy fixture/auth-policy.initial.js, the same seed already used by reset:real. No runtime receipt or human approval was modified.
+
+Final required regression run
+=============================
+
+Command: (cd ADAPTER && npm test)
+Exit: 0
+
+
+> larp-a01-mcp-adapter-v0.1@0.1.0 test
+> node --test test/adapter.test.js
+
+✔ T01 initializes over MCP legacy stdio and reports tool capability (37.159417ms)
+✔ T02 tools/list exposes exactly context, status, proposal, and verification tools (30.735792ms)
+✔ T03 larp_status is read-only and exposes project position/coverage (32.004875ms)
+✔ T04 larp_get_context returns governed ContextBundle with Decision/Evidence/Unknown (35.692291ms)
+✔ T05 freshly issued context verifies CURRENT (37.474959ms)
+✔ T06 unrelated project drift stays CURRENT (36.126375ms)
+✔ T07 required Decision drift becomes STALE_BLOCKING (38.109375ms)
+✔ T08 larp_propose records a context-bound proposal but does not mutate semantic fixture (39.796083ms)
+✔ T09 proposal tool cannot be mistaken for accepted SemanticEvent (37.689125ms)
+✔ T10 tool argument errors return MCP tool error without crashing server (28.82825ms)
+✔ T11 unknown tool returns an ordinary MCP tool error result (28.326917ms)
+✔ T12 stdout contains JSON-RPC only (29.372833ms)
+✔ T13 current 2026 discovery probe receives Method not found for documented legacy fallback (28.855583ms)
+✔ T14 verification can accept full bundle, not only process-local cache (37.458541ms)
+✔ T15 unbound proposal is rejected before proposal journal creation (29.671083ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 547.067125
+
+Command: (cd ADAPTER && node --test test/governance.test.js)
+Exit: 0
+
+✔ A02-T01 no approval means zero semantic mutation (3.906792ms)
+✔ A02-T02 MCP/agent actor cannot approve its own proposal (0.946959ms)
+✔ A02-T03 stale project position is rejected before mutation (0.703917ms)
+✔ A02-T04 stale stream version is rejected before mutation (0.666917ms)
+✔ A02-T05 explicit human approval yields validated semantic event and projection update (1.572334ms)
+✔ A02-T06 accepted path writes approval, validation, transaction and event journals (1.856625ms)
+✔ A02-T07 same canonical input with injected ids/time produces same logical event (2.298708ms)
+✔ A02-T08 unsupported command is rejected even with human approval (0.553333ms)
+✔ A02-T09 control CLI consumes an existing approval receipt file; it does not synthesize approval (32.164584ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 84.046333
+
+Command: (cd VERTICAL_SLICE/v01 && npm test)
+Exit: 0
+
+
+> larp-v01-functional-slice@0.1.0 test
+> node --test test/v01-local.test.js
+
+✔ V01-L01 full local causal chain enforces stale blocking and requires rehydrate (126.993959ms)
+✔ V01-L02 unbound proposal is rejected with zero journal append (31.899542ms)
+✔ V01-L03 STALE_NON_BLOCKING context may propose but receipt carries drift (38.620333ms)
+✔ V01-L04 explicit ContextBundle fingerprint mismatch is rejected before append (37.28225ms)
+✔ V01-L05 full ContextBundle can bind proposal after MCP server restart (68.095417ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 349.031917
