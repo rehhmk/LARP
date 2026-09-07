@@ -1,0 +1,31 @@
+name: V01 Build Verification
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [build/v01-context-binding]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: A-01 adapter regression tests
+        working-directory: ADAPTER
+        run: npm test
+      - name: A-02 governance regression tests
+        working-directory: ADAPTER
+        run: node --test test/governance.test.js
+      - name: V-01 isolated context-binding harness
+        working-directory: VERTICAL_SLICE/v01
+        run: npm test
