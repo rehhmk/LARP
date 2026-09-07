@@ -28,42 +28,43 @@ Independent verification performed by ChatGPT against GitHub `main`:
 - Context verification returns `CURRENT`, severity `NONE`, no changes.
 - Proposal receipt returns `status = PROPOSED`, `semanticMutationApplied = false`, `governanceRequired = true`.
 - `ADAPTER/.larp/runtime/proposals.jsonl` contains exactly the reported proposal receipt.
-- Runtime evidence directory contains `proposals.jsonl` and no `semantic_events.jsonl`.
-- SHA-256 independently recomputed for committed `ADAPTER/examples/project.json` equals `b3c428b59e3d8daaa6084522222988d653dd730a4b25c8d5171a362ce36974ce`, matching the external-agent evidence.
+- Runtime evidence directory contains `proposals.jsonl` and no `semantic_events.jsonl` before A-02.
 
 Result: **PASS / VERIFIED**.
 
-Roadmap effect (per existing technical baseline): A-01 moves verified criteria from 19/25 to 20/25, i.e. verified coverage from 76/100 to 80/100. The roadmap/progress ledger itself remains governed by the Google Drive authority boundary documented in `TESTING_SOURCE_OF_TRUTH.md`.
+Roadmap effect: A-01 moved verified criteria from 19/25 to 20/25, i.e. verified coverage from 76/100 to 80/100.
 
 ## A-02 — Human-gated proposal -> validated SemanticEvent
 
-**Status: ACTIVE — HUMAN APPROVED / EXTERNAL APPLY + VERIFICATION PENDING**
+**Status: VERIFIED**
 
-Implementation evidence on GitHub `main`:
+Verification basis:
 
-- `ADAPTER/src/governance.js`
-- `ADAPTER/src/apply-approved-proposal.js`
-- `ADAPTER/test/governance.test.js`
-- `ADAPTER/A02_TEST_OUTPUT.txt`
-- `ADAPTER/A02_IMPLEMENTATION_TEST_REPORT.md`
-- `ADAPTER/A02_HUMAN_GATE_VERIFICATION.md`
+- Human approval commit: `345d9cabbcb8cd2314725276096003bdbc85533b`
+- Governed external-apply evidence commit: `82bbdc0f9181737f63c36cc5284d16267889fd1d`
+- External agent evidence: `ADAPTER/A02_EXTERNAL_AGENT_EVIDENCE.md`
+- Immutable approval receipt: `ADAPTER/.larp/control/approvals/a02-d29bd255-human-01.json`
+- Human approval journal: `ADAPTER/.larp/runtime/human_approvals.jsonl`
+- Validation receipt: `ADAPTER/.larp/runtime/semantic_validation_receipts.jsonl`
+- Semantic transaction: `ADAPTER/.larp/runtime/semantic_transactions.jsonl`
+- Semantic event: `ADAPTER/.larp/runtime/semantic_events.jsonl`
+- Updated projection fixture: `ADAPTER/examples/project.json`
 
-Local executable implementation result recorded before commit:
+Independent verification performed by ChatGPT against GitHub `main`:
 
-- 9 tests
-- 9 passed
-- 0 failed
+- The approval receipt exists before the Codex evidence commit and targets exactly `proposal:d29bd255-e1da-43b9-a62b-fa25c34e2499`.
+- Approval actor kind is `HUMAN`, actor ID `human:project-owner`, and `approved = true`.
+- The Codex evidence commit is a child of the human-approved state and does not modify the pre-existing approval receipt.
+- `semantic_validation_receipts.jsonl` records `result = ACCEPTED` for the exact proposal/approval pair.
+- Validation records stream version `2 -> 3` and project position `42 -> 43`.
+- `semantic_transactions.jsonl` records status `COMMITTED` and `eventCount = 1`.
+- `semantic_events.jsonl` contains exactly the governed `decision.changed` event for `decision:auth` with stream version `3`, project position `43`, causation pointing to the proposal, correlation pointing to the human approval, and validation receipt provenance.
+- The event payload changes the decision statement from `Use OAuth2` to the approved OAuth2 authorization-code + PKCE S256 statement.
+- `ADAPTER/examples/project.json` reflects project position `43`, decision version `3`, and the approved statement.
+- External-agent evidence reports the governed apply exited `APPLIED`, A-02 governance tests passed `9/9`, context compiler tests `12/12`, and the adjusted adapter suite `14/14`.
 
-Human approval:
+Result: **PASS / VERIFIED**.
 
-- Proposal: `proposal:d29bd255-e1da-43b9-a62b-fa25c34e2499`
-- Approval receipt: `ADAPTER/.larp/control/approvals/a02-d29bd255-human-01.json`
-- Approval commit: `345d9cabbcb8cd2314725276096003bdbc85533b`
-- Actor kind: `HUMAN`
-- Approval was created by the human-control side after an explicit user `::approve` command, not by the coding agent.
+Roadmap effect (pending Google Drive ledger synchronization): A-02 moves verified criteria from 20/25 to 21/25, i.e. verified coverage from 80/100 to 84/100. M5 Agent Integration is CLOSED; next technical milestone is M6 Functional Vertical Slice.
 
-The test suite verifies that no approval yields zero mutation, an MCP/agent actor cannot self-approve, stale project/stream versions are rejected, an explicit HUMAN approval yields a validated `decision.changed` event, accepted state writes approval/validation/transaction/event journals, and the control CLI consumes an existing approval receipt rather than synthesizing one.
-
-A-02 is **not VERIFIED** yet. The human gate is now satisfied. Codex must pull/inspect GitHub `main`, consume the committed approval receipt through the control CLI, apply the governed proposal, commit the resulting semantic evidence (`human_approvals.jsonl`, validation receipt, semantic transaction, semantic event, updated projection fixture, external-agent evidence), and ChatGPT must independently verify that committed evidence.
-
-Roadmap coverage remains **20/25 = 80/100** until that external evidence is accepted.
+The roadmap/progress ledger itself remains governed by the Google Drive authority boundary documented in `TESTING_SOURCE_OF_TRUTH.md`. If the Drive connector is unavailable during this verification, GitHub records the executable verification while Drive synchronization remains pending.
