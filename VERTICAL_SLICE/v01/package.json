@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --test test/v01-local.test.js"
+    "test": "node --test test/v01-local.test.js",
+    "reset:real": "node scripts/reset-real-run.js"
   },
   "engines": {
     "node": ">=22"
