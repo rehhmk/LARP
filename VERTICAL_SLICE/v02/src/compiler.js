@@ -56,16 +56,11 @@ function parseValue(raw, line) {
   throw new CompileError('VALUE_INVALID', `Unsupported value: ${raw}`, line);
 }
 
-function parseHeaderTokens(line, lineNumber) {
-  const tokens = line.trim().split(/\s+/);
-  const attrs = {};
-  for (let i = 4; i < tokens.length; i += 2) {
-    if (tokens[i + 1] === undefined) {
-      throw new CompileError('HEADER_INVALID', `Expected key/value pair in: ${line}`, lineNumber);
-    }
-    attrs[tokens[i]] = tokens[i + 1];
-  }
-  return { tokens, attrs };
+function parseNodeHeader(text, line) {
+  const match = text.match(/^seed\s+node\s+([^\s]+)\s+kind\s+([^\s]+)\s+scope\s+([^\s]+)(?:\s+lifecycle\s+([^\s]+))?$/);
+  if (!match) throw new CompileError('NODE_SEED_INVALID', `Invalid node seed: ${text}`, line);
+  const [, id, kind, scopeId, lifecycle = null] = match;
+  return { id, kind, scopeId, lifecycle };
 }
 
 export function compileSource(source, { sourcePath = '<memory>' } = {}) {
@@ -97,7 +92,8 @@ export function compileSource(source, { sourcePath = '<memory>' } = {}) {
   const scopes = [];
   const nodes = [];
   const relations = [];
-  const seenIds = new Set();
+  const seenSeedIds = new Set();
+  const seenScopes = new Set();
 
   while (cursor < meaningful.length) {
     const item = next();
@@ -105,28 +101,16 @@ export function compileSource(source, { sourcePath = '<memory>' } = {}) {
       const match = item.text.match(/^scope\s+([^\s]+)(?:\s+parent\s+([^\s]+))?$/);
       if (!match) throw new CompileError('SCOPE_INVALID', `Invalid scope declaration: ${item.text}`, item.line);
       const [, id, parentId = null] = match;
-      if (seenIds.has(`scope:${id}`)) throw new CompileError('DUPLICATE_ID', `Duplicate scope ${id}`, item.line);
-      seenIds.add(`scope:${id}`);
+      if (seenScopes.has(id)) throw new CompileError('DUPLICATE_ID', `Duplicate scope ${id}`, item.line);
+      seenScopes.add(id);
       scopes.push({ id, parentId, version: 1, data: {} });
       continue;
     }
 
     if (item.text.startsWith('seed node ')) {
-      const { tokens, attrs } = parseHeaderTokens(item.text, item.line);
-      if (tokens.length < 8 || tokens[0] !== 'seed' || tokens[1] !== 'node') {
-        throw new CompileError('NODE_SEED_INVALID', `Invalid node seed: ${item.text}`, item.line);
-      }
-      const id = tokens[2];
-      if (tokens[3] !== 'kind' || !attrs.scope) {
-        throw new CompileError('NODE_SEED_INVALID', `Node seed requires kind and scope: ${item.text}`, item.line);
-      }
-      const kind = tokens[4];
-      const scopeIndex = tokens.indexOf('scope');
-      const scopeId = tokens[scopeIndex + 1];
-      const lifecycleIndex = tokens.indexOf('lifecycle');
-      const lifecycle = lifecycleIndex >= 0 ? tokens[lifecycleIndex + 1] : null;
-      if (seenIds.has(id)) throw new CompileError('DUPLICATE_ID', `Duplicate seed id ${id}`, item.line);
-      seenIds.add(id);
+      const { id, kind, scopeId, lifecycle } = parseNodeHeader(item.text, item.line);
+      if (seenSeedIds.has(id)) throw new CompileError('DUPLICATE_ID', `Duplicate seed id ${id}`, item.line);
+      seenSeedIds.add(id);
 
       const data = {};
       let ended = false;
@@ -149,8 +133,8 @@ export function compileSource(source, { sourcePath = '<memory>' } = {}) {
       const match = item.text.match(/^seed\s+relation\s+([^\s]+)\s+kind\s+([^\s]+)\s+source\s+([^\s]+)\s+target\s+([^\s]+)\s+scope\s+([^\s]+)$/);
       if (!match) throw new CompileError('RELATION_SEED_INVALID', `Invalid relation seed: ${item.text}`, item.line);
       const [, id, kind, source, target, scopeId] = match;
-      if (seenIds.has(id)) throw new CompileError('DUPLICATE_ID', `Duplicate seed id ${id}`, item.line);
-      seenIds.add(id);
+      if (seenSeedIds.has(id)) throw new CompileError('DUPLICATE_ID', `Duplicate seed id ${id}`, item.line);
+      seenSeedIds.add(id);
       relations.push({ id, kind, source, target, scopeId, active: true, version: 1, data: {} });
       continue;
     }
