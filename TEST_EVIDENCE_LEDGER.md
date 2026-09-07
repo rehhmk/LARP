@@ -2,14 +2,27 @@
 
 Status: ACTIVE
 Repository: `rehhmk/LARP`
-Authoritative branch for current test evidence: `main`
+Authoritative branch for executable test evidence: `main`
 Policy: `TESTING_SOURCE_OF_TRUTH.md`
+
+## Current executable status
+
+- Verified criteria: **22 / 25**
+- Verified coverage: **88 / 100**
+- M5 Agent Integration: **CLOSED**
+- M6 Functional Vertical Slice: **ACTIVE**
+- V-01: **VERIFIED**
+- Next roadmap criterion: **V-02**
+
+Roadmap/spec authority remains Google Drive. GitHub is authoritative for executable evidence.
+
+---
 
 ## A-01 — Real coding-agent MCP adapter verification
 
 **Status: VERIFIED**
 
-Verification basis:
+Evidence anchors:
 
 - Evidence commit: `c630a01363593eb78b1931abfa3ca527d25ee699`
 - External agent evidence: `ADAPTER/A01_EXTERNAL_AGENT_EVIDENCE.md`
@@ -17,121 +30,108 @@ Verification basis:
 - Project fixture: `ADAPTER/examples/project.json`
 - Adapter tests/report: `ADAPTER/TEST_OUTPUT.txt`, `ADAPTER/TEST_REPORT.md`
 
-Independent verification performed by ChatGPT against GitHub `main`:
+Verified result:
 
-- Codex Desktop identified as real coding-agent host.
-- Live MCP client identified as `codex-mcp-client` version `0.145.0-alpha.18`.
-- Required calls present in order: `larp_status`, `larp_get_context`, `larp_verify_context`, `larp_propose`.
-- `larp_status.projectId = demo`.
-- `larp_status.semanticMutationAllowed = false`.
-- Context contains `decision:auth` and `unknown:refresh-policy`.
-- Context verification returns `CURRENT`, severity `NONE`, no changes.
-- Proposal receipt returns `status = PROPOSED`, `semanticMutationApplied = false`, `governanceRequired = true`.
-- `ADAPTER/.larp/runtime/proposals.jsonl` contains exactly the reported proposal receipt.
-- Runtime evidence directory contains `proposals.jsonl` and no `semantic_events.jsonl` before A-02.
+- Codex Desktop acted as a real coding-agent host.
+- Required MCP calls executed live: `larp_status`, `larp_get_context`, `larp_verify_context`, `larp_propose`.
+- Context contained governed Decision/Evidence/Unknown state.
+- Freshness returned CURRENT.
+- Proposal was persisted as `PROPOSED` with `semanticMutationApplied = false` and `governanceRequired = true`.
+- No SemanticEvent was created by proposal creation.
 
-Result: **PASS / VERIFIED**.
+Coverage effect: **19/25 → 20/25; 76/100 → 80/100**.
 
-Roadmap effect: A-01 moved verified criteria from 19/25 to 20/25, i.e. verified coverage from 76/100 to 80/100.
+---
 
-## A-02 — Human-gated proposal -> validated SemanticEvent
+## A-02 — Human-gated proposal → validated SemanticEvent
 
 **Status: VERIFIED**
 
-Verification basis:
+Evidence anchors:
 
 - Human approval commit: `345d9cabbcb8cd2314725276096003bdbc85533b`
 - Governed external-apply evidence commit: `82bbdc0f9181737f63c36cc5284d16267889fd1d`
+- Independent verification ledger commit: `abf37e092424c99e9ca92b5c5ecfd2dcf7955966`
 - External agent evidence: `ADAPTER/A02_EXTERNAL_AGENT_EVIDENCE.md`
-- Immutable approval receipt: `ADAPTER/.larp/control/approvals/a02-d29bd255-human-01.json`
+- Approval receipt: `ADAPTER/.larp/control/approvals/a02-d29bd255-human-01.json`
 - Human approval journal: `ADAPTER/.larp/runtime/human_approvals.jsonl`
 - Validation receipt: `ADAPTER/.larp/runtime/semantic_validation_receipts.jsonl`
 - Semantic transaction: `ADAPTER/.larp/runtime/semantic_transactions.jsonl`
 - Semantic event: `ADAPTER/.larp/runtime/semantic_events.jsonl`
-- Updated projection fixture: `ADAPTER/examples/project.json`
 
-Independent verification performed by ChatGPT against GitHub `main`:
+Verified result:
 
-- The approval receipt exists before the Codex evidence commit and targets exactly `proposal:d29bd255-e1da-43b9-a62b-fa25c34e2499`.
-- Approval actor kind is `HUMAN`, actor ID `human:project-owner`, and `approved = true`.
-- The Codex evidence commit is a child of the human-approved state and does not modify the pre-existing approval receipt.
-- `semantic_validation_receipts.jsonl` records `result = ACCEPTED` for the exact proposal/approval pair.
-- Validation records stream version `2 -> 3` and project position `42 -> 43`.
-- `semantic_transactions.jsonl` records status `COMMITTED` and `eventCount = 1`.
-- `semantic_events.jsonl` contains exactly the governed `decision.changed` event for `decision:auth` with stream version `3`, project position `43`, causation pointing to the proposal, correlation pointing to the human approval, and validation receipt provenance.
-- The event payload changes the decision statement from `Use OAuth2` to the approved OAuth2 authorization-code + PKCE S256 statement.
-- `ADAPTER/examples/project.json` reflects project position `43`, decision version `3`, and the approved statement.
-- External-agent evidence reports the governed apply exited `APPLIED`, A-02 governance tests passed `9/9`, context compiler tests `12/12`, and the adjusted adapter suite `14/14`.
+- Approval pre-existed the governed apply and was explicitly HUMAN.
+- Validation returned ACCEPTED.
+- Semantic transaction returned COMMITTED with exactly one event.
+- Event was `decision.changed`, linked by causation to the proposal and correlation to the approval.
+- Projection advanced stream `2 → 3` and project position `42 → 43`.
+- Coding agent did not synthesize its own human approval.
 
-Result: **PASS / VERIFIED**.
+Coverage effect: **20/25 → 21/25; 80/100 → 84/100**. M5 Agent Integration CLOSED.
 
-Roadmap effect: A-02 moved verified criteria from 20/25 to 21/25, i.e. verified coverage from 80/100 to 84/100. M5 Agent Integration is CLOSED; M6 Functional Vertical Slice is active.
+---
 
 ## V-01 — Functional vertical slice with semantic drift and rehydration
 
-**Status: ACTIVE — IMPLEMENTATION PASS / REAL AGENT EXECUTION PENDING**
+**Status: VERIFIED**
 
-Protocol:
+Protocol and implementation:
 
-- `VERTICAL_SLICE/V01_FUNCTIONAL_VERTICAL_SLICE_PROTOCOL.md`
+- Protocol: `VERTICAL_SLICE/V01_FUNCTIONAL_VERTICAL_SLICE_PROTOCOL.md`
 - Protocol commit: `0eaf7bbd0fff9e2d33d5c377004819132f0bb3ab`
+- Implementation merge: `9a7cdaa368f5d2425488aad1f284ae1cf9109620`
+- Real-agent Phase 2 evidence commit: `ca6d3a230ec488e1ff36cbacdab9a59fba49c3d9`
+- Final real-agent evidence commit: `49a4ead2a6148de38fc29ef4f56a2d2ccaee4ab1`
+- Independent verification commit: `8626b2a5fcdbd704fd5cd696507684d8a4dc7847`
+- Independent report: `VERTICAL_SLICE/v01/evidence/run-20260907-01/CHATGPT_INDEPENDENT_VERIFICATION.md`
 
-Implementation merged to `main`:
-
-- Merge commit: `9a7cdaa368f5d2425488aad1f284ae1cf9109620`
-- Pull request: `#1 build(v01): context-bound proposal safety gate`
-- Build report: `VERTICAL_SLICE/v01/V01_LOCAL_BUILD_REPORT.md`
-- Isolated fixture: `VERTICAL_SLICE/v01/fixture/project.initial.json`
-- Concrete work artifact: `VERTICAL_SLICE/v01/work/auth-policy.js`
-- Semantic-aware verifier: `VERTICAL_SLICE/v01/work/verify-auth-policy.js`
-- Local harness: `VERTICAL_SLICE/v01/test/v01-local.test.js`
-
-Implemented safety contract:
-
-- every `larp_propose` requires `contextBundleFingerprint`;
-- the bundle is resolved from process cache or supplied explicitly;
-- fingerprint mismatch is rejected before append;
-- proposal-time `verifyContext` is deterministic;
-- `STALE_BLOCKING` returns `CONTEXT_STALE_BLOCKING` before journal append;
-- `STALE_NON_BLOCKING` may proceed but the receipt records context freshness and drift;
-- proposal receipts include the bound ContextBundle fingerprint and context source project position;
-- a full ContextBundle can bind a proposal after MCP server restart, avoiding hidden session-state dependence.
-
-CI evidence:
-
-- Workflow: `V01 Build Verification`
-- Final implementation run: `34142015130`
-- Job: `101805857040`
-- Result: **SUCCESS**
-- A-01 adapter regression: **15/15 PASS**
-- A-02 governance regression: **9/9 PASS**
-- V-01 isolated harness: **5/5 PASS**
-- Total: **29/29 PASS**
-
-The local harness proves that governing decision drift makes B0 `STALE_BLOCKING`, a proposal bound to stale B0 is rejected without increasing the proposal journal, rehydration produces a different CURRENT B1, and the concrete code verifier fails after drift until the implementation is adapted. It also proves the fresh B1 proposal remains non-mutating before governance.
-
-V-01 is **not VERIFIED** yet. Local deterministic execution is implementation evidence, not a substitute for the required real coding-agent causal chain.
-
-Remaining required real-agent proof:
+Verified causal chain:
 
 ```text
 B0 CURRENT
-→ Codex starts concrete work
-→ human-gated governing decision changes
+→ real Codex work
+→ proposal #1
+→ explicit HUMAN approval #1
+→ validated decision.changed SemanticEvent
 → B0 STALE_BLOCKING
-→ stale proposal rejected / no journal append
+→ stale B0-bound proposal rejected with zero journal append
 → rehydrate B1 CURRENT
-→ Codex adapts concrete code + verifier passes
-→ fresh proposal bound to B1
-→ explicit HUMAN approval
-→ validated SemanticEvent
-→ B2 CURRENT reflects final state
+→ concrete work adapted and verifier passes
+→ fresh B1-bound proposal #2
+→ explicit HUMAN approval #2
+→ validated decision.changed SemanticEvent
+→ B1 STALE_BLOCKING
+→ rehydrate B2 CURRENT
+→ concrete work continues against decision version 3
 ```
 
-Coverage remains **21/25 = 84/100** until the complete committed V-01 evidence passes independent verification.
+Final evidence confirms:
 
-Next gate: run the V-01 protocol with Codex Desktop against `main` and stop at each explicit HUMAN approval boundary.
+- project position `0 → 1 → 2`;
+- `decision:auth` stream version `1 → 2 → 3`;
+- two proposals / two human approvals / two validation receipts / two committed transactions / two semantic events;
+- stale-context proposal enforcement prevents append;
+- B2 verifies `CURRENT`, severity `NONE`, `changes=[]`;
+- concrete artifact ends at `governingDecisionVersion: 3`;
+- regression suites PASS: adapter **15/15**, governance **9/9**, V-01 **5/5**.
 
-MCP compatibility note: native MCP `2026-07-28` dual-era serving remains tracked as `GAP-MCP-2026`; it is not a blocker for V-01 semantic verification.
+Coverage effect: **21/25 → 22/25; 84/100 → 88/100**.
 
-The roadmap/progress ledger itself remains governed by the Google Drive authority boundary documented in `TESTING_SOURCE_OF_TRUTH.md`.
+---
+
+## V-02 — Functional Vertical Slice criterion #2
+
+**Status: PLANNED — DEFINITION MUST COME FROM ROADMAP AUTHORITY**
+
+GitHub currently contains no accepted V-02 definition or acceptance criteria. Do not infer or invent V-02 from V-01.
+
+Required next step: read the authoritative Google Drive roadmap/progress ledger and materialize the accepted V-02 scope before implementation begins.
+
+Google Drive availability was blocked during the latest `::next`, so V-02 definition reconciliation remains pending.
+
+---
+
+## Compatibility note
+
+Native MCP `2026-07-28` dual-era serving remains tracked as `GAP-MCP-2026`; it is not retroactively required for V-01 verification unless the roadmap authority promotes it into a criterion.
