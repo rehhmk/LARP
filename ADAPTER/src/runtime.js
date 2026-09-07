@@ -40,8 +40,15 @@ function requireString(args, key) {
   return args[key];
 }
 
+function contextVerificationError(error) {
+  if (error instanceof ContextCompilerError) {
+    return new LarpAdapterError(error.code, error.message, error.details);
+  }
+  return error;
+}
+
 export class LarpAdapterRuntime {
-  constructor({ projectPath, runtimeDir, coverage = 76, adapterVersion = '0.1.0' }) {
+  constructor({ projectPath, runtimeDir, coverage = 76, adapterVersion = '0.2.0' }) {
     this.projectPath = resolve(projectPath);
     this.runtimeDir = resolve(runtimeDir);
     this.coverage = coverage;
@@ -89,10 +96,7 @@ export class LarpAdapterRuntime {
         },
       });
     } catch (error) {
-      if (error instanceof ContextCompilerError) {
-        throw new LarpAdapterError(error.code, error.message, error.details);
-      }
-      throw error;
+      throw contextVerificationError(error);
     }
   }
 
@@ -105,6 +109,13 @@ export class LarpAdapterRuntime {
         'Provide bundle or a bundleFingerprint previously issued by this adapter process.',
       );
     }
+    if (fingerprint && bundle.bundleFingerprint !== fingerprint) {
+      throw new LarpAdapterError(
+        'CONTEXT_BUNDLE_FINGERPRINT_MISMATCH',
+        'The supplied ContextBundle does not match bundleFingerprint.',
+        { expected: fingerprint, actual: bundle.bundleFingerprint ?? null },
+      );
+    }
     const { project } = await readProject(this.projectPath);
     try {
       const verification = verifyContext(bundle, project);
@@ -113,11 +124,32 @@ export class LarpAdapterRuntime {
         ...verification,
       });
     } catch (error) {
-      if (error instanceof ContextCompilerError) {
-        throw new LarpAdapterError(error.code, error.message, error.details);
-      }
-      throw error;
+      throw contextVerificationError(error);
     }
+  }
+
+  resolveProposalContext(args) {
+    const fingerprint = requireString(args, 'contextBundleFingerprint');
+    const explicitBundle = args?.contextBundle;
+    if (explicitBundle !== undefined && (explicitBundle === null || Array.isArray(explicitBundle) || typeof explicitBundle !== 'object')) {
+      throw new LarpAdapterError('INVALID_ARGUMENT', 'contextBundle must be a JSON object when provided.');
+    }
+    const bundle = explicitBundle ?? this.bundleCache.get(fingerprint);
+    if (!bundle) {
+      throw new LarpAdapterError(
+        'CONTEXT_BUNDLE_NOT_FOUND',
+        'The proposal must be bound to a ContextBundle available in this adapter process or supplied explicitly.',
+        { contextBundleFingerprint: fingerprint },
+      );
+    }
+    if (bundle.bundleFingerprint !== fingerprint) {
+      throw new LarpAdapterError(
+        'CONTEXT_BUNDLE_FINGERPRINT_MISMATCH',
+        'The proposal context does not match contextBundleFingerprint.',
+        { expected: fingerprint, actual: bundle.bundleFingerprint ?? null },
+      );
+    }
+    return { fingerprint, bundle };
   }
 
   async propose(args, meta = {}) {
@@ -127,7 +159,29 @@ export class LarpAdapterRuntime {
       throw new LarpAdapterError('INVALID_ARGUMENT', 'payload must be a JSON object.');
     }
 
+    const { fingerprint, bundle } = this.resolveProposalContext(args);
     const { project, fileHash } = await readProject(this.projectPath);
+
+    let verification;
+    try {
+      verification = verifyContext(bundle, project);
+    } catch (error) {
+      throw contextVerificationError(error);
+    }
+
+    if (verification.freshness === 'STALE_BLOCKING') {
+      throw new LarpAdapterError(
+        'CONTEXT_STALE_BLOCKING',
+        'The proposal was derived from a stale blocking ContextBundle. Rehydrate before proposing.',
+        {
+          contextBundleFingerprint: fingerprint,
+          contextSourceProjectPosition: bundle.sourceProjectPosition,
+          currentProjectPosition: project.projectPosition ?? 0,
+          verification,
+        },
+      );
+    }
+
     const receipt = {
       proposalId: `proposal:${randomUUID()}`,
       projectId: project.projectId,
@@ -138,6 +192,11 @@ export class LarpAdapterRuntime {
       payload: args.payload,
       expectedStreamVersion: Number.isInteger(args.expectedStreamVersion) ? args.expectedStreamVersion : null,
       reason: typeof args.reason === 'string' ? args.reason : null,
+      contextBundleFingerprint: fingerprint,
+      contextSourceProjectPosition: bundle.sourceProjectPosition,
+      contextFreshnessAtProposal: verification.freshness,
+      contextSeverityAtProposal: verification.severity ?? null,
+      contextDrift: verification.freshness === 'CURRENT' ? [] : (verification.changes ?? []),
       actor: {
         kind: 'MCP_CLIENT',
         name: meta.clientName ?? 'unknown',
@@ -200,7 +259,7 @@ export const TOOL_DEFINITIONS = Object.freeze([
   },
   {
     name: 'larp_propose',
-    description: 'Record a proposed semantic command in the runtime journal. This does NOT apply semantic mutation or bypass LARP governance.',
+    description: 'Record a context-bound proposed semantic command in the runtime journal. STALE_BLOCKING context is rejected before append. This tool never applies semantic mutation.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -209,8 +268,10 @@ export const TOOL_DEFINITIONS = Object.freeze([
         payload: { type: 'object' },
         expectedStreamVersion: { type: 'integer', minimum: 0 },
         reason: { type: 'string' },
+        contextBundleFingerprint: { type: 'string', minLength: 1 },
+        contextBundle: { type: 'object' },
       },
-      required: ['commandType', 'targetId', 'payload'],
+      required: ['commandType', 'targetId', 'payload', 'contextBundleFingerprint'],
       additionalProperties: false,
     },
   },
