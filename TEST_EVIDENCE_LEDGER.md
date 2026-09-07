@@ -13,7 +13,7 @@ Policy: `TESTING_SOURCE_OF_TRUTH.md`
 - M6 Functional Vertical Slice: **CLOSED**
 - V-01: **VERIFIED**
 - V-02: **VERIFIED**
-- M7 Validation: **NEXT**
+- M7 Validation: **ACTIVE**
 - Remaining criteria: **X-01, X-02**
 
 Roadmap/spec authority remains Google Drive. GitHub is authoritative for executable evidence. V-02 was explicitly human-approved and independently verified from immutable GitHub evidence; Drive reconciliation remains separate coordination work.
@@ -124,13 +124,15 @@ M6 Functional Vertical Slice is now **CLOSED**.
 
 ## M7 — Validation
 
-**Status: NEXT**
+**Status: ACTIVE**
 
 Remaining criteria:
-- X-01
+- X-01 — ACTIVE; Phase 0 deterministic enforcement implemented, real-agent adversarial run pending
 - X-02
 
-The exact accepted definitions for X-01/X-02 must be hydrated from roadmap authority before implementation, unless separately proposed and explicitly human-approved.
+X-01 was separately proposed and explicitly human-approved. X-02 still requires an accepted definition before implementation.
+
+X-01 Phase 0 readiness evidence is recorded in `VALIDATION/x01/X01_PHASE0_IMPLEMENTATION_REPORT.md`. This does not change verified criteria or coverage.
 
 ---
 

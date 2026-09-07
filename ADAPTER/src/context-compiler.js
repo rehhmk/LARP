@@ -516,6 +516,7 @@ export function compileContext(input) {
     sourceProjectPosition: project.projectPosition ?? 0,
     taskContract: {
       id: taskNode.id,
+      scopeId: taskNode.scopeId,
       lifecycle: taskNode.lifecycle,
       goal: taskNode.data.goal ?? null,
       acceptanceCriteria: taskNode.data.acceptanceCriteria ?? [],
