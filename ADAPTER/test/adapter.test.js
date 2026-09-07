@@ -34,6 +34,15 @@ async function mutateProject(projectPath, fn) {
   await writeFile(projectPath, `${JSON.stringify(project, null, 2)}\n`, 'utf8');
 }
 
+async function hydrate(client) {
+  const result = await client.callTool('larp_get_context', {
+    taskId: 'task:implement-auth',
+    agentId: 'agent:coding',
+    scopeId: 'backend',
+  });
+  return result.structuredContent.bundle;
+}
+
 test('T01 initializes over MCP legacy stdio and reports tool capability', async (t) => {
   const { client } = await setup();
   t.after(() => client.close());
@@ -50,6 +59,8 @@ test('T02 tools/list exposes exactly context, status, proposal, and verification
     'larp_get_context', 'larp_propose', 'larp_status', 'larp_verify_context',
   ]);
   for (const tool of tools) assert.equal(tool.inputSchema.type, 'object');
+  const proposalTool = tools.find((tool) => tool.name === 'larp_propose');
+  assert.ok(proposalTool.inputSchema.required.includes('contextBundleFingerprint'));
 });
 
 test('T03 larp_status is read-only and exposes project position/coverage', async (t) => {
@@ -84,11 +95,9 @@ test('T04 larp_get_context returns governed ContextBundle with Decision/Evidence
 test('T05 freshly issued context verifies CURRENT', async (t) => {
   const { client } = await setup();
   t.after(() => client.close());
-  const ctx = await client.callTool('larp_get_context', {
-    taskId: 'task:implement-auth', agentId: 'agent:coding', scopeId: 'backend',
-  });
+  const ctx = await hydrate(client);
   const check = await client.callTool('larp_verify_context', {
-    bundleFingerprint: ctx.structuredContent.bundle.bundleFingerprint,
+    bundleFingerprint: ctx.bundleFingerprint,
   });
   assert.equal(check.structuredContent.freshness, 'CURRENT');
 });
@@ -96,16 +105,14 @@ test('T05 freshly issued context verifies CURRENT', async (t) => {
 test('T06 unrelated project drift stays CURRENT', async (t) => {
   const { client, projectPath } = await setup();
   t.after(() => client.close());
-  const ctx = await client.callTool('larp_get_context', {
-    taskId: 'task:implement-auth', agentId: 'agent:coding', scopeId: 'backend',
-  });
+  const ctx = await hydrate(client);
   await mutateProject(projectPath, (p) => {
     p.projectPosition += 1;
     p.nodes['artifact:readme'].version += 1;
     p.nodes['artifact:readme'].data.note = 'Changed unrelated docs';
   });
   const check = await client.callTool('larp_verify_context', {
-    bundleFingerprint: ctx.structuredContent.bundle.bundleFingerprint,
+    bundleFingerprint: ctx.bundleFingerprint,
   });
   assert.equal(check.structuredContent.freshness, 'CURRENT');
 });
@@ -113,35 +120,37 @@ test('T06 unrelated project drift stays CURRENT', async (t) => {
 test('T07 required Decision drift becomes STALE_BLOCKING', async (t) => {
   const { client, projectPath } = await setup();
   t.after(() => client.close());
-  const ctx = await client.callTool('larp_get_context', {
-    taskId: 'task:implement-auth', agentId: 'agent:coding', scopeId: 'backend',
-  });
+  const ctx = await hydrate(client);
   await mutateProject(projectPath, (p) => {
     p.projectPosition += 1;
     p.nodes['decision:auth'].version += 1;
     p.nodes['decision:auth'].data.statement = 'Use signed session cookies';
   });
   const check = await client.callTool('larp_verify_context', {
-    bundleFingerprint: ctx.structuredContent.bundle.bundleFingerprint,
+    bundleFingerprint: ctx.bundleFingerprint,
   });
   assert.equal(check.structuredContent.freshness, 'STALE_BLOCKING');
   assert.ok(check.structuredContent.changes.some((x) => x.ref === 'decision:auth'));
 });
 
-test('T08 larp_propose records proposal but does not mutate project semantic fixture', async (t) => {
+test('T08 larp_propose records a context-bound proposal but does not mutate semantic fixture', async (t) => {
   const { client, projectPath, runtimeDir } = await setup();
   t.after(() => client.close());
+  const ctx = await hydrate(client);
   const beforeText = await readFile(projectPath, 'utf8');
   const proposal = await client.callTool('larp_propose', {
     commandType: 'decision.propose_change',
     targetId: 'decision:auth',
-    expectedStreamVersion: 2,
+    expectedStreamVersion: 3,
     payload: { statement: 'Use OAuth2 with PKCE' },
     reason: 'Implementation requires public-client flow',
+    contextBundleFingerprint: ctx.bundleFingerprint,
   });
   assert.equal(proposal.structuredContent.status, 'PROPOSED');
   assert.equal(proposal.structuredContent.semanticMutationApplied, false);
   assert.equal(proposal.structuredContent.governanceRequired, true);
+  assert.equal(proposal.structuredContent.contextBundleFingerprint, ctx.bundleFingerprint);
+  assert.equal(proposal.structuredContent.contextFreshnessAtProposal, 'CURRENT');
   assert.equal(hash(await readFile(projectPath, 'utf8')), hash(beforeText));
   const journal = await readFile(join(runtimeDir, 'proposals.jsonl'), 'utf8');
   const entry = JSON.parse(journal.trim());
@@ -152,8 +161,12 @@ test('T08 larp_propose records proposal but does not mutate project semantic fix
 test('T09 proposal tool cannot be mistaken for accepted SemanticEvent', async (t) => {
   const { client, runtimeDir } = await setup();
   t.after(() => client.close());
+  const ctx = await hydrate(client);
   const proposal = await client.callTool('larp_propose', {
-    commandType: 'task.start', targetId: 'task:implement-auth', payload: {},
+    commandType: 'task.start',
+    targetId: 'task:implement-auth',
+    payload: {},
+    contextBundleFingerprint: ctx.bundleFingerprint,
   });
   assert.equal(proposal.structuredContent.semanticMutationApplied, false);
   await assert.rejects(stat(join(runtimeDir, 'semantic_events.jsonl')));
@@ -205,9 +218,20 @@ test('T13 current 2026 discovery probe receives Method not found for documented 
 test('T14 verification can accept full bundle, not only process-local cache', async (t) => {
   const { client } = await setup();
   t.after(() => client.close());
-  const ctx = await client.callTool('larp_get_context', {
-    taskId: 'task:implement-auth', agentId: 'agent:coding', scopeId: 'backend',
-  });
-  const check = await client.callTool('larp_verify_context', { bundle: ctx.structuredContent.bundle });
+  const ctx = await hydrate(client);
+  const check = await client.callTool('larp_verify_context', { bundle: ctx });
   assert.equal(check.structuredContent.freshness, 'CURRENT');
+});
+
+test('T15 unbound proposal is rejected before proposal journal creation', async (t) => {
+  const { client, runtimeDir } = await setup();
+  t.after(() => client.close());
+  const result = await client.callTool('larp_propose', {
+    commandType: 'decision.propose_change',
+    targetId: 'decision:auth',
+    payload: { statement: 'Unsafe unbound proposal' },
+  });
+  assert.equal(result.isError, true);
+  assert.equal(result.structuredContent.error.code, 'INVALID_ARGUMENT');
+  await assert.rejects(stat(join(runtimeDir, 'proposals.jsonl')));
 });
