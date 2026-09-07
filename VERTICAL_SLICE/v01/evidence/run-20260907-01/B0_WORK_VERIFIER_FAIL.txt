@@ -1,0 +1,19 @@
+exit=1
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: AUTH_POLICY.dpop=false does not reflect decision:auth expectation dpop=true
+
+false !== true
+
+    at file:///Users/enzotriches/Documents/LARP/VERTICAL_SLICE/v01/work/verify-auth-policy.js:28:8 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v26.5.0

@@ -1,0 +1,65 @@
+{
+  "status": "APPLIED",
+  "proposalId": "proposal:27b57160-4559-4966-bee0-1e8ea407c219",
+  "approvalId": "approval:v01-drift-human-01",
+  "semanticMutationApplied": true,
+  "projectPosition": 1,
+  "targetStreamVersion": 2,
+  "event": {
+    "event_id": "event:49214ffb-db35-4f10-b47a-4da3120d92c3",
+    "project_id": "v01-demo",
+    "event_type": "decision.changed",
+    "schema_version": 1,
+    "stream_id": "decision:auth",
+    "stream_version": 2,
+    "transaction_id": "tx:49214ffb-db35-4f10-b47a-4da3120d92c3",
+    "transaction_index": 0,
+    "project_position": 1,
+    "command_id": "proposal:27b57160-4559-4966-bee0-1e8ea407c219",
+    "causation_ref": "proposal:27b57160-4559-4966-bee0-1e8ea407c219",
+    "correlation_id": "approval:v01-drift-human-01",
+    "actor_ref": "human:project-owner",
+    "machine_id": "decision.lifecycle",
+    "machine_version": "0.1",
+    "validation_receipt_ref": "validation:49214ffb-db35-4f10-b47a-4da3120d92c3",
+    "recorded_at": "2026-09-07T17:05:09.805Z",
+    "payload": {
+      "targetId": "decision:auth",
+      "before": {
+        "statement": "Use OAuth2 authorization-code flow with PKCE using the S256 code challenge method."
+      },
+      "after": {
+        "statement": "Use OAuth2 authorization-code flow with PKCE S256 and DPoP-bound access tokens."
+      }
+    }
+  },
+  "transaction": {
+    "transactionId": "tx:49214ffb-db35-4f10-b47a-4da3120d92c3",
+    "projectId": "v01-demo",
+    "proposalId": "proposal:27b57160-4559-4966-bee0-1e8ea407c219",
+    "approvalId": "approval:v01-drift-human-01",
+    "status": "COMMITTED",
+    "eventCount": 1,
+    "recordedAt": "2026-09-07T17:05:09.805Z"
+  },
+  "validationReceipt": {
+    "validationReceiptId": "validation:49214ffb-db35-4f10-b47a-4da3120d92c3",
+    "result": "ACCEPTED",
+    "proposalId": "proposal:27b57160-4559-4966-bee0-1e8ea407c219",
+    "approvalId": "approval:v01-drift-human-01",
+    "targetId": "decision:auth",
+    "previousStreamVersion": 1,
+    "nextStreamVersion": 2,
+    "previousProjectPosition": 0,
+    "nextProjectPosition": 1,
+    "beforeStatement": "Use OAuth2 authorization-code flow with PKCE using the S256 code challenge method.",
+    "afterStatement": "Use OAuth2 authorization-code flow with PKCE S256 and DPoP-bound access tokens.",
+    "actor": {
+      "kind": "HUMAN",
+      "id": "human:project-owner",
+      "name": "Project Owner"
+    },
+    "recordedAt": "2026-09-07T17:05:09.805Z"
+  },
+  "projectFileHashAfter": "ad37bc0c8d1214b646db8ae992a9e26514b7afb0252106efe5fc2dfe3e4dc2a1"
+}

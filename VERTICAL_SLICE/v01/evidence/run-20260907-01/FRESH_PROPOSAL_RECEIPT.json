@@ -1,0 +1,26 @@
+{
+  "proposalId": "proposal:7aaed0ea-144e-47ff-b7ae-154c5347ed97",
+  "projectId": "v01-demo",
+  "projectPositionObserved": 1,
+  "projectFileHashObserved": "ad37bc0c8d1214b646db8ae992a9e26514b7afb0252106efe5fc2dfe3e4dc2a1",
+  "commandType": "decision.propose_change",
+  "targetId": "decision:auth",
+  "payload": {
+    "statement": "Use OAuth2 authorization-code flow with PKCE S256 and require DPoP-bound access tokens for public clients."
+  },
+  "expectedStreamVersion": 2,
+  "reason": "V-01 fresh post-rehydration proposal",
+  "contextBundleFingerprint": "d167bcd1195e50846634efddbb9d491906132ace0ac912809dae559d54b4ee1c",
+  "contextSourceProjectPosition": 1,
+  "contextFreshnessAtProposal": "CURRENT",
+  "contextSeverityAtProposal": "NONE",
+  "contextDrift": [],
+  "actor": {
+    "kind": "MCP_CLIENT",
+    "name": "codex-mcp-client",
+    "version": "0.145.0-alpha.30"
+  },
+  "status": "PROPOSED",
+  "semanticMutationApplied": false,
+  "governanceRequired": true
+}

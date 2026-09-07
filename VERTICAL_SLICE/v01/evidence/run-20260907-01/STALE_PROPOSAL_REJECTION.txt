@@ -1,0 +1,2 @@
+isError=true
+CONTEXT_STALE_BLOCKING: The proposal was derived from a stale blocking ContextBundle. Rehydrate before proposing.

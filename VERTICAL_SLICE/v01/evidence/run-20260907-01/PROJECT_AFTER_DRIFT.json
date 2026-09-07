@@ -1,0 +1,141 @@
+{
+  "projectId": "v01-demo",
+  "projectPosition": 1,
+  "scopes": {
+    "root": {
+      "parentId": null,
+      "version": 1,
+      "data": {}
+    },
+    "backend": {
+      "parentId": "root",
+      "version": 1,
+      "data": {}
+    }
+  },
+  "nodes": {
+    "task:implement-auth": {
+      "id": "task:implement-auth",
+      "kind": "Task",
+      "scopeId": "backend",
+      "version": 1,
+      "current": true,
+      "invalid": false,
+      "lifecycle": "READY",
+      "data": {
+        "goal": "Implement the authentication policy module so it reflects the current governing auth decision.",
+        "acceptanceCriteria": [
+          "auth policy verifier passes",
+          "implementation reflects decision:auth",
+          "no semantic mutation bypasses governance"
+        ],
+        "allowedScope": "backend"
+      }
+    },
+    "decision:auth": {
+      "id": "decision:auth",
+      "kind": "Decision",
+      "scopeId": "backend",
+      "version": 2,
+      "current": true,
+      "invalid": false,
+      "lifecycle": "ACTIVE",
+      "data": {
+        "statement": "Use OAuth2 authorization-code flow with PKCE S256 and DPoP-bound access tokens."
+      }
+    },
+    "evidence:oidc-doc": {
+      "id": "evidence:oidc-doc",
+      "kind": "Evidence",
+      "scopeId": "backend",
+      "version": 1,
+      "current": true,
+      "invalid": false,
+      "data": {
+        "summary": "The selected identity provider supports OAuth2 authorization code, PKCE S256, and DPoP."
+      }
+    },
+    "unknown:refresh-policy": {
+      "id": "unknown:refresh-policy",
+      "kind": "Unknown",
+      "scopeId": "backend",
+      "version": 1,
+      "current": true,
+      "invalid": false,
+      "data": {
+        "question": "Should refresh tokens rotate on every use?"
+      }
+    },
+    "artifact:auth-policy": {
+      "id": "artifact:auth-policy",
+      "kind": "Artifact",
+      "scopeId": "backend",
+      "version": 1,
+      "current": true,
+      "invalid": false,
+      "data": {
+        "path": "VERTICAL_SLICE/v01/work/auth-policy.js",
+        "purpose": "Concrete implementation artifact for V-01"
+      }
+    },
+    "agent:coding": {
+      "id": "agent:coding",
+      "kind": "Agent",
+      "scopeId": "backend",
+      "version": 1,
+      "current": true,
+      "invalid": false,
+      "data": {
+        "capabilities": [
+          "code",
+          "test"
+        ],
+        "roles": [
+          "implementer"
+        ]
+      }
+    }
+  },
+  "relations": [
+    {
+      "id": "rel:task-requires-auth",
+      "kind": "requires",
+      "source": "task:implement-auth",
+      "target": "decision:auth",
+      "scopeId": "backend",
+      "active": true,
+      "version": 1,
+      "data": {}
+    },
+    {
+      "id": "rel:task-uses-auth-policy",
+      "kind": "uses",
+      "source": "task:implement-auth",
+      "target": "artifact:auth-policy",
+      "scopeId": "backend",
+      "active": true,
+      "version": 1,
+      "data": {}
+    },
+    {
+      "id": "rel:evidence-supports-auth",
+      "kind": "supports",
+      "source": "evidence:oidc-doc",
+      "target": "decision:auth",
+      "scopeId": "backend",
+      "active": true,
+      "version": 1,
+      "data": {}
+    },
+    {
+      "id": "rel:task-unknown",
+      "kind": "has_unknown",
+      "source": "task:implement-auth",
+      "target": "unknown:refresh-policy",
+      "scopeId": "backend",
+      "active": true,
+      "version": 1,
+      "data": {}
+    }
+  ]
+}
