@@ -112,6 +112,7 @@ V02-L06 separately proves that compiling a changed source variant without bootst
 - The required branch was not initially present locally. No files were changed; `git fetch origin --prune` exposed the remote branch, after which the required switch and fast-forward pull succeeded.
 - The partial branch scaffold rewrote `project.json` during an identical bootstrap rerun. The completed implementation makes the `ALREADY_MATERIALIZED` path read-only, and V02-L04 locks every journal and the projection byte-for-byte.
 - The initial scaffold sorted scopes lexically, which could place a child seed before its parent. Compilation now emits deterministic topological scope order and rejects cycles before IR/bootstrap acceptance.
+- A concurrent implementation reached `main` while this build was in progress. Its local V-02 test synthesized a `HUMAN` actor and executed `applyApprovedProposal`, crossing the explicit build-phase stop. The corrective implementation preserves that Git history but removes the synthetic approval/apply path; V02-L01–L11 stop at MCP-compatible context and leave the real proposal/HUMAN gate to `CODEX_REAL_RUN.md`.
 - No final test failures remain. Existing suites required no weakening or behavior changes.
 
 ## Limitations and next gate
