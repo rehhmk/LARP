@@ -1,0 +1,12 @@
+{
+  "name": "larp-v02-language-runtime-slice",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "compile": "node scripts/compile.js program/auth.larp build/program.ir.json",
+    "reset:real": "node scripts/reset-real-run.js",
+    "replay:real": "node scripts/replay-real-run.js",
+    "test": "node --test test/v02-local.test.js"
+  }
+}
