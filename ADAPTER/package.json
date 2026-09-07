@@ -1,0 +1,14 @@
+{
+  "name": "larp-a01-mcp-adapter-v0.1",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/adapter.test.js",
+    "serve": "node src/server.js --project examples/project.json",
+    "smoke": "node scripts/smoke-client.js"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

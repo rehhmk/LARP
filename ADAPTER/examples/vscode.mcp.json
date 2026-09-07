@@ -1,0 +1,15 @@
+{
+  "servers": {
+    "larp": {
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        "${workspaceFolder}/src/server.js",
+        "--project",
+        "${workspaceFolder}/examples/project.json",
+        "--runtime-dir",
+        "${workspaceFolder}/.larp/runtime"
+      ]
+    }
+  }
+}

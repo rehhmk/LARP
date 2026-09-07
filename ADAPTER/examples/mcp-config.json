@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "larp": {
+      "command": "node",
+      "args": ["/ABSOLUTE/PATH/TO/larp-a01-adapter/src/server.js", "--project", "/ABSOLUTE/PATH/TO/project.json", "--runtime-dir", "/ABSOLUTE/PATH/TO/.larp/runtime"]
+    }
+  }
+}

@@ -1,0 +1,14 @@
+# Copy this block into ~/.codex/config.toml.
+# Replace /ABSOLUTE/PATH/TO/larp-a01-adapter with the extracted package path.
+
+[mcp_servers.larp]
+command = "node"
+args = [
+  "/ABSOLUTE/PATH/TO/larp-a01-adapter/src/server.js",
+  "--project",
+  "/ABSOLUTE/PATH/TO/larp-a01-adapter/examples/project.json",
+  "--runtime-dir",
+  "/ABSOLUTE/PATH/TO/larp-a01-adapter/.larp/runtime"
+]
+enabled = true
+startup_timeout_sec = 30

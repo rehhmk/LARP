@@ -1,0 +1,102 @@
+{
+  "projectId": "demo",
+  "projectPosition": 42,
+  "scopes": {
+    "root": { "parentId": null, "version": 1, "data": {} },
+    "backend": { "parentId": "root", "version": 1, "data": {} }
+  },
+  "nodes": {
+    "task:implement-auth": {
+      "id": "task:implement-auth",
+      "kind": "Task",
+      "scopeId": "backend",
+      "version": 3,
+      "current": true,
+      "invalid": false,
+      "lifecycle": "READY",
+      "data": {
+        "goal": "Implement authentication",
+        "acceptanceCriteria": ["OAuth2 flow works", "tests pass"],
+        "allowedScope": "backend"
+      }
+    },
+    "decision:auth": {
+      "id": "decision:auth",
+      "kind": "Decision",
+      "scopeId": "backend",
+      "version": 2,
+      "current": true,
+      "invalid": false,
+      "lifecycle": "ACTIVE",
+      "data": { "statement": "Use OAuth2" }
+    },
+    "evidence:oidc-doc": {
+      "id": "evidence:oidc-doc",
+      "kind": "Evidence",
+      "scopeId": "backend",
+      "version": 1,
+      "current": true,
+      "invalid": false,
+      "data": { "summary": "OIDC provider supports PKCE" }
+    },
+    "unknown:refresh-policy": {
+      "id": "unknown:refresh-policy",
+      "kind": "Unknown",
+      "scopeId": "backend",
+      "version": 1,
+      "current": true,
+      "invalid": false,
+      "data": { "question": "Exact refresh-token rotation policy?" }
+    },
+    "artifact:readme": {
+      "id": "artifact:readme",
+      "kind": "Artifact",
+      "scopeId": "root",
+      "version": 1,
+      "current": true,
+      "invalid": false,
+      "data": { "path": "README.md", "note": "Unrelated documentation" }
+    },
+    "agent:coding": {
+      "id": "agent:coding",
+      "kind": "Agent",
+      "scopeId": "backend",
+      "version": 1,
+      "current": true,
+      "invalid": false,
+      "data": { "capabilities": ["code", "test"], "roles": ["implementer"] }
+    }
+  },
+  "relations": [
+    {
+      "id": "rel:task-requires-auth",
+      "kind": "requires",
+      "source": "task:implement-auth",
+      "target": "decision:auth",
+      "scopeId": "backend",
+      "active": true,
+      "version": 1,
+      "data": {}
+    },
+    {
+      "id": "rel:evidence-supports-auth",
+      "kind": "supports",
+      "source": "evidence:oidc-doc",
+      "target": "decision:auth",
+      "scopeId": "backend",
+      "active": true,
+      "version": 1,
+      "data": {}
+    },
+    {
+      "id": "rel:task-unknown",
+      "kind": "has_unknown",
+      "source": "task:implement-auth",
+      "target": "unknown:refresh-policy",
+      "scopeId": "backend",
+      "active": true,
+      "version": 1,
+      "data": {}
+    }
+  ]
+}
