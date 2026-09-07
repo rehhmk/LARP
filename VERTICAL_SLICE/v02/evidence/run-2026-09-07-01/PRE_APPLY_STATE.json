@@ -1,0 +1,42 @@
+{
+  "projectId": "v02-demo",
+  "projectPosition": 12,
+  "decisionAuth": {
+    "id": "decision:auth",
+    "kind": "Decision",
+    "scopeId": "backend",
+    "lifecycle": "ACTIVE",
+    "version": 1,
+    "current": true,
+    "invalid": false,
+    "data": {
+      "statement": "Use OAuth2 authorization-code flow with PKCE S256."
+    }
+  },
+  "proposal": {
+    "proposalId": "proposal:83482952-6f6d-421a-a985-d7731b39f344",
+    "projectId": "v02-demo",
+    "projectPositionObserved": 12,
+    "projectFileHashObserved": "4428cd2d03a0dbb1578d8d51b44870429bd197b42e4bbf988413e835036a6d00",
+    "commandType": "decision.propose_change",
+    "targetId": "decision:auth",
+    "payload": {
+      "statement": "Use OAuth2 authorization-code flow with PKCE S256 and enforce RFC 7636 verifier syntax."
+    },
+    "expectedStreamVersion": 1,
+    "reason": "V-02 real-agent language-to-runtime governed mutation",
+    "contextBundleFingerprint": "2235821de2ad07f0e0f3f2d65363653ee8b4111659f667b5bb94db0837c9b34c",
+    "contextSourceProjectPosition": 12,
+    "contextFreshnessAtProposal": "CURRENT",
+    "contextSeverityAtProposal": "NONE",
+    "contextDrift": [],
+    "actor": {
+      "kind": "MCP_CLIENT",
+      "name": "codex-mcp-client",
+      "version": "0.145.0-alpha.30"
+    },
+    "status": "PROPOSED",
+    "semanticMutationApplied": false,
+    "governanceRequired": true
+  }
+}

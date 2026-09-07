@@ -1,0 +1,12 @@
+{"transactionId":"tx:seed:ed37c9526ffcbd46f26e53064faed7bc","projectId":"v02-demo","commandId":"bootstrap:scope:root","status":"COMMITTED","eventCount":1}
+{"transactionId":"tx:seed:d7133426cdce2e398fbe4a1fb84f0adf","projectId":"v02-demo","commandId":"bootstrap:scope:backend","status":"COMMITTED","eventCount":1}
+{"transactionId":"tx:seed:2fb867a12737428c7cf202a295e47b1c","projectId":"v02-demo","commandId":"bootstrap:node:agent:coding","status":"COMMITTED","eventCount":1}
+{"transactionId":"tx:seed:cbd42f600920726e475d31b330c2bb65","projectId":"v02-demo","commandId":"bootstrap:node:artifact:auth-policy","status":"COMMITTED","eventCount":1}
+{"transactionId":"tx:seed:89f1162ef6e34c20105ae8ec76f1693a","projectId":"v02-demo","commandId":"bootstrap:node:decision:auth","status":"COMMITTED","eventCount":1}
+{"transactionId":"tx:seed:f4419a3a9c54720d409d5ffdf3bb2494","projectId":"v02-demo","commandId":"bootstrap:node:evidence:oidc-doc","status":"COMMITTED","eventCount":1}
+{"transactionId":"tx:seed:009e9dcdf883dc99a9bf74df024bbeb1","projectId":"v02-demo","commandId":"bootstrap:node:task:implement-auth","status":"COMMITTED","eventCount":1}
+{"transactionId":"tx:seed:faf7803887fd2aa3f0b29b29ef78e6fe","projectId":"v02-demo","commandId":"bootstrap:node:unknown:refresh-policy","status":"COMMITTED","eventCount":1}
+{"transactionId":"tx:seed:d4ef4231da53ed01a0899212ba5758d6","projectId":"v02-demo","commandId":"bootstrap:relation:rel:evidence-supports-auth","status":"COMMITTED","eventCount":1}
+{"transactionId":"tx:seed:b9b33b6bc46a4bd1fff28959269441fd","projectId":"v02-demo","commandId":"bootstrap:relation:rel:task-requires-auth","status":"COMMITTED","eventCount":1}
+{"transactionId":"tx:seed:d9025694bc47d37104c85f3d1923dcba","projectId":"v02-demo","commandId":"bootstrap:relation:rel:task-unknown","status":"COMMITTED","eventCount":1}
+{"transactionId":"tx:seed:b969e0146f369f1a3f652b61979095d6","projectId":"v02-demo","commandId":"bootstrap:relation:rel:task-uses-auth-policy","status":"COMMITTED","eventCount":1}

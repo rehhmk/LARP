@@ -1,0 +1,6 @@
+f8df656c0b85158dfa219e336b8fffc603eb080ec34ebf39747f26742e86238b  run/project.json
+4a90fb1f79266cfa3284f6332cec76758dbb1c9a56f2b20be9cda64365799ac9  run/.larp/runtime/semantic_events.jsonl
+75658600482aa3dc7a3651ad04e98967ec90075275a275d3570ed20477fb0948  source/project.larp
+d224895886266c85ad916fe1a691b9bcf9b1424baeae2532c8aaf513edce1e39  emitted/project.ir.json
+99ab163dca862161c5dc19a0bb6057b8e869c40ef0e754ef575e0d73af1da83a  evidence/run-2026-09-07-01/phase2/source-change-proof.larp
+8c523489862166188d95ae7ea4476a223a7f50287efe6723a15338cb86b23cc6  evidence/run-2026-09-07-01/phase2/source-change-proof.ir.json

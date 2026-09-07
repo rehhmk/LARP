@@ -1,0 +1,7 @@
+branch: evidence/v02-phase2-approval
+commit: ef4aacb631a718b112da1df3825dff6680db064e
+approvalFile: VERTICAL_SLICE/v02/evidence/run-2026-09-07-01/HUMAN_APPROVAL_01.json
+approvalBlobAtSourceCommit: 336e682e90e3e2368de6873ec74c8daba6c6fe4b
+approvalBlobConsumed: 336e682e90e3e2368de6873ec74c8daba6c6fe4b
+mergeBaseAndSourceParent: 1fca09a6a89ecfdd6ad041d28b1034bf4502e545
+consumptionMethod: fetched origin branch and cherry-picked the pre-existing approval commit

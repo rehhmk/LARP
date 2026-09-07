@@ -1,0 +1,11 @@
+{
+  "adapterVersion": "0.2.0",
+  "projectId": "v02-demo",
+  "projectPosition": 13,
+  "projectFileHash": "f8df656c0b85158dfa219e336b8fffc603eb080ec34ebf39747f26742e86238b",
+  "verifiedCoverage": 88,
+  "semanticMutationAllowed": false,
+  "taskCounts": {
+    "READY": 1
+  }
+}

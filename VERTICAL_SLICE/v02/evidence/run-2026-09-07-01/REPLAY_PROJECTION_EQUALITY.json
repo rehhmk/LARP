@@ -1,0 +1,13 @@
+{
+  "live": {
+    "projectPosition": 13,
+    "decisionVersion": 2,
+    "statement": "Use OAuth2 authorization-code flow with PKCE S256 and enforce RFC 7636 verifier syntax."
+  },
+  "replayed": {
+    "projectPosition": 13,
+    "decisionVersion": 2,
+    "statement": "Use OAuth2 authorization-code flow with PKCE S256 and enforce RFC 7636 verifier syntax."
+  },
+  "byteEqual": true
+}

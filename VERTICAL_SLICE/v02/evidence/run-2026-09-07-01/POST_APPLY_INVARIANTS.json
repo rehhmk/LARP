@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "semanticEventCount": 13,
+  "matchingAppliedEvents": 1,
+  "event": {
+    "event_id": "event:3b039d77-9434-45c6-9e8c-5375eab191f5",
+    "project_id": "v02-demo",
+    "event_type": "decision.changed",
+    "schema_version": 1,
+    "stream_id": "decision:auth",
+    "stream_version": 2,
+    "transaction_id": "tx:3b039d77-9434-45c6-9e8c-5375eab191f5",
+    "transaction_index": 0,
+    "project_position": 13,
+    "command_id": "proposal:83482952-6f6d-421a-a985-d7731b39f344",
+    "causation_ref": "proposal:83482952-6f6d-421a-a985-d7731b39f344",
+    "correlation_id": "approval:v02-human-01",
+    "actor_ref": "human:project-owner",
+    "machine_id": "decision.lifecycle",
+    "machine_version": "0.1",
+    "validation_receipt_ref": "validation:3b039d77-9434-45c6-9e8c-5375eab191f5",
+    "recorded_at": "2026-09-07T21:21:45.110Z",
+    "payload": {
+      "targetId": "decision:auth",
+      "before": {
+        "statement": "Use OAuth2 authorization-code flow with PKCE S256."
+      },
+      "after": {
+        "statement": "Use OAuth2 authorization-code flow with PKCE S256 and enforce RFC 7636 verifier syntax."
+      }
+    }
+  },
+  "validationReceipt": {
+    "validationReceiptId": "validation:3b039d77-9434-45c6-9e8c-5375eab191f5",
+    "result": "ACCEPTED",
+    "proposalId": "proposal:83482952-6f6d-421a-a985-d7731b39f344",
+    "approvalId": "approval:v02-human-01",
+    "targetId": "decision:auth",
+    "previousStreamVersion": 1,
+    "nextStreamVersion": 2,
+    "previousProjectPosition": 12,
+    "nextProjectPosition": 13,
+    "beforeStatement": "Use OAuth2 authorization-code flow with PKCE S256.",
+    "afterStatement": "Use OAuth2 authorization-code flow with PKCE S256 and enforce RFC 7636 verifier syntax.",
+    "actor": {
+      "kind": "HUMAN",
+      "id": "human:project-owner"
+    },
+    "recordedAt": "2026-09-07T21:21:45.110Z"
+  },
+  "transaction": {
+    "transactionId": "tx:3b039d77-9434-45c6-9e8c-5375eab191f5",
+    "projectId": "v02-demo",
+    "proposalId": "proposal:83482952-6f6d-421a-a985-d7731b39f344",
+    "approvalId": "approval:v02-human-01",
+    "status": "COMMITTED",
+    "eventCount": 1,
+    "recordedAt": "2026-09-07T21:21:45.110Z"
+  },
+  "consumedApproval": {
+    "approvalId": "approval:v02-human-01",
+    "proposalId": "proposal:83482952-6f6d-421a-a985-d7731b39f344",
+    "approved": true,
+    "actor": {
+      "kind": "HUMAN",
+      "id": "human:project-owner"
+    },
+    "statement": "Use OAuth2 authorization-code flow with PKCE S256 and enforce RFC 7636 verifier syntax.",
+    "approvalSource": "explicit user command ::approve proposal:83482952-6f6d-421a-a985-d7731b39f344",
+    "phase1EvidenceCommit": "1fca09a6a89ecfdd6ad041d28b1034bf4502e545",
+    "semanticMutationApplied": false,
+    "recordedDate": "2026-09-07"
+  },
+  "projection": {
+    "projectPosition": 13,
+    "decisionVersion": 2,
+    "statement": "Use OAuth2 authorization-code flow with PKCE S256 and enforce RFC 7636 verifier syntax."
+  }
+}

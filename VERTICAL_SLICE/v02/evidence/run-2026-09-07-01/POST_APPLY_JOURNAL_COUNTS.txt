@@ -1,0 +1,9 @@
+       1 run/.larp/runtime/human_approvals.jsonl
+       1 run/.larp/runtime/proposals.jsonl
+      12 run/.larp/runtime/seed_registry.jsonl
+      12 run/.larp/runtime/seed_transactions.jsonl
+      12 run/.larp/runtime/seed_validation_receipts.jsonl
+      13 run/.larp/runtime/semantic_events.jsonl
+       1 run/.larp/runtime/semantic_transactions.jsonl
+       1 run/.larp/runtime/semantic_validation_receipts.jsonl
+      53 total

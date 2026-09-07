@@ -1,0 +1,5 @@
+result: PASS
+project hash unchanged: f8df656c0b85158dfa219e336b8fffc603eb080ec34ebf39747f26742e86238b
+SemanticEvent journal hash unchanged: 4a90fb1f79266cfa3284f6332cec76758dbb1c9a56f2b20be9cda64365799ac9
+changed source compiled independently: yes
+changed seed materialization: rejected with SEED_DIVERGENCE

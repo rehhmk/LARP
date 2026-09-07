@@ -1,6 +1,6 @@
 {
   "projectId": "v02-demo",
-  "projectPosition": 12,
+  "projectPosition": 13,
   "scopes": {
     "root": {
       "parentId": null,
@@ -50,11 +50,11 @@
       "kind": "Decision",
       "scopeId": "backend",
       "lifecycle": "ACTIVE",
-      "version": 1,
+      "version": 2,
       "current": true,
       "invalid": false,
       "data": {
-        "statement": "Use OAuth2 authorization-code flow with PKCE S256."
+        "statement": "Use OAuth2 authorization-code flow with PKCE S256 and enforce RFC 7636 verifier syntax."
       }
     },
     "evidence:oidc-doc": {

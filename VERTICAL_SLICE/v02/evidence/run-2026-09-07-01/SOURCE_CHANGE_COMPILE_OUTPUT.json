@@ -1,0 +1,9 @@
+{
+  "status": "COMPILED",
+  "sourcePath": "evidence/run-2026-09-07-01/phase2/source-change-proof.larp",
+  "outputPath": "/Users/enzotriches/Documents/LARP/VERTICAL_SLICE/v02/evidence/run-2026-09-07-01/phase2/source-change-proof.ir.json",
+  "sourceFingerprint": "99ab163dca862161c5dc19a0bb6057b8e869c40ef0e754ef575e0d73af1da83a",
+  "semanticFingerprint": "e531c5eea5f93a967c9564b15bf90eafec0df8bac4b745483848debd98ae7925",
+  "irFingerprint": "2c98cc166bdf63bc05b36d07a09bed5a5d5bfa2cd7b6e0c73ae4cdbe3dbb42fe",
+  "diagnostics": []
+}

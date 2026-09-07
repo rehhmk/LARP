@@ -1,0 +1,23 @@
+
+> larp-v02-language-runtime-slice@0.1.0 test
+> node --test test/v02-local.test.js
+
+✔ V02-L01 real *.larp compiles deterministically to canonical IR and fingerprints (10.763041ms)
+✔ V02-L02 invalid source emits diagnostics and leaves no bootstrap-loadable IR (33.252375ms)
+✔ V02-L03 explicit bootstrap materializes accepted seed events and a derived projection (5.979875ms)
+✔ V02-L04 identical bootstrap is ALREADY_MATERIALIZED and performs zero writes (4.822416ms)
+✔ V02-L05 changed materialized seed yields SEED_DIVERGENCE with zero semantic rewrite (4.940917ms)
+✔ V02-L06 compiling changed source alone cannot mutate accepted history or projection (4.757542ms)
+✔ V02-L07 ContextBundle from bootstrapped projection includes governing dependencies and is CURRENT (4.683375ms)
+✔ V02-L08 replay from accepted semantic history reconstructs the same logical projection and versions (5.668959ms)
+✔ V02-L09 reset-real-run derives runtime from *.larp and never consumes a semantic JSON fixture (77.091375ms)
+✔ V02-L10 generated projection is directly usable by the existing MCP adapter server (43.349833ms)
+✔ V02-L11 tampered IR is rejected before runtime materialization (0.833791ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 248.739375

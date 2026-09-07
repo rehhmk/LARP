@@ -1,0 +1,17 @@
+✔ A02-T01 no approval means zero semantic mutation (5.230417ms)
+✔ A02-T02 MCP/agent actor cannot approve its own proposal (1.304166ms)
+✔ A02-T03 stale project position is rejected before mutation (0.757583ms)
+✔ A02-T04 stale stream version is rejected before mutation (0.716291ms)
+✔ A02-T05 explicit human approval yields validated semantic event and projection update (1.816666ms)
+✔ A02-T06 accepted path writes approval, validation, transaction and event journals (1.964417ms)
+✔ A02-T07 same canonical input with injected ids/time produces same logical event (2.489208ms)
+✔ A02-T08 unsupported command is rejected even with human approval (0.559709ms)
+✔ A02-T09 control CLI consumes an existing approval receipt file; it does not synthesize approval (34.299875ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 93.581625

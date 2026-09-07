@@ -1,0 +1,11 @@
+{
+  "status": "BOOTSTRAP_FAILED",
+  "code": "SEED_DIVERGENCE",
+  "message": "Seed node:decision:auth was already materialized with a different fingerprint.",
+  "details": {
+    "seedId": "node:decision:auth",
+    "previousFingerprint": "1792ab43ed04a10fbcfa844b674ba8a97a48ff4d2d241a96f2c9089104dd9fbe",
+    "nextFingerprint": "e0331b8fd96b73a0141adda1e9e3df48d31ddfaf2ff5fddeb77c63b2f557d10f"
+  },
+  "root": "/Users/enzotriches/Documents/LARP/VERTICAL_SLICE/v02"
+}

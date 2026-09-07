@@ -1,0 +1,27 @@
+
+> larp-a01-mcp-adapter-v0.1@0.1.0 test
+> node --test test/adapter.test.js
+
+✔ T01 initializes over MCP legacy stdio and reports tool capability (37.709958ms)
+✔ T02 tools/list exposes exactly context, status, proposal, and verification tools (33.163708ms)
+✔ T03 larp_status is read-only and exposes project position/coverage (33.315667ms)
+✔ T04 larp_get_context returns governed ContextBundle with Decision/Evidence/Unknown (40.068ms)
+✔ T05 freshly issued context verifies CURRENT (41.238042ms)
+✔ T06 unrelated project drift stays CURRENT (40.701917ms)
+✔ T07 required Decision drift becomes STALE_BLOCKING (37.440083ms)
+✔ T08 larp_propose records a context-bound proposal but does not mutate semantic fixture (38.5315ms)
+✔ T09 proposal tool cannot be mistaken for accepted SemanticEvent (40.303167ms)
+✔ T10 tool argument errors return MCP tool error without crashing server (30.587333ms)
+✔ T11 unknown tool returns an ordinary MCP tool error result (29.15075ms)
+✔ T12 stdout contains JSON-RPC only (30.245041ms)
+✔ T13 current 2026 discovery probe receives Method not found for documented legacy fallback (29.341291ms)
+✔ T14 verification can accept full bundle, not only process-local cache (37.539417ms)
+✔ T15 unbound proposal is rejected before proposal journal creation (29.807167ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 575.455958

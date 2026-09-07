@@ -1,0 +1,12 @@
+{"seedId":"scope:root","fingerprint":"dce73a2cda43faa3e6d402b91bb7e605c5321789ce12857db538f2bd50e47166","eventId":"event:seed:ed37c9526ffcbd46f26e53064faed7bc"}
+{"seedId":"scope:backend","fingerprint":"ed111298b85cc868fc7e4ac7f306da8ec00738f5d0d91891aad0fd3d46573056","eventId":"event:seed:d7133426cdce2e398fbe4a1fb84f0adf"}
+{"seedId":"node:agent:coding","fingerprint":"3f1bc100c268ac0840a3f6eaf035850868524edf3535c95533db2b4f8c4da96f","eventId":"event:seed:2fb867a12737428c7cf202a295e47b1c"}
+{"seedId":"node:artifact:auth-policy","fingerprint":"8a5ddcfbf6b3ee7d915bedfde29c14b9eba290e4768e34a434153cba0f41cffb","eventId":"event:seed:cbd42f600920726e475d31b330c2bb65"}
+{"seedId":"node:decision:auth","fingerprint":"1792ab43ed04a10fbcfa844b674ba8a97a48ff4d2d241a96f2c9089104dd9fbe","eventId":"event:seed:89f1162ef6e34c20105ae8ec76f1693a"}
+{"seedId":"node:evidence:oidc-doc","fingerprint":"2f154eed9e1c7dc3606932e4a0a252aad412c09a2a578298415b0822393fb2ac","eventId":"event:seed:f4419a3a9c54720d409d5ffdf3bb2494"}
+{"seedId":"node:task:implement-auth","fingerprint":"170850d2513192a18cd403064068de8885bb739253ad338869adf5346a50c414","eventId":"event:seed:009e9dcdf883dc99a9bf74df024bbeb1"}
+{"seedId":"node:unknown:refresh-policy","fingerprint":"3b6ce5dc557cbd6728f4036cbf775067fcfa078a6bece5250e08ccdcda786826","eventId":"event:seed:faf7803887fd2aa3f0b29b29ef78e6fe"}
+{"seedId":"relation:rel:evidence-supports-auth","fingerprint":"d90d251b2bcda14bb1b2e0f5895fa50b0e5821ef96cdb0adf0972fb5c6a18302","eventId":"event:seed:d4ef4231da53ed01a0899212ba5758d6"}
+{"seedId":"relation:rel:task-requires-auth","fingerprint":"9d6cb22be4f1362353255bf17c56f18b37d0485b36812481af3ccfe9925fd4a5","eventId":"event:seed:b9b33b6bc46a4bd1fff28959269441fd"}
+{"seedId":"relation:rel:task-unknown","fingerprint":"192548dc50882574520d38b34f3723f99c2e665a1ab8116924717b6542112a63","eventId":"event:seed:d9025694bc47d37104c85f3d1923dcba"}
+{"seedId":"relation:rel:task-uses-auth-policy","fingerprint":"c92fe511f2ff7f65e2ed2089da47d751126cc125d57ab49ab17d6f731272c01d","eventId":"event:seed:b969e0146f369f1a3f652b61979095d6"}
