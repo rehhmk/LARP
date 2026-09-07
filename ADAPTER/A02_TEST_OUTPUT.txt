@@ -1,0 +1,28 @@
+TAP version 13
+# Subtest: A02-T01 no approval means zero semantic mutation
+ok 1 - A02-T01 no approval means zero semantic mutation
+# Subtest: A02-T02 MCP/agent actor cannot approve its own proposal
+ok 2 - A02-T02 MCP/agent actor cannot approve its own proposal
+# Subtest: A02-T03 stale project position is rejected before mutation
+ok 3 - A02-T03 stale project position is rejected before mutation
+# Subtest: A02-T04 stale stream version is rejected before mutation
+ok 4 - A02-T04 stale stream version is rejected before mutation
+# Subtest: A02-T05 explicit human approval yields validated semantic event and projection update
+ok 5 - A02-T05 explicit human approval yields validated semantic event and projection update
+# Subtest: A02-T06 accepted path writes approval, validation, transaction and event journals
+ok 6 - A02-T06 accepted path writes approval, validation, transaction and event journals
+# Subtest: A02-T07 same canonical input with injected ids/time produces same logical event
+ok 7 - A02-T07 same canonical input with injected ids/time produces same logical event
+# Subtest: A02-T08 unsupported command is rejected even with human approval
+ok 8 - A02-T08 unsupported command is rejected even with human approval
+# Subtest: A02-T09 control CLI consumes an existing approval receipt file; it does not synthesize approval
+ok 9 - A02-T09 control CLI consumes an existing approval receipt file; it does not synthesize approval
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 410.780956
