@@ -12,9 +12,9 @@ Policy: `TESTING_SOURCE_OF_TRUTH.md`
 - M5 Agent Integration: **CLOSED**
 - M6 Functional Vertical Slice: **ACTIVE**
 - V-01: **VERIFIED**
-- V-02: **ACTIVE — ACCEPTED CRITERION / BUILD PENDING**
+- V-02: **ACTIVE — IMPLEMENTATION PASS / REAL AGENT EXECUTION PENDING**
 
-Roadmap/spec authority remains Google Drive. GitHub is authoritative for executable evidence. Because the accepted V-02 definition was created and explicitly human-approved in this chat, GitHub now contains the authoritative accepted criterion pending later Drive reconciliation.
+Roadmap/spec authority remains Google Drive. GitHub is authoritative for executable evidence. Because the accepted V-02 definition was created and explicitly human-approved in this chat, GitHub contains the accepted V-02 criterion pending Drive reconciliation.
 
 ---
 
@@ -106,23 +106,13 @@ B0 CURRENT
 → concrete work continues against decision version 3
 ```
 
-Final evidence confirms:
-
-- project position `0 → 1 → 2`;
-- `decision:auth` stream version `1 → 2 → 3`;
-- two proposals / two human approvals / two validation receipts / two committed transactions / two semantic events;
-- stale-context proposal enforcement prevents append;
-- B2 verifies `CURRENT`, severity `NONE`, `changes=[]`;
-- concrete artifact ends at `governingDecisionVersion: 3`;
-- regression suites PASS: adapter **15/15**, governance **9/9**, V-01 **5/5**.
-
 Coverage effect: **21/25 → 22/25; 84/100 → 88/100**.
 
 ---
 
 ## V-02 — Language → Runtime Vertical Slice
 
-**Status: ACTIVE — ACCEPTED CRITERION / BUILD PENDING**
+**Status: ACTIVE — IMPLEMENTATION PASS / REAL AGENT EXECUTION PENDING**
 
 Accepted definition:
 
@@ -135,31 +125,50 @@ Acceptance anchors:
 - Human-accepted decision: `VERTICAL_SLICE/V02_DECISION.md`
 - Decision commit: `26a6bebb7a0ddf10437ca50301c566b8dfdb7a7f`
 
-Required causal path:
+Implementation anchors:
+
+- PR: `#3 build(v02): language-to-runtime vertical slice`
+- implementation head: `027682ccf7895eca08bef2ac30d93e9347a0e973`
+- merge commit: `e3d28fa94711761049e07aa9de7a60a497a3e60a`
+- build report: `VERTICAL_SLICE/v02/V02_LOCAL_BUILD_REPORT.md`
+- real source: `VERTICAL_SLICE/v02/program/auth.larp`
+- real-run protocol: `VERTICAL_SLICE/v02/CODEX_REAL_RUN.md`
+- final PR-head V-02 CI run: `34157799894`
+- final CI job: `101853133174`
+
+Implemented and locally/CI-proven:
 
 ```text
-*.larp
-→ compiler
-→ LARP IR
+*.larp source
+→ deterministic compiler / IR fingerprint
 → explicit governed seed bootstrap
-→ semantic state
+→ validation + transaction + semantic seed events
+→ identical seed no-op
+→ changed materialized seed SEED_DIVERGENCE
+→ replay-derived source state
 → ContextBundle
-→ MCP
-→ real Codex work
 → context-bound non-mutating proposal
-→ explicit HUMAN approval
-→ deterministic validation
-→ committed SemanticEvent
-→ source/history separation proof
-→ replay from zero
-→ same logical final projection
+→ HUMAN-governed local test apply
+→ decision.changed SemanticEvent
+→ replay = current projection
 ```
 
-The full 25 acceptance conditions and failure conditions are canonical in `VERTICAL_SLICE/V02_PROPOSAL.md`.
+CI result:
 
-Coverage remains **22/25 = 88/100** until executable evidence passes independent verification.
+- Context compiler: **12/12 PASS**
+- MCP adapter: **15/15 PASS**
+- governance: **9/9 PASS**
+- V-01: **5/5 PASS**
+- V-02: **6/6 PASS**
+- total deterministic tests: **47/47 PASS**
+- source compile smoke: **PASS**
+- source semantic fingerprint: `be3be00fa3f53e58c1b52cafd34a2bda41779e46d784d01bdf4026385147cd41`
 
-Next execution unit: **build V-02 implementation/harness/evidence protocol**.
+V-02 is **not VERIFIED** yet. The remaining accepted proof is a real Codex Desktop execution against `LARP_V02` with an explicit human gate, followed by source/history separation and replay-from-zero evidence committed to GitHub.
+
+Coverage therefore remains **22/25 = 88/100**.
+
+Next execution unit: **run `VERTICAL_SLICE/v02/CODEX_REAL_RUN.md` through the first `V02 HUMAN GATE`.**
 
 ---
 
