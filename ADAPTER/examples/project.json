@@ -1,9 +1,17 @@
 {
   "projectId": "demo",
-  "projectPosition": 42,
+  "projectPosition": 43,
   "scopes": {
-    "root": { "parentId": null, "version": 1, "data": {} },
-    "backend": { "parentId": "root", "version": 1, "data": {} }
+    "root": {
+      "parentId": null,
+      "version": 1,
+      "data": {}
+    },
+    "backend": {
+      "parentId": "root",
+      "version": 1,
+      "data": {}
+    }
   },
   "nodes": {
     "task:implement-auth": {
@@ -16,7 +24,10 @@
       "lifecycle": "READY",
       "data": {
         "goal": "Implement authentication",
-        "acceptanceCriteria": ["OAuth2 flow works", "tests pass"],
+        "acceptanceCriteria": [
+          "OAuth2 flow works",
+          "tests pass"
+        ],
         "allowedScope": "backend"
       }
     },
@@ -24,11 +35,13 @@
       "id": "decision:auth",
       "kind": "Decision",
       "scopeId": "backend",
-      "version": 2,
+      "version": 3,
       "current": true,
       "invalid": false,
       "lifecycle": "ACTIVE",
-      "data": { "statement": "Use OAuth2" }
+      "data": {
+        "statement": "Use OAuth2 authorization-code flow with PKCE using the S256 code challenge method."
+      }
     },
     "evidence:oidc-doc": {
       "id": "evidence:oidc-doc",
@@ -37,7 +50,9 @@
       "version": 1,
       "current": true,
       "invalid": false,
-      "data": { "summary": "OIDC provider supports PKCE" }
+      "data": {
+        "summary": "OIDC provider supports PKCE"
+      }
     },
     "unknown:refresh-policy": {
       "id": "unknown:refresh-policy",
@@ -46,7 +61,9 @@
       "version": 1,
       "current": true,
       "invalid": false,
-      "data": { "question": "Exact refresh-token rotation policy?" }
+      "data": {
+        "question": "Exact refresh-token rotation policy?"
+      }
     },
     "artifact:readme": {
       "id": "artifact:readme",
@@ -55,7 +72,10 @@
       "version": 1,
       "current": true,
       "invalid": false,
-      "data": { "path": "README.md", "note": "Unrelated documentation" }
+      "data": {
+        "path": "README.md",
+        "note": "Unrelated documentation"
+      }
     },
     "agent:coding": {
       "id": "agent:coding",
@@ -64,7 +84,15 @@
       "version": 1,
       "current": true,
       "invalid": false,
-      "data": { "capabilities": ["code", "test"], "roles": ["implementer"] }
+      "data": {
+        "capabilities": [
+          "code",
+          "test"
+        ],
+        "roles": [
+          "implementer"
+        ]
+      }
     }
   },
   "relations": [

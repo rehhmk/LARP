@@ -58,7 +58,7 @@ test('T03 larp_status is read-only and exposes project position/coverage', async
   const before = hash(await readFile(projectPath, 'utf8'));
   const result = await client.callTool('larp_status');
   assert.equal(result.structuredContent.projectId, 'demo');
-  assert.equal(result.structuredContent.projectPosition, 42);
+  assert.equal(result.structuredContent.projectPosition, 43);
   assert.equal(result.structuredContent.verifiedCoverage, 76);
   assert.equal(result.structuredContent.semanticMutationAllowed, false);
   const after = hash(await readFile(projectPath, 'utf8'));
