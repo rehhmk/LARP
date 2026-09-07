@@ -2,6 +2,7 @@ import { createHash, randomUUID } from 'node:crypto';
 import { appendFile, mkdir, readFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { compileContext, verifyContext, ContextCompilerError } from './context-compiler.js';
+import { authorizeProposalTarget, AuthorityError } from './authority.js';
 
 export class LarpAdapterError extends Error {
   constructor(code, message, details = {}) {
@@ -182,6 +183,22 @@ export class LarpAdapterRuntime {
       );
     }
 
+    let authorityBinding;
+    try {
+      authorityBinding = authorizeProposalTarget({
+        project,
+        targetId,
+        taskId: bundle.taskContract?.id,
+        agentId: bundle.authorityContext?.agent?.id,
+        compileScopeId: bundle.compileScopeId,
+      });
+    } catch (error) {
+      if (error instanceof AuthorityError) {
+        throw new LarpAdapterError(error.code, error.message, error.details);
+      }
+      throw error;
+    }
+
     const receipt = {
       proposalId: `proposal:${randomUUID()}`,
       projectId: project.projectId,
@@ -197,6 +214,7 @@ export class LarpAdapterRuntime {
       contextFreshnessAtProposal: verification.freshness,
       contextSeverityAtProposal: verification.severity ?? null,
       contextDrift: verification.freshness === 'CURRENT' ? [] : (verification.changes ?? []),
+      authorityBinding,
       actor: {
         kind: 'MCP_CLIENT',
         name: meta.clientName ?? 'unknown',

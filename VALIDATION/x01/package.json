@@ -1,0 +1,12 @@
+{
+  "name": "larp-x01-phase0-enforcement",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "node --test test/phase0.test.js"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

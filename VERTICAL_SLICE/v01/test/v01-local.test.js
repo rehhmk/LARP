@@ -5,8 +5,10 @@ import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
+import { generateKeyPairSync } from 'node:crypto';
 import { LineMcpClient } from '../../../ADAPTER/test/mcp-client.js';
 import { applyApprovedProposal } from '../../../ADAPTER/src/governance.js';
+import { signHumanApproval, trustStoreFingerprint } from '../../../ADAPTER/src/approval-provenance.js';
 
 const execFileAsync = promisify(execFile);
 const ROOT = resolve(new URL('..', import.meta.url).pathname);
@@ -15,6 +17,17 @@ const SERVER = join(REPO, 'ADAPTER/src/server.js');
 const FIXTURE = join(ROOT, 'fixture/project.initial.json');
 const POLICY_FIXTURE = join(ROOT, 'fixture/auth-policy.initial.js');
 const VERIFIER = join(ROOT, 'work/verify-auth-policy.js');
+const HUMAN_KEY_ID = 'human:v01-local';
+const { privateKey: humanPrivateKey, publicKey: humanPublicKey } = generateKeyPairSync('ed25519');
+const trustedApprovers = {
+  approvers: {
+    [HUMAN_KEY_ID]: {
+      algorithm: 'Ed25519',
+      status: 'ACTIVE',
+      publicKeyPem: humanPublicKey.export({ type: 'spki', format: 'pem' }),
+    },
+  },
+};
 
 async function countJsonl(path) {
   try {
@@ -32,6 +45,13 @@ async function setup() {
   const runtimeDir = join(dir, '.larp/runtime');
   const policyPath = join(dir, 'auth-policy.js');
   await cp(FIXTURE, projectPath);
+  const project = JSON.parse(await readFile(projectPath, 'utf8'));
+  project.nodes['authority:human-approval'] = {
+    id: 'authority:human-approval', kind: 'Authority', scopeId: 'root', version: 1,
+    current: true, invalid: false, lifecycle: 'ACTIVE',
+    data: { approvalTrustStoreFingerprint: trustStoreFingerprint(trustedApprovers) },
+  };
+  await writeFile(projectPath, `${JSON.stringify(project, null, 2)}\n`, 'utf8');
   await cp(POLICY_FIXTURE, policyPath);
   const client = new LineMcpClient({
     command: process.execPath,
@@ -86,18 +106,19 @@ test('V01-L01 full local causal chain enforces stale blocking and requires rehyd
   assert.equal(driftProposal.structuredContent.status, 'PROPOSED');
   assert.equal(driftProposal.structuredContent.contextFreshnessAtProposal, 'CURRENT');
 
-  const driftApproval = {
+  const driftApproval = signHumanApproval({
     approvalId: 'approval:v01-local-drift',
     proposalId: driftProposal.structuredContent.proposalId,
     approved: true,
-    actor: { kind: 'HUMAN', id: 'human:v01-local', name: 'V-01 Local Human Fixture' },
+    actor: { kind: 'HUMAN', id: HUMAN_KEY_ID, name: 'V-01 Local Human Fixture' },
     reason: 'Deterministic local harness approval fixture',
-  };
+  }, { keyId: HUMAN_KEY_ID, privateKey: humanPrivateKey });
   const applied = await applyApprovedProposal({
     projectPath,
     runtimeDir,
     proposalId: driftProposal.structuredContent.proposalId,
     approval: driftApproval,
+    trustedApprovers,
     now: () => '2026-09-07T12:00:00.000Z',
     idFactory: () => 'v01-local-drift',
   });

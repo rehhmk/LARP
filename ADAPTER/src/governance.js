@@ -1,6 +1,12 @@
 import { createHash, randomUUID } from 'node:crypto';
 import { appendFile, mkdir, readFile, rename, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
+import {
+  verifyHumanApprovalProvenance,
+  projectApprovalTrustStoreFingerprint,
+  ApprovalProvenanceError,
+} from './approval-provenance.js';
+import { authorizeProposalTarget, AuthorityError } from './authority.js';
 
 export class GovernanceError extends Error {
   constructor(code, message, details = {}) {
@@ -15,7 +21,7 @@ export function sha256Text(text) {
   return createHash('sha256').update(text).digest('hex');
 }
 
-function requireHumanApproval(approval, proposalId) {
+function requireHumanApproval(approval, proposalId, trustedApprovers, project) {
   if (!approval || approval.approved !== true) {
     throw new GovernanceError('HUMAN_APPROVAL_REQUIRED', 'A concrete human approval is required.');
   }
@@ -30,6 +36,18 @@ function requireHumanApproval(approval, proposalId) {
   }
   if (typeof approval.approvalId !== 'string' || approval.approvalId.trim() === '') {
     throw new GovernanceError('APPROVAL_ID_REQUIRED', 'Human approval must have a stable approvalId.');
+  }
+  try {
+    return verifyHumanApprovalProvenance(
+      approval,
+      trustedApprovers,
+      projectApprovalTrustStoreFingerprint(project),
+    );
+  } catch (error) {
+    if (error instanceof ApprovalProvenanceError) {
+      throw new GovernanceError(error.code, error.message, error.details);
+    }
+    throw error;
   }
 }
 
@@ -50,8 +68,13 @@ export async function findProposal(runtimeDir, proposalId) {
   return proposal;
 }
 
-export function evaluateApprovedProposal({ project, projectRaw, proposal, approval }) {
-  requireHumanApproval(approval, proposal.proposalId);
+export function evaluateApprovedProposal({ project, projectRaw, proposal, approval, trustedApprovers }) {
+  const approvalProvenance = requireHumanApproval(
+    approval,
+    proposal.proposalId,
+    trustedApprovers,
+    project,
+  );
 
   if (proposal.status !== 'PROPOSED' || proposal.governanceRequired !== true || proposal.semanticMutationApplied !== false) {
     throw new GovernanceError('PROPOSAL_STATE_INVALID', 'Proposal is not an unapplied governed proposal.');
@@ -69,6 +92,23 @@ export function evaluateApprovedProposal({ project, projectRaw, proposal, approv
 
   const target = project.nodes?.[proposal.targetId];
   if (!target) throw new GovernanceError('REFERENCE_INVALID', `Target ${proposal.targetId} does not exist.`);
+
+  let authorityBinding;
+  try {
+    authorityBinding = authorizeProposalTarget({
+      project,
+      targetId: proposal.targetId,
+      taskId: proposal.authorityBinding?.taskId,
+      agentId: proposal.authorityBinding?.agentId,
+      compileScopeId: proposal.authorityBinding?.compileScopeId,
+      observed: proposal.authorityBinding,
+    });
+  } catch (error) {
+    if (error instanceof AuthorityError) {
+      throw new GovernanceError(error.code, error.message, error.details);
+    }
+    throw error;
+  }
   if (proposal.expectedStreamVersion !== target.version) {
     throw new GovernanceError('STATE_CONFLICT', 'Target stream version does not match proposal expectation.');
   }
@@ -107,6 +147,8 @@ export function evaluateApprovedProposal({ project, projectRaw, proposal, approv
       beforeStatement,
       afterStatement: changed.data.statement,
       actor: approval.actor,
+      approvalProvenance,
+      authorityBinding,
     },
   };
 }
@@ -116,6 +158,7 @@ export async function applyApprovedProposal({
   runtimeDir,
   proposalId,
   approval,
+  trustedApprovers,
   now = () => new Date().toISOString(),
   idFactory = () => randomUUID(),
 }) {
@@ -124,7 +167,13 @@ export async function applyApprovedProposal({
   const projectRaw = await readFile(resolvedProject, 'utf8');
   const project = JSON.parse(projectRaw);
   const proposal = await findProposal(resolvedRuntime, proposalId);
-  const { candidateProject, validation } = evaluateApprovedProposal({ project, projectRaw, proposal, approval });
+  const { candidateProject, validation } = evaluateApprovedProposal({
+    project,
+    projectRaw,
+    proposal,
+    approval,
+    trustedApprovers,
+  });
 
   const suffix = idFactory();
   const recordedAt = now();

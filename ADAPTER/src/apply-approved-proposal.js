@@ -11,6 +11,7 @@ function parseArgs(argv) {
     else if (key === '--runtime-dir') out.runtimeDir = argv[++i];
     else if (key === '--proposal') out.proposalId = argv[++i];
     else if (key === '--approval-file') out.approvalFile = argv[++i];
+    else if (key === '--trust-store') out.trustStore = argv[++i];
   }
   return out;
 }
@@ -26,8 +27,10 @@ async function main() {
   const runtimeDir = resolve(required(args.runtimeDir, '--runtime-dir'));
   const proposalId = required(args.proposalId, '--proposal');
   const approvalFile = resolve(required(args.approvalFile, '--approval-file'));
+  const trustStoreFile = resolve(required(args.trustStore, '--trust-store'));
   const approval = JSON.parse(await readFile(approvalFile, 'utf8'));
-  const result = await applyApprovedProposal({ projectPath, runtimeDir, proposalId, approval });
+  const trustedApprovers = JSON.parse(await readFile(trustStoreFile, 'utf8'));
+  const result = await applyApprovedProposal({ projectPath, runtimeDir, proposalId, approval, trustedApprovers });
   process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);
 }
 
