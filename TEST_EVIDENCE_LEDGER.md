@@ -127,30 +127,31 @@ Acceptance anchors:
 
 Implementation anchors:
 
-- PR: `#3 build(v02): language-to-runtime vertical slice`
-- implementation head: `027682ccf7895eca08bef2ac30d93e9347a0e973`
-- merge commit: `e3d28fa94711761049e07aa9de7a60a497a3e60a`
+- Initial PR: `#3 build(v02): language-to-runtime vertical slice`
+- Corrective invariant PR: `#4 fix(v02): enforce build-phase language runtime invariants`
+- reconciled implementation head: `0d6240a1681f88285309a8aafcbd407825a912ff`
+- implementation merge commit: `9fb923226aab07415b2353a696308e0af02e7f5f`
 - build report: `VERTICAL_SLICE/v02/V02_LOCAL_BUILD_REPORT.md`
-- real source: `VERTICAL_SLICE/v02/program/auth.larp`
+- real source: `VERTICAL_SLICE/v02/source/project.larp`
 - real-run protocol: `VERTICAL_SLICE/v02/CODEX_REAL_RUN.md`
-- final PR-head V-02 CI run: `34157799894`
-- final CI job: `101853133174`
+- final PR-head V-02 CI run: `34159055344`
+- final CI job: `101856855955`
 
 Implemented and locally/CI-proven:
 
 ```text
 *.larp source
-→ deterministic compiler / IR fingerprint
+→ deterministic compiler / source + semantic + IR fingerprints
 → explicit governed seed bootstrap
 → validation + transaction + semantic seed events
-→ identical seed no-op
+→ derived semantic projection
+→ identical seed byte-stable no-op
 → changed materialized seed SEED_DIVERGENCE
-→ replay-derived source state
-→ ContextBundle
-→ context-bound non-mutating proposal
-→ HUMAN-governed local test apply
-→ decision.changed SemanticEvent
-→ replay = current projection
+→ source compilation alone leaves history/projection unchanged
+→ CURRENT ContextBundle with governing Decision/dependency
+→ existing MCP adapter server consumes generated projection
+→ replay from accepted history = live logical projection
+→ stop before real-agent proposal / HUMAN gate
 ```
 
 CI result:
@@ -159,16 +160,18 @@ CI result:
 - MCP adapter: **15/15 PASS**
 - governance: **9/9 PASS**
 - V-01: **5/5 PASS**
-- V-02: **6/6 PASS**
-- total deterministic tests: **47/47 PASS**
-- source compile smoke: **PASS**
-- source semantic fingerprint: `be3be00fa3f53e58c1b52cafd34a2bda41779e46d784d01bdf4026385147cd41`
+- V-02: **11/11 PASS**
+- total deterministic tests: **56/56 PASS**
+- generated ContextBundle freshness: **CURRENT**
+- replay comparison: **MATCH**
+- source fingerprint: `75658600482aa3dc7a3651ad04e98967ec90075275a275d3570ed20477fb0948`
+- IR fingerprint: `a7fbbbac729869ff16776a684721b354df54066c69ea19b91767411a313dc32b`
 
 V-02 is **not VERIFIED** yet. The remaining accepted proof is a real Codex Desktop execution against `LARP_V02` with an explicit human gate, followed by source/history separation and replay-from-zero evidence committed to GitHub.
 
 Coverage therefore remains **22/25 = 88/100**.
 
-Next execution unit: **run `VERTICAL_SLICE/v02/CODEX_REAL_RUN.md` through the first `V02 HUMAN GATE`.**
+Next execution unit: **real Codex Desktop V-02 execution through the first `V02 HUMAN GATE`.**
 
 ---
 
