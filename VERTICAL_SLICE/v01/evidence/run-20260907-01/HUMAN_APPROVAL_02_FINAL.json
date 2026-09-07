@@ -1,0 +1,15 @@
+{
+  "approvalId": "approval:v01-final-human-02",
+  "proposalId": "proposal:7aaed0ea-144e-47ff-b7ae-154c5347ed97",
+  "approved": true,
+  "actor": {
+    "kind": "HUMAN",
+    "id": "human:project-owner",
+    "name": "Project Owner"
+  },
+  "approvedStatement": "Use OAuth2 authorization-code flow with PKCE S256 and require DPoP-bound access tokens for public clients.",
+  "reason": "Explicit human approval issued via ::approve in ChatGPT during V-01 real-agent run.",
+  "recordedAt": "2026-09-07T14:20:00-03:00",
+  "phase": "V-01 HUMAN GATE #2",
+  "semanticMutationApplied": false
+}
