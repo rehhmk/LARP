@@ -1,0 +1,12 @@
+diff --git a/VERTICAL_SLICE/v02/work/auth-policy.js b/VERTICAL_SLICE/v02/work/auth-policy.js
+index d2a8146..12ac079 100644
+--- a/VERTICAL_SLICE/v02/work/auth-policy.js
++++ b/VERTICAL_SLICE/v02/work/auth-policy.js
+@@ -5,6 +5,5 @@ export const AUTH_POLICY = Object.freeze({
+ });
+ 
+ export function isValidPkceVerifier(value) {
+-  void value;
+-  return false; // Deliberate real-agent task: implement RFC 7636 verifier validation.
++  return typeof value === 'string' && /^[A-Za-z0-9._~-]{43,128}$/.test(value);
+ }

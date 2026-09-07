@@ -1,0 +1,18 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: 43 unreserved characters must be accepted
+
+false !== true
+
+    at file:///Users/enzotriches/Documents/LARP/VERTICAL_SLICE/v02/work/verify-auth-policy.js:28:8 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v26.5.0

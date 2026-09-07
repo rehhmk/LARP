@@ -1,0 +1,461 @@
+{
+  "schemaVersion": "0.1",
+  "compilerVersion": "0.1",
+  "policy": {
+    "id": "larp/context/default",
+    "version": "0.1"
+  },
+  "projectId": "v02-demo",
+  "compileScopeId": "backend",
+  "sourceProjectPosition": 12,
+  "taskContract": {
+    "id": "task:implement-auth",
+    "lifecycle": "READY",
+    "goal": "Implement the authentication policy.",
+    "acceptanceCriteria": [
+      "auth policy verifier passes",
+      "implementation reflects decision:auth",
+      "no semantic mutation bypasses governance"
+    ],
+    "allowedScope": "backend"
+  },
+  "authorityContext": {
+    "agent": {
+      "id": "agent:coding",
+      "kind": "Agent",
+      "scopeId": "backend",
+      "version": 1,
+      "current": true,
+      "invalid": false,
+      "lifecycle": null,
+      "data": {
+        "capabilities": [
+          "code",
+          "test"
+        ],
+        "roles": [
+          "implementer"
+        ]
+      }
+    },
+    "rules": []
+  },
+  "decisions": [
+    {
+      "id": "decision:auth",
+      "kind": "Decision",
+      "scopeId": "backend",
+      "version": 1,
+      "current": true,
+      "invalid": false,
+      "lifecycle": "ACTIVE",
+      "data": {
+        "statement": "Use OAuth2 authorization-code flow with PKCE S256."
+      }
+    }
+  ],
+  "dependencies": [
+    {
+      "id": "rel:evidence-supports-auth",
+      "kind": "supports",
+      "source": "evidence:oidc-doc",
+      "target": "decision:auth",
+      "scopeId": "backend",
+      "active": true,
+      "version": 1,
+      "watchedDimensions": null,
+      "impactOnChange": null,
+      "data": {}
+    },
+    {
+      "id": "rel:task-requires-auth",
+      "kind": "requires",
+      "source": "task:implement-auth",
+      "target": "decision:auth",
+      "scopeId": "backend",
+      "active": true,
+      "version": 1,
+      "watchedDimensions": null,
+      "impactOnChange": null,
+      "data": {}
+    },
+    {
+      "id": "rel:task-unknown",
+      "kind": "has_unknown",
+      "source": "task:implement-auth",
+      "target": "unknown:refresh-policy",
+      "scopeId": "backend",
+      "active": true,
+      "version": 1,
+      "watchedDimensions": null,
+      "impactOnChange": null,
+      "data": {}
+    },
+    {
+      "id": "rel:task-uses-auth-policy",
+      "kind": "uses",
+      "source": "task:implement-auth",
+      "target": "artifact:auth-policy",
+      "scopeId": "backend",
+      "active": true,
+      "version": 1,
+      "watchedDimensions": null,
+      "impactOnChange": null,
+      "data": {}
+    }
+  ],
+  "evidence": [
+    {
+      "id": "evidence:oidc-doc",
+      "kind": "Evidence",
+      "scopeId": "backend",
+      "version": 1,
+      "current": true,
+      "invalid": false,
+      "lifecycle": null,
+      "data": {
+        "summary": "The selected identity provider supports OAuth2 authorization code and PKCE S256."
+      }
+    }
+  ],
+  "claims": [],
+  "assumptions": [],
+  "unknowns": [
+    {
+      "id": "unknown:refresh-policy",
+      "kind": "Unknown",
+      "scopeId": "backend",
+      "version": 1,
+      "current": true,
+      "invalid": false,
+      "lifecycle": null,
+      "data": {
+        "question": "Should refresh tokens rotate on every use?"
+      }
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "artifact:auth-policy",
+      "kind": "Artifact",
+      "scopeId": "backend",
+      "version": 1,
+      "current": true,
+      "invalid": false,
+      "lifecycle": null,
+      "data": {
+        "path": "VERTICAL_SLICE/v02/work/auth-policy.js",
+        "purpose": "Concrete implementation artifact for V-02"
+      }
+    }
+  ],
+  "other": [],
+  "warnings": [],
+  "blockers": [],
+  "dependencyManifest": [
+    {
+      "refType": "node",
+      "ref": "agent:coding",
+      "kind": "Agent",
+      "observedVersion": 1,
+      "watchedDimensions": [
+        "current",
+        "data.capabilities",
+        "data.roles",
+        "invalid"
+      ],
+      "semanticFingerprint": "1b3d2143b0e013995dbeab605f6a1e9a6fb8fb3c2fd36f9961ba7cc90e9ceef2",
+      "inclusionClass": "MANDATORY",
+      "impactOnChange": "BLOCK",
+      "selectedBecause": [
+        "EXECUTING_AGENT"
+      ]
+    },
+    {
+      "refType": "node",
+      "ref": "artifact:auth-policy",
+      "kind": "Artifact",
+      "observedVersion": 1,
+      "watchedDimensions": [
+        "current",
+        "data",
+        "invalid"
+      ],
+      "semanticFingerprint": "75cddd4b98d55457a8d2513d6895c8198864751d605ea0f81967392e1f4d2353",
+      "inclusionClass": "SUPPORTING",
+      "impactOnChange": "REVIEW",
+      "selectedBecause": [
+        "uses:rel:task-uses-auth-policy"
+      ]
+    },
+    {
+      "refType": "node",
+      "ref": "decision:auth",
+      "kind": "Decision",
+      "observedVersion": 1,
+      "watchedDimensions": [
+        "current",
+        "data",
+        "invalid",
+        "lifecycle"
+      ],
+      "semanticFingerprint": "ec639b38fd094d6ef9448143adc77bf104bddabe82cea331e14ea857a0fb237c",
+      "inclusionClass": "MANDATORY",
+      "impactOnChange": "BLOCK",
+      "selectedBecause": [
+        "requires:rel:task-requires-auth"
+      ]
+    },
+    {
+      "refType": "node",
+      "ref": "evidence:oidc-doc",
+      "kind": "Evidence",
+      "observedVersion": 1,
+      "watchedDimensions": [
+        "current",
+        "data",
+        "invalid"
+      ],
+      "semanticFingerprint": "a955b541256887c24bdcb3023a3900d27271629a1b51ea930c317aa7e6527eb7",
+      "inclusionClass": "SUPPORTING",
+      "impactOnChange": "REVIEW",
+      "selectedBecause": [
+        "supports:rel:evidence-supports-auth"
+      ]
+    },
+    {
+      "refType": "node",
+      "ref": "task:implement-auth",
+      "kind": "Task",
+      "observedVersion": 1,
+      "watchedDimensions": [
+        "current",
+        "data.acceptanceCriteria",
+        "data.allowedScope",
+        "data.goal",
+        "invalid",
+        "lifecycle"
+      ],
+      "semanticFingerprint": "4229ba1a39fa9b9f7bb217da2a8387ce57de380b5a47bcee561ae8ac98dee311",
+      "inclusionClass": "MANDATORY",
+      "impactOnChange": "BLOCK",
+      "selectedBecause": [
+        "TASK_CONTRACT"
+      ]
+    },
+    {
+      "refType": "node",
+      "ref": "unknown:refresh-policy",
+      "kind": "Unknown",
+      "observedVersion": 1,
+      "watchedDimensions": [
+        "current",
+        "data",
+        "invalid"
+      ],
+      "semanticFingerprint": "1d1be335443b44d10958ab3e9e22d9c98202211603f05a8ca588d99572313ae0",
+      "inclusionClass": "SUPPORTING",
+      "impactOnChange": "REVIEW",
+      "selectedBecause": [
+        "has_unknown:rel:task-unknown"
+      ]
+    },
+    {
+      "refType": "relation",
+      "ref": "rel:evidence-supports-auth",
+      "kind": "supports",
+      "observedVersion": 1,
+      "watchedDimensions": [
+        "active",
+        "data",
+        "kind",
+        "source",
+        "target"
+      ],
+      "semanticFingerprint": "cb43d2d8301d1d3f497a6b4ffa7f94f7cae187c03d2f2d84af4b9b944d9e4512",
+      "inclusionClass": "STRUCTURAL",
+      "impactOnChange": "REVIEW",
+      "selectedBecause": [
+        "supports:evidence:oidc-doc->decision:auth"
+      ]
+    },
+    {
+      "refType": "relation",
+      "ref": "rel:task-requires-auth",
+      "kind": "requires",
+      "observedVersion": 1,
+      "watchedDimensions": [
+        "active",
+        "data",
+        "kind",
+        "source",
+        "target"
+      ],
+      "semanticFingerprint": "efdf1f816615fa16bcf8b68be29145141437dd26c764559b9a66637b242c1225",
+      "inclusionClass": "STRUCTURAL",
+      "impactOnChange": "BLOCK",
+      "selectedBecause": [
+        "requires:task:implement-auth->decision:auth"
+      ]
+    },
+    {
+      "refType": "relation",
+      "ref": "rel:task-unknown",
+      "kind": "has_unknown",
+      "observedVersion": 1,
+      "watchedDimensions": [
+        "active",
+        "data",
+        "kind",
+        "source",
+        "target"
+      ],
+      "semanticFingerprint": "a5353294f1e01a19ab4a583a786ff48e61031d548c1b08ebb76590a0c7bb4798",
+      "inclusionClass": "STRUCTURAL",
+      "impactOnChange": "REVIEW",
+      "selectedBecause": [
+        "has_unknown:task:implement-auth->unknown:refresh-policy"
+      ]
+    },
+    {
+      "refType": "relation",
+      "ref": "rel:task-uses-auth-policy",
+      "kind": "uses",
+      "observedVersion": 1,
+      "watchedDimensions": [
+        "active",
+        "data",
+        "kind",
+        "source",
+        "target"
+      ],
+      "semanticFingerprint": "aecea1085f6e06ed50c722735c26d8fa0f6c29a35bf3207b3c9c89ddf63532a1",
+      "inclusionClass": "STRUCTURAL",
+      "impactOnChange": "REVIEW",
+      "selectedBecause": [
+        "uses:task:implement-auth->artifact:auth-policy"
+      ]
+    },
+    {
+      "refType": "scope",
+      "ref": "backend",
+      "kind": "Scope",
+      "observedVersion": 1,
+      "watchedDimensions": [
+        "parentId",
+        "data"
+      ],
+      "semanticFingerprint": "bb3f479e2c1b77390a23320ee64c13f1211ddaf87c8f6e04518f2c164fbd1811",
+      "inclusionClass": "STRUCTURAL",
+      "impactOnChange": "BLOCK",
+      "selectedBecause": [
+        "SCOPE_VISIBILITY_CHAIN"
+      ]
+    },
+    {
+      "refType": "scope",
+      "ref": "root",
+      "kind": "Scope",
+      "observedVersion": 1,
+      "watchedDimensions": [
+        "parentId",
+        "data"
+      ],
+      "semanticFingerprint": "99b9c36d2ffe3acc646fd8050bd9aca5319d022481e79074e3b6fa6ceaab9b5c",
+      "inclusionClass": "STRUCTURAL",
+      "impactOnChange": "BLOCK",
+      "selectedBecause": [
+        "SCOPE_VISIBILITY_CHAIN"
+      ]
+    }
+  ],
+  "selectionTrace": [
+    {
+      "refType": "node",
+      "ref": "agent:coding",
+      "selectedBecause": [
+        "EXECUTING_AGENT"
+      ]
+    },
+    {
+      "refType": "node",
+      "ref": "artifact:auth-policy",
+      "selectedBecause": [
+        "uses:rel:task-uses-auth-policy"
+      ]
+    },
+    {
+      "refType": "node",
+      "ref": "decision:auth",
+      "selectedBecause": [
+        "requires:rel:task-requires-auth"
+      ]
+    },
+    {
+      "refType": "node",
+      "ref": "evidence:oidc-doc",
+      "selectedBecause": [
+        "supports:rel:evidence-supports-auth"
+      ]
+    },
+    {
+      "refType": "node",
+      "ref": "task:implement-auth",
+      "selectedBecause": [
+        "TASK_CONTRACT"
+      ]
+    },
+    {
+      "refType": "node",
+      "ref": "unknown:refresh-policy",
+      "selectedBecause": [
+        "has_unknown:rel:task-unknown"
+      ]
+    },
+    {
+      "refType": "relation",
+      "ref": "rel:evidence-supports-auth",
+      "selectedBecause": [
+        "supports:evidence:oidc-doc->decision:auth"
+      ]
+    },
+    {
+      "refType": "relation",
+      "ref": "rel:task-requires-auth",
+      "selectedBecause": [
+        "requires:task:implement-auth->decision:auth"
+      ]
+    },
+    {
+      "refType": "relation",
+      "ref": "rel:task-unknown",
+      "selectedBecause": [
+        "has_unknown:task:implement-auth->unknown:refresh-policy"
+      ]
+    },
+    {
+      "refType": "relation",
+      "ref": "rel:task-uses-auth-policy",
+      "selectedBecause": [
+        "uses:task:implement-auth->artifact:auth-policy"
+      ]
+    },
+    {
+      "refType": "scope",
+      "ref": "backend",
+      "selectedBecause": [
+        "SCOPE_VISIBILITY_CHAIN"
+      ]
+    },
+    {
+      "refType": "scope",
+      "ref": "root",
+      "selectedBecause": [
+        "SCOPE_VISIBILITY_CHAIN"
+      ]
+    }
+  ],
+  "omissionManifest": [],
+  "inputFingerprint": "e18447d40f4e56d750097b067a30c552be1cefb1830aeb6713ab2d7f39501e11",
+  "bundleFingerprint": "2235821de2ad07f0e0f3f2d65363653ee8b4111659f667b5bb94db0837c9b34c"
+}

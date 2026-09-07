@@ -1,0 +1,39 @@
+larp "0.1"
+module v02.auth
+project "v02-demo"
+
+scope root
+scope backend parent root
+
+seed node decision:auth kind Decision scope backend lifecycle ACTIVE
+  statement "Use OAuth2 authorization-code flow with PKCE S256."
+end
+
+seed node task:implement-auth kind Task scope backend lifecycle READY
+  goal "Implement the authentication policy."
+  allowedScope "backend"
+  acceptanceCriteria ["auth policy verifier passes", "implementation reflects decision:auth", "no semantic mutation bypasses governance"]
+end
+
+seed node evidence:oidc-doc kind Evidence scope backend
+  summary "The selected identity provider supports OAuth2 authorization code and PKCE S256."
+end
+
+seed node unknown:refresh-policy kind Unknown scope backend
+  question "Should refresh tokens rotate on every use?"
+end
+
+seed node artifact:auth-policy kind Artifact scope backend
+  path "VERTICAL_SLICE/v02/work/auth-policy.js"
+  purpose "Concrete implementation artifact for V-02"
+end
+
+seed node agent:coding kind Agent scope backend
+  capabilities ["code", "test"]
+  roles ["implementer"]
+end
+
+seed relation rel:task-requires-auth kind requires source task:implement-auth target decision:auth scope backend
+seed relation rel:task-uses-auth-policy kind uses source task:implement-auth target artifact:auth-policy scope backend
+seed relation rel:evidence-supports-auth kind supports source evidence:oidc-doc target decision:auth scope backend
+seed relation rel:task-unknown kind has_unknown source task:implement-auth target unknown:refresh-policy scope backend

@@ -1,0 +1,3 @@
+cmp -s run/project.json run/replayed.project.json
+exit: 0
+result: byte-equal

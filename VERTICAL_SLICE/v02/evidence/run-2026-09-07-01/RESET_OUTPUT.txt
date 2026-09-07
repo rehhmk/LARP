@@ -1,0 +1,23 @@
+
+> larp-v02-language-runtime-slice@0.1.0 reset:real
+> node scripts/reset-real-run.js
+
+{
+  "status": "RESET_FROM_LARP",
+  "sourcePath": "/Users/enzotriches/Documents/LARP/VERTICAL_SLICE/v02/source/project.larp",
+  "sourceFingerprint": "75658600482aa3dc7a3651ad04e98967ec90075275a275d3570ed20477fb0948",
+  "semanticFingerprint": "f99d7b2c4c63fa5c816dee7bfe728e4c7ad366e8e0420d8d22f13a0530bd4fd1",
+  "irPath": "/Users/enzotriches/Documents/LARP/VERTICAL_SLICE/v02/emitted/project.ir.json",
+  "irFingerprint": "a7fbbbac729869ff16776a684721b354df54066c69ea19b91767411a313dc32b",
+  "bootstrapStatus": "MATERIALIZED",
+  "bootstrapEventCount": 12,
+  "projectId": "v02-demo",
+  "projectPosition": 12,
+  "projectPath": "/Users/enzotriches/Documents/LARP/VERTICAL_SLICE/v02/run/project.json",
+  "runtimeDir": "/Users/enzotriches/Documents/LARP/VERTICAL_SLICE/v02/run/.larp/runtime",
+  "contextBundlePath": "/Users/enzotriches/Documents/LARP/VERTICAL_SLICE/v02/run/context-bundle.json",
+  "contextBundleFingerprint": "2235821de2ad07f0e0f3f2d65363653ee8b4111659f667b5bb94db0837c9b34c",
+  "contextVerificationPath": "/Users/enzotriches/Documents/LARP/VERTICAL_SLICE/v02/run/context-verification.json",
+  "contextFreshness": "CURRENT",
+  "workPath": "/Users/enzotriches/Documents/LARP/VERTICAL_SLICE/v02/work/auth-policy.js"
+}

@@ -5,6 +5,5 @@ export const AUTH_POLICY = Object.freeze({
 });
 
 export function isValidPkceVerifier(value) {
-  void value;
-  return false; // Deliberate real-agent task: implement RFC 7636 verifier validation.
+  return typeof value === 'string' && /^[A-Za-z0-9._~-]{43,128}$/.test(value);
 }

@@ -1,0 +1,4 @@
+codexThreadId: 01a07da9-8c1b-7a11-bb08-e5719385ae3e
+agentId: agent:coding
+taskId: task:implement-auth
+scopeId: backend

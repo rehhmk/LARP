@@ -1,0 +1,8 @@
+run/project.json before: 4428cd2d03a0dbb1578d8d51b44870429bd197b42e4bbf988413e835036a6d00
+run/project.json after:  4428cd2d03a0dbb1578d8d51b44870429bd197b42e4bbf988413e835036a6d00
+semantic_events.jsonl before: eab3c4060f3338006b339f2f5c3e41a296bb0fcec9bf0a54dced0c56249dd741
+semantic_events.jsonl after:  eab3c4060f3338006b339f2f5c3e41a296bb0fcec9bf0a54dced0c56249dd741
+semantic event lines before: 12
+semantic event lines after: 12
+proposal journal lines after: 1
+result: proposal persisted without semantic mutation

@@ -1,0 +1,12 @@
+
+> larp-v02-language-runtime-slice@0.1.0 replay:real
+> node scripts/replay.js
+
+{
+  "status": "REPLAY_MATCH",
+  "projectId": "v02-demo",
+  "projectPosition": 12,
+  "logicalFingerprint": "07b766739faf1ebceda7b9dabb5cbca693fed7ad761efc9fe034d5403e59f780",
+  "outputPath": "/Users/enzotriches/Documents/LARP/VERTICAL_SLICE/v02/run/replayed.project.json",
+  "root": "/Users/enzotriches/Documents/LARP/VERTICAL_SLICE/v02"
+}
