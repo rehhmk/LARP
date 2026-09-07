@@ -1,294 +1,105 @@
-# V-02 Real Codex Run — Language → Runtime Vertical Slice
+# V-02 Codex Desktop Real Run
 
-Status: **RUN ONLY AFTER V-02 IMPLEMENTATION IS MERGED TO `main`**
+Status: **PREPARED — STOP AT FIRST HUMAN GATE**
 
-Goal: prove the accepted V-02 causal chain with a real Codex Desktop agent. Do not synthesize HUMAN approvals.
+This protocol begins the later real coding-agent phase. It does not authorize a HUMAN approval or semantic mutation. Do not run it as part of the V-02 implementation build.
 
-## 0. Reset from the real `.larp` source
+## 1. Reset only from the LARP program
 
-From repository root:
+From `VERTICAL_SLICE/v02`:
 
 ```bash
-cd VERTICAL_SLICE/v02
 npm run reset:real
+npm run replay:real
 ```
 
-Expected properties:
+Require `RESET_FROM_LARP`, 12 accepted seed events, `contextFreshness: CURRENT`, and `REPLAY_MATCH`. Do not substitute a project JSON fixture. The reset command must compile `source/project.larp`, emit `emitted/project.ir.json`, bootstrap seed events, and derive `run/project.json`.
 
-- `status = RESET`
-- `projectId = v02-demo`
-- `projectPosition = 12`
-- `decisionAuthVersion = 1`
-- `bootstrapStatus = MATERIALIZED`
-- `bootstrapEvents = 12`
-- source fingerprint matches the committed `program/auth.larp` compile result
+Before connecting the agent, record:
 
-The disposable `run/project.json` MUST be created by compiler + governed bootstrap. Do not hand-author or copy a semantic project fixture.
+- current Git HEAD and `git status --short`;
+- source, semantic, and IR fingerprints from reset;
+- project position `12` and `decision:auth` version `1`;
+- `run/project.json` and `run/replayed.project.json` equality;
+- 12 lines each in the seed registry, seed validation, seed transaction, and semantic event journals.
 
-## 1. MCP server
+## 2. Connect Codex Desktop to the existing adapter
 
-Create/use a dedicated Codex Desktop STDIO server named `LARP_V02`:
-
-Command:
+Configure a dedicated Codex Desktop MCP server named `LARP_V02` that executes:
 
 ```text
-node
+node <ABSOLUTE_REPOSITORY_PATH>/ADAPTER/src/server.js
+  --project <ABSOLUTE_REPOSITORY_PATH>/VERTICAL_SLICE/v02/run/project.json
+  --runtime-dir <ABSOLUTE_REPOSITORY_PATH>/VERTICAL_SLICE/v02/run/.larp/runtime
+  --coverage 88
 ```
 
-Arguments:
+Use repository root as the working directory. Restart or reconnect Codex Desktop so this exact generated projection is used, and use only `LARP_V02` for the calls below.
 
-```text
-<REPO>/ADAPTER/src/server.js
---project
-<REPO>/VERTICAL_SLICE/v02/run/project.json
---runtime-dir
-<REPO>/VERTICAL_SLICE/v02/run/.larp/runtime
---coverage
-88
-```
+## 3. Real agent hydration and concrete work
 
-Working directory:
+The real Codex Desktop agent must make actual MCP calls, preserving the returned receipts:
 
-```text
-<REPO>
-```
+1. `larp_status`; require project `v02-demo`, position `12`, coverage `88`, and `semanticMutationAllowed: false`;
+2. `larp_get_context` with task `task:implement-auth`, agent `agent:coding`, scope `backend`;
+3. save the exact returned bundle as `run/B0.json`;
+4. `larp_verify_context` for B0 and require `CURRENT`.
 
-Fully restart Codex Desktop after changing MCP configuration.
-
-## 2. Agent phase — source → context → concrete work → proposal → STOP
-
-The real coding agent must perform these steps in order.
-
-### 2.1 Establish provenance
-
-1. Record current Git HEAD and `git status --short`.
-2. Read `VERTICAL_SLICE/v02/program/auth.larp`.
-3. Read `VERTICAL_SLICE/v02/run/program.ir.json`.
-4. Confirm `run/project.json` exists only because `npm run reset:real` compiled and bootstrapped the `.larp` source.
-5. Record the source fingerprint and project position.
-
-### 2.2 Live LARP calls
-
-Use **only `LARP_V02`** for LARP MCP calls.
-
-1. `larp_status`
-   - require `projectId = v02-demo`
-   - require `projectPosition = 12`
-   - require `verifiedCoverage = 88`
-   - require `semanticMutationAllowed = false`
-2. `larp_get_context`
-   - `taskId = task:implement-auth`
-   - `agentId = agent:coding`
-   - `scopeId = backend`
-3. Save the exact returned bundle as `run/B0.json`.
-4. `larp_verify_context` on B0.
-5. Require `CURRENT`.
-
-### 2.3 Start concrete repository work
-
-Edit `VERTICAL_SLICE/v02/work/auth-policy.js` while preserving current semantics:
-
-- `flow = 'authorization_code'`
-- `pkce = 'S256'`
-- `dpop = false`
-- `governingDecisionVersion = 1`
-- add `sourceProgram: 'v02.auth'`
-
-Run:
+Using that ContextBundle, implement `isValidPkceVerifier` in `work/auth-policy.js`. Run:
 
 ```bash
 node work/verify-auth-policy.js run/project.json work/auth-policy.js
 ```
 
-Require PASS.
+The verifier must change from its deliberate initial failure to `PASS` through real agent code work.
 
-Save the work diff to `run/B0_WORK_DIFF.txt`.
+Save the exact code diff as `run/B0_WORK_DIFF.txt`. The work may change repository code, but it must not edit `source/project.larp`, any accepted semantic journal, or an approval receipt.
 
-### 2.4 Create governed proposal
+## 4. Context-bound proposal
 
-Call `larp_propose` with:
+Before the proposal, record byte hashes for `run/project.json` and `semantic_events.jsonl`, plus line counts for all runtime journals.
 
-- `commandType = decision.propose_change`
-- `targetId = decision:auth`
-- `expectedStreamVersion = 1`
-- `payload.statement = Use OAuth2 authorization-code flow with PKCE S256 and DPoP-bound access tokens.`
-- `reason = V-02 real-agent language-to-runtime governed mutation`
-- `contextBundleFingerprint = B0.bundleFingerprint`
-- pass the full B0 bundle if needed after MCP process restart
+The agent may call `larp_propose` with:
 
-Require:
+- `commandType: decision.propose_change`;
+- `targetId: decision:auth`;
+- `expectedStreamVersion: 1`;
+- `payload.statement: Use OAuth2 authorization-code flow with PKCE S256 and enforce RFC 7636 verifier syntax.`;
+- `reason: V-02 real-agent language-to-runtime governed mutation`;
+- B0's `contextBundleFingerprint`, passing the full B0 bundle if the MCP process restarted.
 
-- `status = PROPOSED`
-- `semanticMutationApplied = false`
-- `governanceRequired = true`
-- `contextFreshnessAtProposal = CURRENT`
+Require a persisted receipt with:
 
-### 2.5 Prove proposal did not mutate semantics
+- `status: PROPOSED`;
+- `contextFreshnessAtProposal: CURRENT`;
+- `semanticMutationApplied: false`;
+- `governanceRequired: true`.
 
-Before and after proposal creation, count:
+Confirm that proposal creation does not append a SemanticEvent and does not change `run/project.json`.
 
-- semantic events
-- semantic transactions
-- validation receipts
-- human approvals
+Persist the pre-gate evidence under `evidence/run-<date>-01/`, including:
 
-At this point there must still be exactly the 12 bootstrap semantic events and zero HUMAN approval for the proposal.
+- Git/source/IR/bootstrap provenance;
+- B0 and its CURRENT verification receipt;
+- initial verifier failure and post-work PASS output;
+- `B0_WORK_DIFF.txt`;
+- journal counts and hashes before/after proposal;
+- the exact proposal receipt;
+- the real Codex task/session identity;
+- a short `PHASE1_AGENT_EVIDENCE.md`.
 
-Persist Phase 1 evidence under:
+Commit the evidence to an evidence branch if requested, but do not add an approval file or call the apply path.
 
-```text
-VERTICAL_SLICE/v02/evidence/run-<date>-01/
-```
+## FIRST HUMAN GATE — STOP
 
-At minimum preserve:
-
-- `B0.json`
-- `B0_WORK_DIFF.txt`
-- source/IR fingerprint receipt
-- pre/post proposal journal counts
-- exact proposal receipt
-- `PHASE1_AGENT_EVIDENCE.md`
-
-Commit these evidence files to GitHub `main` or to an evidence branch that is merged to `main` before verification.
-
-### 2.6 STOP at the human gate
+Stop after reporting the exact proposal ID and evidence paths. The coding agent must not create, edit, infer, or simulate a HUMAN approval receipt. Do not invoke the governed apply path until the human separately approves that exact proposal. Do not mark V-02 VERIFIED.
 
 Return exactly:
 
 ```text
 V02 HUMAN GATE
 proposalId: <exact proposal id>
-statement: Use OAuth2 authorization-code flow with PKCE S256 and DPoP-bound access tokens.
+statement: Use OAuth2 authorization-code flow with PKCE S256 and enforce RFC 7636 verifier syntax.
 ```
 
-**STOP.**
-
-Do not create, edit, replace, or synthesize a HUMAN approval.
-Do not call the governed apply path before the explicit human approval exists.
-
----
-
-## 3. Post-approval phase — only after a pre-existing HUMAN receipt is supplied
-
-This phase must be executed in the same real run, without reset.
-
-1. Verify the HUMAN approval file existed before this phase and matches the exact proposal ID.
-2. Hash the approval receipt before execution; do not modify it.
-3. Consume it through the existing governed apply CLI/path.
-4. Require:
-   - K-01/validation `ACCEPTED`
-   - transaction `COMMITTED`
-   - exactly one new `decision.changed` event
-   - project position `12 → 13`
-   - `decision:auth` version `1 → 2`
-   - causation = proposal ID
-   - correlation = HUMAN approval ID
-5. Verify B0 after the event; require `STALE_BLOCKING` on `decision:auth`.
-6. Rehydrate B1 through `LARP_V02`; require `CURRENT`.
-7. Before adapting code, run the semantic-aware verifier; it must FAIL because DPoP/version changed.
-8. Adapt `work/auth-policy.js`:
-   - preserve `sourceProgram: 'v02.auth'`
-   - set `dpop = true`
-   - set `governingDecisionVersion = 2`
-9. Run verifier; require PASS.
-
-## 4. Source/history authority-separation proof
-
-With semantic history now containing the approved `decision.changed` event:
-
-### 4.1 Recompile unchanged source
-
-Compile the unchanged committed source again.
-
-Then explicitly bootstrap that identical IR against the existing runtime:
-
-```bash
-node scripts/bootstrap.js run/program.ir.json run/project.json run/.larp/runtime
-```
-
-Require:
-
-- `ALREADY_MATERIALIZED`
-- `appendedEvents = 0`
-- current decision remains version 2 with DPoP
-- project position remains 13
-
-This proves recompiling/reloading source does not perform desired-state reconciliation or rewrite accepted history.
-
-### 4.2 Changed materialized seed must diverge
-
-Create a temporary copy of `program/auth.larp` and change the original seed statement itself to include DPoP. Do not modify the committed source.
-
-Compile the temporary source to a temporary IR, then call explicit bootstrap against the existing runtime.
-
-Require:
-
-```text
-SEED_DIVERGENCE
-```
-
-for `decision:auth`, with zero journal/projection mutation.
-
-Delete the temporary source/IR after evidence is captured.
-
-## 5. Replay-from-zero proof
-
-Run:
-
-```bash
-npm run replay:real
-```
-
-Require:
-
-- `status = REPLAY_MATCH`
-- `sameProjection = true`
-- replayed project position = 13
-- replayed `decision:auth` version = 2
-- replayed statement = approved DPoP statement
-
-The replay must consume accepted semantic history, not the current project projection as an authority source.
-
-## 6. Final regression and evidence
-
-Run in order:
-
-```bash
-(cd COMPILER && npm test)
-(cd ADAPTER && npm test)
-(cd ADAPTER && node --test test/governance.test.js)
-(cd VERTICAL_SLICE/v01 && npm test)
-(cd VERTICAL_SLICE/v02 && npm test)
-```
-
-Preserve final:
-
-- source `.larp`
-- generated IR
-- bootstrap journals and seed registry
-- B0 + B1
-- HUMAN approval receipt + before/after hash proof
-- governed apply result
-- semantic events / transactions / validation receipts
-- source-recompile no-op proof
-- `SEED_DIVERGENCE` proof
-- replay result and replayed projection
-- concrete work diff + verifier outputs
-- regression output
-- real Codex session/thread identity
-- final evidence report
-
-Commit evidence to GitHub.
-
-Final agent output after evidence is committed:
-
-```text
-V02 FINAL EVIDENCE COMMITTED
-commit: <sha>
-sourceFingerprint: <sha256>
-projectPosition: 13
-decisionVersion: 2
-replay: MATCH
-```
-
-V-02 remains unverified until ChatGPT independently inspects that immutable evidence commit against `V02_DECISION.md`.
+This document intentionally ends at the first human gate. Post-approval execution requires a separate instruction after a pre-existing HUMAN approval has been supplied.

@@ -1,164 +1,126 @@
-# V-02 Local/CI Build Report
+# V-02 Local Build Report
 
-Status: **PASS — IMPLEMENTATION READY FOR REAL-AGENT EXECUTION**
+Status: **IMPLEMENTATION PASS — REAL AGENT EXECUTION PENDING**
 
-Criterion: accepted `V-02 · Language → Runtime Vertical Slice`
-Coverage effect: **none yet** — remains `22/25 = 88/100` until real-agent evidence is independently verified.
+Roadmap criterion: V-02
 
-## Implemented causal bridge
+Verified coverage remains: **22 / 25 = 88 / 100**
 
-```text
-program/auth.larp
-→ deterministic compiler
-→ LARP IR
-→ explicit governed seed bootstrap
-→ semantic event history
-→ replay-derived project projection
-→ existing Context Compiler
-→ existing MCP adapter
-→ context-bound proposal
-→ existing HUMAN-gated governance path
-→ SemanticEvent
-→ replay-equivalent projection
-```
+This report does not mark V-02 VERIFIED and contains no HUMAN approval.
 
-No hand-authored semantic JSON project fixture is used by the V-02 reset path.
+## Architecture implemented
 
-## Source/compiler evidence
-
-Real source:
-
-- `VERTICAL_SLICE/v02/program/auth.larp`
-
-Compiler:
-
-- `VERTICAL_SLICE/v02/src/compiler.js`
-- strict LARP v0.1 slice grammar
-- deterministic canonical semantic fingerprint
-- invalid input yields structured `CompileError`
-
-CI source fingerprint:
+The isolated V-02 implementation preserves four separate authorities:
 
 ```text
-be3be00fa3f53e58c1b52cafd34a2bda41779e46d784d01bdf4026385147cd41
+DECLARATIVE PROGRAM       source/project.larp
+        ↓ explicit compile
+LARP IR                   emitted/project.ir.json
+        ↓ explicit governed bootstrap
+SEMANTIC HISTORY          run/.larp/runtime/semantic_events.jsonl
+        ↓ deterministic replay/projection
+DERIVED MATERIALIZATION   run/project.json
+        ↓ read-only context compilation / MCP adapter
+RUNTIME EXECUTION INPUT   run/context-bundle.json
 ```
 
-The compile smoke test emitted the same semantic/source fingerprint.
+- `src/compiler.js` implements the executable v0.1 source compiler, canonical source normalization, diagnostics, semantic fingerprinting, and canonical IR fingerprinting. `COMPILER/` was inspected first and contains the previously verified Context Compiler only; the repository has no prior `.larp` language parser to reuse. The V-02 parser is therefore isolated rather than presented as a second replacement for an existing language compiler.
+- `src/bootstrap.js` is the explicit governance boundary. It validates IR fingerprints, references, scope topology, prior accepted history, stable typed seed identities, and seed fingerprints before append.
+- Bootstrap writes append-only accepted facts to `semantic_events.jsonl`, with separate `seed_validation_receipts.jsonl`, `seed_transactions.jsonl`, and `seed_registry.jsonl` receipts. Identical materialization returns `ALREADY_MATERIALIZED` without rewriting the projection. A changed fingerprint for an existing typed seed returns `SEED_DIVERGENCE` before mutation.
+- `src/projection.js` applies supported SemanticEvents with exact project-position and stream-version checks. `src/replay.js` reconstructs an empty projection from accepted history.
+- `scripts/reset-real-run.js` deletes disposable V-02 run materialization, compiles the real source, bootstraps seed history, derives `run/project.json`, compiles and verifies a ContextBundle, and resets only the non-semantic JavaScript work fixture.
+- `ADAPTER/src/server.js` consumes the generated `run/project.json` directly. No adapter-specific semantic fixture conversion exists.
 
-## Governed bootstrap
+## Deterministic artifact fingerprints
 
-Implementation:
+- Source content SHA-256 / `sourceFingerprint`: `75658600482aa3dc7a3651ad04e98967ec90075275a275d3570ed20477fb0948`
+- Semantic program fingerprint: `f99d7b2c4c63fa5c816dee7bfe728e4c7ad366e8e0420d8d22f13a0530bd4fd1`
+- Canonical IR fingerprint / `irFingerprint`: `a7fbbbac729869ff16776a684721b354df54066c69ea19b91767411a313dc32b`
+- Pretty-printed emitted IR file SHA-256: `d224895886266c85ad916fe1a691b9bcf9b1424baeae2532c8aaf513edce1e39`
+- Live and replayed project file SHA-256: `4428cd2d03a0dbb1578d8d51b44870429bd197b42e4bbf988413e835036a6d00`
+- ContextBundle fingerprint: `2235821de2ad07f0e0f3f2d65363653ee8b4111659f667b5bb94db0837c9b34c`
+- Replayed logical projection fingerprint: `07b766739faf1ebceda7b9dabb5cbca693fed7ad761efc9fe034d5403e59f780`
 
-- `VERTICAL_SLICE/v02/src/bootstrap.js`
-- explicit `seed.materialize` validation receipts
-- committed semantic transactions
-- append-only `scope.seeded`, `node.seeded`, and `relation.seeded` events
-- deterministic seed identities/fingerprints
-- `seed_registry.jsonl`
-- identical materialized seed → `ALREADY_MATERIALIZED`, zero append
-- changed materialized seed → `SEED_DIVERGENCE` before mutation
+## Commands executed
 
-The source program currently materializes **12 bootstrap events**:
+Repository preparation:
 
-- 2 scopes
-- 6 nodes
-- 4 relations
-
-## Replay
-
-Implementation:
-
-- `VERTICAL_SLICE/v02/src/replay.js`
-- `VERTICAL_SLICE/v02/scripts/replay-real-run.js`
-
-Replay consumes semantic event history and reconstructs the logical project projection, including later `decision.changed` events.
-
-## Existing runtime integration
-
-V-02 intentionally reuses already-verified components instead of creating a parallel runtime:
-
-- `ADAPTER/src/context-compiler.js`
-- `ADAPTER/src/runtime.js`
-- `ADAPTER/src/governance.js`
-- `ADAPTER/src/server.js`
-
-The local V-02 harness proves source-derived state can produce a CURRENT ContextBundle, a context-bound non-mutating proposal, a HUMAN-approved deterministic semantic change, and a replay-equivalent final projection.
-
-## V-02 tests
-
-`VERTICAL_SLICE/v02/test/v02-local.test.js`:
-
-1. **V02-L01** real `.larp` → deterministic loadable IR
-2. **V02-L02** invalid source → compiler diagnostic / no IR
-3. **V02-L03** governed bootstrap + identical-seed no-op
-4. **V02-L04** compile is non-mutating + changed seed → `SEED_DIVERGENCE`
-5. **V02-L05** source-derived state → ContextBundle → proposal → HUMAN governance → SemanticEvent → replay match
-6. **V02-L06** independent clean bootstraps produce the same logical projection
-
-Result: **6/6 PASS**.
-
-## Final regression CI
-
-Workflow:
-
-- `.github/workflows/v02-build.yml`
-- final PR-head run: `34157799894`
-- final job: `101853133174`
-- conclusion: **SUCCESS**
-
-Substantive test results:
-
-- Context compiler: **12/12 PASS**
-- MCP adapter: **15/15 PASS**
-- governance: **9/9 PASS**
-- V-01: **5/5 PASS**
-- V-02: **6/6 PASS**
-- source compile smoke test: **PASS**
-
-Total deterministic tests: **47/47 PASS** plus compile smoke PASS.
-
-The legacy V-01 workflow also passed on the final PR head.
-
-## Merge evidence
-
-- PR: `#3 build(v02): language-to-runtime vertical slice`
-- implementation PR head: `027682ccf7895eca08bef2ac30d93e9347a0e973`
-- merge commit: `e3d28fa94711761049e07aa9de7a60a497a3e60a`
-
-## Real-run support
-
-- `scripts/reset-real-run.js` deletes disposable runtime state, compiles the committed `.larp` source, writes derived IR, and bootstraps the runtime from accepted seed events.
-- `scripts/bootstrap.js` exposes explicit bootstrap for no-op/divergence evidence.
-- `scripts/replay-real-run.js` compares current projection with replay-from-history.
-- `CODEX_REAL_RUN.md` defines the real Codex + HUMAN gate protocol.
-- `work/verify-auth-policy.js` checks concrete work against the current semantic decision and stream version.
-
-## What remains before V-02 can be VERIFIED
-
-Implementation tests are not a substitute for the accepted real-agent gate.
-
-Required external proof still pending:
-
-```text
-real .larp
-→ compile + governed bootstrap
-→ real Codex receives source-derived ContextBundle via LARP_V02
-→ concrete repository work
-→ context-bound non-mutating proposal
-→ explicit HUMAN approval that pre-exists apply
-→ ACCEPTED / COMMITTED decision.changed event
-→ stale old context + rehydrate
-→ concrete work adapts
-→ unchanged source bootstrap is no-op (history preserved)
-→ changed seed is SEED_DIVERGENCE
-→ replay from zero = same final projection
-→ committed evidence
-→ independent verification
+```bash
+git fetch origin --prune
+git switch build/v02-language-runtime
+git pull --ff-only
 ```
 
-Therefore current status is:
+Local verification:
 
-```text
-V-02 ACTIVE — IMPLEMENTATION PASS / REAL AGENT EXECUTION PENDING
-coverage = 88/100
+```bash
+cd COMPILER && npm test
+cd ADAPTER && npm test
+cd ADAPTER && node --test test/governance.test.js
+cd VERTICAL_SLICE/v01 && npm test
+cd VERTICAL_SLICE/v02 && npm test
+cd VERTICAL_SLICE/v02 && npm run reset:real
+cd VERTICAL_SLICE/v02 && npm run replay:real
+cd VERTICAL_SLICE/v02 && npm run compile
+cd VERTICAL_SLICE/v02 && npm run bootstrap
 ```
+
+Artifact audit:
+
+```bash
+shasum -a 256 source/project.larp emitted/project.ir.json run/project.json run/replayed.project.json
+wc -l run/.larp/runtime/*.jsonl
+git diff --no-index -- run/project.json run/replayed.project.json
+find fixture -type f -print
+```
+
+## Test results
+
+| Suite | Result |
+|---|---:|
+| COMPILER context compiler | 12 / 12 PASS |
+| ADAPTER MCP runtime | 15 / 15 PASS |
+| ADAPTER governance | 9 / 9 PASS |
+| V-01 regression | 5 / 5 PASS |
+| V-02 language-runtime harness | 11 / 11 PASS |
+| Total | **56 / 56 PASS** |
+
+V-02 tests prove V02-L01 through V02-L09 plus direct existing-server compatibility (V02-L10) and tampered-IR rejection (V02-L11).
+
+## Bootstrap and replay evidence
+
+- Bootstrap result: `MATERIALIZED`
+- Accepted seed SemanticEvents: `12`
+- Seed validation receipts: `12`, all `ACCEPTED`
+- Seed transactions: `12`, all `COMMITTED`, one event each
+- Stable seed registry entries: `12`
+- Initial project position: `12`
+- `decision:auth` stream version: `1`
+- `task:implement-auth` stream version: `1`
+- Context verification: `CURRENT`, severity `NONE`, changes `[]`
+- Replay result: `REPLAY_MATCH`
+- Live versus replayed logical projection: equal; committed pretty-printed artifacts are byte-identical
+
+## Proof there is no semantic JSON source shortcut
+
+`fixture/` contains only `auth-policy.initial.js`; it contains no JSON file. The only authored semantic declaration is `source/project.larp`. `scripts/reset-real-run.js` accepts no project-template argument and contains no project copy operation. It obtains IR by calling the compiler, passes that IR through `bootstrapIr`, and writes `run/project.json` only from the projection returned by replaying accepted seed events. V02-L09 executes this reset into a new temporary runtime and compares the generated project to a fresh replay of its journal.
+
+V02-L06 separately proves that compiling a changed source variant without bootstrapping leaves both accepted semantic history and the current projection byte-for-byte unchanged. V02-L05 then submits that changed seed to bootstrap and proves `SEED_DIVERGENCE` with zero journal or projection rewrite.
+
+## Failures encountered and fixes
+
+- The required branch was not initially present locally. No files were changed; `git fetch origin --prune` exposed the remote branch, after which the required switch and fast-forward pull succeeded.
+- The partial branch scaffold rewrote `project.json` during an identical bootstrap rerun. The completed implementation makes the `ALREADY_MATERIALIZED` path read-only, and V02-L04 locks every journal and the projection byte-for-byte.
+- The initial scaffold sorted scopes lexically, which could place a child seed before its parent. Compilation now emits deterministic topological scope order and rejects cycles before IR/bootstrap acceptance.
+- A concurrent implementation reached `main` while this build was in progress. Its local V-02 test synthesized a `HUMAN` actor and executed `applyApprovedProposal`, crossing the explicit build-phase stop. The corrective implementation preserves that Git history but removes the synthetic approval/apply path; V02-L01–L11 stop at MCP-compatible context and leave the real proposal/HUMAN gate to `CODEX_REAL_RUN.md`.
+- No final test failures remain. Existing suites required no weakening or behavior changes.
+
+## Limitations and next gate
+
+- The language parser covers the isolated v0.1 declarations required by this slice; it is not claimed as a production-complete grammar or package/import resolver.
+- Journals are local JSONL prototype stores; production crash recovery, locking, and multi-process concurrency are outside V-02.
+- MCP continues to use the repository's existing legacy-compatible stdio server; native MCP 2026-07-28 remains the separately tracked compatibility gap.
+- The concrete work fixture deliberately fails its PKCE verifier until a real Codex Desktop agent implements it.
+- No real Codex Desktop execution, proposal, HUMAN approval, governed post-bootstrap mutation, or final V-02 verification was performed in this build.
+
+Next step: follow `CODEX_REAL_RUN.md` with a real Codex Desktop agent and stop at the first explicit human gate.

@@ -1,12 +1,11 @@
-import { readFile } from 'node:fs/promises';
-import { resolve } from 'node:path';
+#!/usr/bin/env node
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { bootstrapFromIrFile } from '../src/bootstrap.js';
 
-const [irArg, projectArg, runtimeArg] = process.argv.slice(2);
-if (!irArg || !projectArg || !runtimeArg) {
-  console.error('usage: node scripts/bootstrap.js <program.ir.json> <project.json> <runtime-dir>');
-  process.exit(2);
-}
+const HERE = dirname(fileURLToPath(import.meta.url));
+const ROOT = resolve(HERE, '..');
+const [irArg = 'emitted/project.ir.json', projectArg = 'run/project.json', runtimeArg = 'run/.larp/runtime'] = process.argv.slice(2);
 
 try {
   const result = await bootstrapFromIrFile({
@@ -14,19 +13,14 @@ try {
     projectPath: resolve(projectArg),
     runtimeDir: resolve(runtimeArg),
   });
-  console.log(JSON.stringify({
-    status: result.status,
-    projectId: result.projectId,
-    sourceFingerprint: result.sourceFingerprint,
-    appendedEvents: result.appendedEvents,
-    projectPosition: result.projectPosition,
-  }, null, 2));
+  console.log(JSON.stringify(result, null, 2));
 } catch (error) {
   console.error(JSON.stringify({
-    status: 'REJECTED',
-    code: error?.code ?? 'BOOTSTRAP_ERROR',
+    status: 'BOOTSTRAP_FAILED',
+    code: error?.code ?? 'BOOTSTRAP_INTERNAL',
     message: error?.message ?? String(error),
     details: error?.details ?? {},
+    root: ROOT,
   }, null, 2));
-  process.exit(1);
+  process.exitCode = 1;
 }

@@ -20,21 +20,18 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '24'
-      - name: Context compiler regression tests
+      - name: Compiler regression tests
         working-directory: COMPILER
         run: npm test
-      - name: A-01 adapter regression tests
+      - name: Adapter regression tests
         working-directory: ADAPTER
         run: npm test
-      - name: A-02 governance regression tests
+      - name: Governance regression tests
         working-directory: ADAPTER
         run: node --test test/governance.test.js
-      - name: V-01 vertical-slice regression tests
+      - name: V-01 regression tests
         working-directory: VERTICAL_SLICE/v01
         run: npm test
-      - name: V-02 language-to-runtime harness
+      - name: V-02 language-runtime harness
         working-directory: VERTICAL_SLICE/v02
         run: npm test
-      - name: V-02 source compile smoke test
-        working-directory: VERTICAL_SLICE/v02
-        run: npm run compile
