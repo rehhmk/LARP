@@ -65,54 +65,73 @@ Independent verification performed by ChatGPT against GitHub `main`:
 
 Result: **PASS / VERIFIED**.
 
-Roadmap effect (pending Google Drive ledger synchronization): A-02 moves verified criteria from 20/25 to 21/25, i.e. verified coverage from 80/100 to 84/100. M5 Agent Integration is CLOSED; next technical milestone is M6 Functional Vertical Slice.
+Roadmap effect: A-02 moved verified criteria from 20/25 to 21/25, i.e. verified coverage from 80/100 to 84/100. M5 Agent Integration is CLOSED; M6 Functional Vertical Slice is active.
 
 ## V-01 — Functional vertical slice with semantic drift and rehydration
 
-**Status: ACTIVE — PROTOCOL DEFINED / IMPLEMENTATION GAP IDENTIFIED**
+**Status: ACTIVE — IMPLEMENTATION PASS / REAL AGENT EXECUTION PENDING**
 
 Protocol:
 
 - `VERTICAL_SLICE/V01_FUNCTIONAL_VERTICAL_SLICE_PROTOCOL.md`
 - Protocol commit: `0eaf7bbd0fff9e2d33d5c377004819132f0bb3ab`
 
-Focused web research validated three design choices for the slice:
+Implementation merged to `main`:
 
-- application context state must remain explicit and independent of MCP transport/session state;
-- human-gated execution must be persistable across pause/resume boundaries;
-- executable repository-local evidence must be mechanically inspectable by the coding agent and verifier.
+- Merge commit: `9a7cdaa368f5d2425488aad1f284ae1cf9109620`
+- Pull request: `#1 build(v01): context-bound proposal safety gate`
+- Build report: `VERTICAL_SLICE/v01/V01_LOCAL_BUILD_REPORT.md`
+- Isolated fixture: `VERTICAL_SLICE/v01/fixture/project.initial.json`
+- Concrete work artifact: `VERTICAL_SLICE/v01/work/auth-policy.js`
+- Semantic-aware verifier: `VERTICAL_SLICE/v01/work/verify-auth-policy.js`
+- Local harness: `VERTICAL_SLICE/v01/test/v01-local.test.js`
 
-Critical gap discovered from the current adapter implementation:
+Implemented safety contract:
 
-- `larp_propose` captures current project position/hash at proposal time but is not bound to the ContextBundle used for reasoning;
-- therefore an agent can reason from stale B0 while the proposal receipt observes newer state;
-- V-01 requires deterministic context binding at `larp_propose`: `CURRENT` succeeds, `STALE_NON_BLOCKING` may proceed with warning, `STALE_BLOCKING` is rejected before journal append.
+- every `larp_propose` requires `contextBundleFingerprint`;
+- the bundle is resolved from process cache or supplied explicitly;
+- fingerprint mismatch is rejected before append;
+- proposal-time `verifyContext` is deterministic;
+- `STALE_BLOCKING` returns `CONTEXT_STALE_BLOCKING` before journal append;
+- `STALE_NON_BLOCKING` may proceed but the receipt records context freshness and drift;
+- proposal receipts include the bound ContextBundle fingerprint and context source project position;
+- a full ContextBundle can bind a proposal after MCP server restart, avoiding hidden session-state dependence.
 
-Required V-01 causal proof:
+CI evidence:
+
+- Workflow: `V01 Build Verification`
+- Final implementation run: `34142015130`
+- Job: `101805857040`
+- Result: **SUCCESS**
+- A-01 adapter regression: **15/15 PASS**
+- A-02 governance regression: **9/9 PASS**
+- V-01 isolated harness: **5/5 PASS**
+- Total: **29/29 PASS**
+
+The local harness proves that governing decision drift makes B0 `STALE_BLOCKING`, a proposal bound to stale B0 is rejected without increasing the proposal journal, rehydration produces a different CURRENT B1, and the concrete code verifier fails after drift until the implementation is adapted. It also proves the fresh B1 proposal remains non-mutating before governance.
+
+V-01 is **not VERIFIED** yet. Local deterministic execution is implementation evidence, not a substitute for the required real coding-agent causal chain.
+
+Remaining required real-agent proof:
 
 ```text
 B0 CURRENT
-→ real agent starts concrete work
+→ Codex starts concrete work
 → human-gated governing decision changes
 → B0 STALE_BLOCKING
 → stale proposal rejected / no journal append
 → rehydrate B1 CURRENT
-→ agent adapts concrete work + tests pass
-→ fresh proposal
-→ HUMAN approval
+→ Codex adapts concrete code + verifier passes
+→ fresh proposal bound to B1
+→ explicit HUMAN approval
 → validated SemanticEvent
 → B2 CURRENT reflects final state
 ```
 
 Coverage remains **21/25 = 84/100** until the complete committed V-01 evidence passes independent verification.
 
-MCP compatibility note: current adapter is 2025-era stdio and modern clients can negotiate/fall back. Native MCP `2026-07-28` dual-era serving is tracked as `GAP-MCP-2026`, not as a blocker for V-01 semantic verification.
+Next gate: run the V-01 protocol with Codex Desktop against `main` and stop at each explicit HUMAN approval boundary.
 
-Next coherent implementation unit:
+MCP compatibility note: native MCP `2026-07-28` dual-era serving remains tracked as `GAP-MCP-2026`; it is not a blocker for V-01 semantic verification.
 
-1. add ContextBundle binding/freshness enforcement to `larp_propose`;
-2. build an isolated V-01 fixture/harness;
-3. pass deterministic local tests;
-4. then run the real Codex Desktop slice and stop at explicit HUMAN gates.
-
-The roadmap/progress ledger itself remains governed by the Google Drive authority boundary documented in `TESTING_SOURCE_OF_TRUTH.md`. Google Drive was unavailable during this `::next`; GitHub records the executable V-01 protocol/state until Drive synchronization succeeds.
+The roadmap/progress ledger itself remains governed by the Google Drive authority boundary documented in `TESTING_SOURCE_OF_TRUTH.md`.
