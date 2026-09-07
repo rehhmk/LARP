@@ -37,7 +37,7 @@ Roadmap effect (per existing technical baseline): A-01 moves verified criteria f
 
 ## A-02 — Human-gated proposal -> validated SemanticEvent
 
-**Status: ACTIVE — IMPLEMENTATION PASS / HUMAN GATE PENDING**
+**Status: ACTIVE — HUMAN APPROVED / EXTERNAL APPLY + VERIFICATION PENDING**
 
 Implementation evidence on GitHub `main`:
 
@@ -54,8 +54,16 @@ Local executable implementation result recorded before commit:
 - 9 passed
 - 0 failed
 
+Human approval:
+
+- Proposal: `proposal:d29bd255-e1da-43b9-a62b-fa25c34e2499`
+- Approval receipt: `ADAPTER/.larp/control/approvals/a02-d29bd255-human-01.json`
+- Approval commit: `345d9cabbcb8cd2314725276096003bdbc85533b`
+- Actor kind: `HUMAN`
+- Approval was created by the human-control side after an explicit user `::approve` command, not by the coding agent.
+
 The test suite verifies that no approval yields zero mutation, an MCP/agent actor cannot self-approve, stale project/stream versions are rejected, an explicit HUMAN approval yields a validated `decision.changed` event, accepted state writes approval/validation/transaction/event journals, and the control CLI consumes an existing approval receipt rather than synthesizing one.
 
-A-02 is **not VERIFIED** yet. The remaining gate is an external run using the real A-01 proposal `proposal:d29bd255-e1da-43b9-a62b-fa25c34e2499` after a concrete human approval receipt is committed by the control side. Codex must then consume that receipt, apply the governed proposal, commit the resulting semantic evidence, and ChatGPT must independently verify that evidence on GitHub `main`.
+A-02 is **not VERIFIED** yet. The human gate is now satisfied. Codex must pull/inspect GitHub `main`, consume the committed approval receipt through the control CLI, apply the governed proposal, commit the resulting semantic evidence (`human_approvals.jsonl`, validation receipt, semantic transaction, semantic event, updated projection fixture, external-agent evidence), and ChatGPT must independently verify that committed evidence.
 
-Roadmap coverage remains **20/25 = 80/100** until that human-gated external evidence is accepted.
+Roadmap coverage remains **20/25 = 80/100** until that external evidence is accepted.
