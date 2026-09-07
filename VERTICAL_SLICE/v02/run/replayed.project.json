@@ -1,0 +1,145 @@
+{
+  "projectId": "v02-demo",
+  "projectPosition": 12,
+  "scopes": {
+    "root": {
+      "parentId": null,
+      "version": 1,
+      "data": {}
+    },
+    "backend": {
+      "parentId": "root",
+      "version": 1,
+      "data": {}
+    }
+  },
+  "nodes": {
+    "agent:coding": {
+      "id": "agent:coding",
+      "kind": "Agent",
+      "scopeId": "backend",
+      "lifecycle": null,
+      "version": 1,
+      "current": true,
+      "invalid": false,
+      "data": {
+        "capabilities": [
+          "code",
+          "test"
+        ],
+        "roles": [
+          "implementer"
+        ]
+      }
+    },
+    "artifact:auth-policy": {
+      "id": "artifact:auth-policy",
+      "kind": "Artifact",
+      "scopeId": "backend",
+      "lifecycle": null,
+      "version": 1,
+      "current": true,
+      "invalid": false,
+      "data": {
+        "path": "VERTICAL_SLICE/v02/work/auth-policy.js",
+        "purpose": "Concrete implementation artifact for V-02"
+      }
+    },
+    "decision:auth": {
+      "id": "decision:auth",
+      "kind": "Decision",
+      "scopeId": "backend",
+      "lifecycle": "ACTIVE",
+      "version": 1,
+      "current": true,
+      "invalid": false,
+      "data": {
+        "statement": "Use OAuth2 authorization-code flow with PKCE S256."
+      }
+    },
+    "evidence:oidc-doc": {
+      "id": "evidence:oidc-doc",
+      "kind": "Evidence",
+      "scopeId": "backend",
+      "lifecycle": null,
+      "version": 1,
+      "current": true,
+      "invalid": false,
+      "data": {
+        "summary": "The selected identity provider supports OAuth2 authorization code and PKCE S256."
+      }
+    },
+    "task:implement-auth": {
+      "id": "task:implement-auth",
+      "kind": "Task",
+      "scopeId": "backend",
+      "lifecycle": "READY",
+      "version": 1,
+      "current": true,
+      "invalid": false,
+      "data": {
+        "goal": "Implement the authentication policy.",
+        "allowedScope": "backend",
+        "acceptanceCriteria": [
+          "auth policy verifier passes",
+          "implementation reflects decision:auth",
+          "no semantic mutation bypasses governance"
+        ]
+      }
+    },
+    "unknown:refresh-policy": {
+      "id": "unknown:refresh-policy",
+      "kind": "Unknown",
+      "scopeId": "backend",
+      "lifecycle": null,
+      "version": 1,
+      "current": true,
+      "invalid": false,
+      "data": {
+        "question": "Should refresh tokens rotate on every use?"
+      }
+    }
+  },
+  "relations": [
+    {
+      "id": "rel:evidence-supports-auth",
+      "kind": "supports",
+      "source": "evidence:oidc-doc",
+      "target": "decision:auth",
+      "scopeId": "backend",
+      "active": true,
+      "version": 1,
+      "data": {}
+    },
+    {
+      "id": "rel:task-requires-auth",
+      "kind": "requires",
+      "source": "task:implement-auth",
+      "target": "decision:auth",
+      "scopeId": "backend",
+      "active": true,
+      "version": 1,
+      "data": {}
+    },
+    {
+      "id": "rel:task-unknown",
+      "kind": "has_unknown",
+      "source": "task:implement-auth",
+      "target": "unknown:refresh-policy",
+      "scopeId": "backend",
+      "active": true,
+      "version": 1,
+      "data": {}
+    },
+    {
+      "id": "rel:task-uses-auth-policy",
+      "kind": "uses",
+      "source": "task:implement-auth",
+      "target": "artifact:auth-policy",
+      "scopeId": "backend",
+      "active": true,
+      "version": 1,
+      "data": {}
+    }
+  ]
+}

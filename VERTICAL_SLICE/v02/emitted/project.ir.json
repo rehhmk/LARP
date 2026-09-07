@@ -1,0 +1,157 @@
+{
+  "irVersion": "0.1",
+  "languageVersion": "0.1",
+  "module": "v02.auth",
+  "projectId": "v02-demo",
+  "scopes": [
+    {
+      "id": "root",
+      "parentId": null,
+      "version": 1,
+      "data": {}
+    },
+    {
+      "id": "backend",
+      "parentId": "root",
+      "version": 1,
+      "data": {}
+    }
+  ],
+  "seeds": {
+    "nodes": [
+      {
+        "id": "agent:coding",
+        "kind": "Agent",
+        "scopeId": "backend",
+        "lifecycle": null,
+        "version": 1,
+        "current": true,
+        "invalid": false,
+        "data": {
+          "capabilities": [
+            "code",
+            "test"
+          ],
+          "roles": [
+            "implementer"
+          ]
+        }
+      },
+      {
+        "id": "artifact:auth-policy",
+        "kind": "Artifact",
+        "scopeId": "backend",
+        "lifecycle": null,
+        "version": 1,
+        "current": true,
+        "invalid": false,
+        "data": {
+          "path": "VERTICAL_SLICE/v02/work/auth-policy.js",
+          "purpose": "Concrete implementation artifact for V-02"
+        }
+      },
+      {
+        "id": "decision:auth",
+        "kind": "Decision",
+        "scopeId": "backend",
+        "lifecycle": "ACTIVE",
+        "version": 1,
+        "current": true,
+        "invalid": false,
+        "data": {
+          "statement": "Use OAuth2 authorization-code flow with PKCE S256."
+        }
+      },
+      {
+        "id": "evidence:oidc-doc",
+        "kind": "Evidence",
+        "scopeId": "backend",
+        "lifecycle": null,
+        "version": 1,
+        "current": true,
+        "invalid": false,
+        "data": {
+          "summary": "The selected identity provider supports OAuth2 authorization code and PKCE S256."
+        }
+      },
+      {
+        "id": "task:implement-auth",
+        "kind": "Task",
+        "scopeId": "backend",
+        "lifecycle": "READY",
+        "version": 1,
+        "current": true,
+        "invalid": false,
+        "data": {
+          "goal": "Implement the authentication policy.",
+          "allowedScope": "backend",
+          "acceptanceCriteria": [
+            "auth policy verifier passes",
+            "implementation reflects decision:auth",
+            "no semantic mutation bypasses governance"
+          ]
+        }
+      },
+      {
+        "id": "unknown:refresh-policy",
+        "kind": "Unknown",
+        "scopeId": "backend",
+        "lifecycle": null,
+        "version": 1,
+        "current": true,
+        "invalid": false,
+        "data": {
+          "question": "Should refresh tokens rotate on every use?"
+        }
+      }
+    ],
+    "relations": [
+      {
+        "id": "rel:evidence-supports-auth",
+        "kind": "supports",
+        "source": "evidence:oidc-doc",
+        "target": "decision:auth",
+        "scopeId": "backend",
+        "active": true,
+        "version": 1,
+        "data": {}
+      },
+      {
+        "id": "rel:task-requires-auth",
+        "kind": "requires",
+        "source": "task:implement-auth",
+        "target": "decision:auth",
+        "scopeId": "backend",
+        "active": true,
+        "version": 1,
+        "data": {}
+      },
+      {
+        "id": "rel:task-unknown",
+        "kind": "has_unknown",
+        "source": "task:implement-auth",
+        "target": "unknown:refresh-policy",
+        "scopeId": "backend",
+        "active": true,
+        "version": 1,
+        "data": {}
+      },
+      {
+        "id": "rel:task-uses-auth-policy",
+        "kind": "uses",
+        "source": "task:implement-auth",
+        "target": "artifact:auth-policy",
+        "scopeId": "backend",
+        "active": true,
+        "version": 1,
+        "data": {}
+      }
+    ]
+  },
+  "semanticFingerprint": "f99d7b2c4c63fa5c816dee7bfe728e4c7ad366e8e0420d8d22f13a0530bd4fd1",
+  "source": {
+    "path": "source/project.larp",
+    "fingerprint": "75658600482aa3dc7a3651ad04e98967ec90075275a275d3570ed20477fb0948"
+  },
+  "irFingerprint": "a7fbbbac729869ff16776a684721b354df54066c69ea19b91767411a313dc32b"
+}

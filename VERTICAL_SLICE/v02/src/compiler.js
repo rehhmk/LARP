@@ -1,5 +1,6 @@
 import { createHash } from 'node:crypto';
-import { readFile } from 'node:fs/promises';
+import { mkdir, readFile, rename, rm, writeFile } from 'node:fs/promises';
+import { dirname } from 'node:path';
 
 export class CompileError extends Error {
   constructor(code, message, line = null) {
@@ -24,6 +25,34 @@ export function canonicalJson(value) {
 
 export function sha256(value) {
   return createHash('sha256').update(value).digest('hex');
+}
+
+export function canonicalSource(source) {
+  const normalized = source.replace(/\r\n?/g, '\n');
+  const lines = normalized.split('\n').map((line) => line.replace(/[ \t]+$/g, ''));
+  while (lines[0] === '') lines.shift();
+  while (lines.at(-1) === '') lines.pop();
+  return `${lines.join('\n')}\n`;
+}
+
+function semanticProgramFromIr(ir) {
+  return {
+    irVersion: ir.irVersion,
+    languageVersion: ir.languageVersion,
+    module: ir.module,
+    projectId: ir.projectId,
+    scopes: ir.scopes,
+    seeds: ir.seeds,
+  };
+}
+
+export function semanticFingerprint(ir) {
+  return sha256(canonicalJson(semanticProgramFromIr(ir)));
+}
+
+export function irFingerprint(ir) {
+  const { irFingerprint: _ignored, ...fingerprintable } = ir;
+  return sha256(canonicalJson(fingerprintable));
 }
 
 function parseQuoted(raw, line) {
@@ -63,8 +92,25 @@ function parseNodeHeader(text, line) {
   return { id, kind, scopeId, lifecycle };
 }
 
+function orderScopes(scopes) {
+  const ordered = [];
+  const remaining = new Map(scopes.map((scope) => [scope.id, scope]));
+  while (remaining.size > 0) {
+    const ready = [...remaining.values()]
+      .filter(({ parentId }) => parentId == null || ordered.some(({ id }) => id === parentId))
+      .sort((a, b) => a.id.localeCompare(b.id, 'en'));
+    if (ready.length === 0) throw new CompileError('SCOPE_CYCLE', 'Scope parent references contain a cycle.');
+    for (const scope of ready) {
+      ordered.push(scope);
+      remaining.delete(scope.id);
+    }
+  }
+  return ordered;
+}
+
 export function compileSource(source, { sourcePath = '<memory>' } = {}) {
-  const lines = source.replace(/\r\n/g, '\n').split('\n');
+  const canonical = canonicalSource(source);
+  const lines = canonical.split('\n');
   const meaningful = lines
     .map((text, index) => ({ text: text.trim(), line: index + 1 }))
     .filter(({ text }) => text && !text.startsWith('#'));
@@ -165,19 +211,42 @@ export function compileSource(source, { sourcePath = '<memory>' } = {}) {
     languageVersion: '0.1',
     module: moduleName,
     projectId,
-    scopes: scopes.sort((a, b) => a.id.localeCompare(b.id)),
+    scopes: orderScopes(scopes),
     seeds: {
       nodes: nodes.sort((a, b) => a.id.localeCompare(b.id)),
       relations: relations.sort((a, b) => a.id.localeCompare(b.id)),
     },
   };
-  const sourceFingerprint = sha256(canonicalJson(semanticProgram));
-  return {
+  const draft = {
     ...semanticProgram,
-    source: { path: sourcePath, fingerprint: sourceFingerprint },
+    semanticFingerprint: semanticFingerprint(semanticProgram),
+    source: { path: sourcePath, fingerprint: sha256(canonical) },
   };
+  return { ...draft, irFingerprint: irFingerprint(draft) };
 }
 
-export async function compileFile(path) {
-  return compileSource(await readFile(path, 'utf8'), { sourcePath: path });
+export async function compileFile(path, { sourcePath = path } = {}) {
+  return compileSource(await readFile(path, 'utf8'), { sourcePath });
+}
+
+export function diagnosticFor(error) {
+  if (error instanceof CompileError) {
+    return {
+      severity: 'ERROR',
+      code: error.code,
+      message: error.message,
+      ...(error.line == null ? {} : { line: error.line }),
+    };
+  }
+  return { severity: 'ERROR', code: 'COMPILER_INTERNAL', message: error?.message ?? String(error) };
+}
+
+export async function emitIrFile({ sourcePath, outputPath, recordedSourcePath = sourcePath }) {
+  await rm(outputPath, { force: true });
+  const ir = await compileFile(sourcePath, { sourcePath: recordedSourcePath });
+  await mkdir(dirname(outputPath), { recursive: true });
+  const temporary = `${outputPath}.tmp`;
+  await writeFile(temporary, `${JSON.stringify(ir, null, 2)}\n`, 'utf8');
+  await rename(temporary, outputPath);
+  return ir;
 }

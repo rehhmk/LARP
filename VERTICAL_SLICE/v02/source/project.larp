@@ -6,17 +6,17 @@ scope root
 scope backend parent root
 
 seed node decision:auth kind Decision scope backend lifecycle ACTIVE
-  statement "Use OAuth2 authorization-code flow with PKCE S256"
+  statement "Use OAuth2 authorization-code flow with PKCE S256."
 end
 
 seed node task:implement-auth kind Task scope backend lifecycle READY
-  goal "Implement the authentication policy module so it reflects the governing auth decision."
+  goal "Implement the authentication policy."
   allowedScope "backend"
   acceptanceCriteria ["auth policy verifier passes", "implementation reflects decision:auth", "no semantic mutation bypasses governance"]
 end
 
 seed node evidence:oidc-doc kind Evidence scope backend
-  summary "The selected identity provider supports OAuth2 authorization code, PKCE S256, and DPoP."
+  summary "The selected identity provider supports OAuth2 authorization code and PKCE S256."
 end
 
 seed node unknown:refresh-policy kind Unknown scope backend

@@ -4,9 +4,11 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "compile": "node scripts/compile.js program/auth.larp build/program.ir.json",
+    "compile": "node scripts/compile.js source/project.larp emitted/project.ir.json",
+    "bootstrap": "node scripts/bootstrap.js",
     "reset:real": "node scripts/reset-real-run.js",
-    "replay:real": "node scripts/replay-real-run.js",
+    "replay:real": "node scripts/replay.js",
     "test": "node --test test/v02-local.test.js"
-  }
+  },
+  "engines": { "node": ">=22" }
 }
