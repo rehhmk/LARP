@@ -1,0 +1,11 @@
+{
+  "approvalId": "approval:a02-d29bd255-human-01",
+  "proposalId": "proposal:d29bd255-e1da-43b9-a62b-fa25c34e2499",
+  "approved": true,
+  "actor": {
+    "kind": "HUMAN",
+    "id": "human:project-owner",
+    "name": "Project Owner"
+  },
+  "reason": "Explicit approval for A-02 external verification"
+}
