@@ -1,0 +1,321 @@
+{
+  "schemaVersion": "0.1",
+  "compilerVersion": "0.1",
+  "policy": {
+    "id": "larp/context/default",
+    "version": "0.1"
+  },
+  "projectId": "x01-phase0-demo",
+  "compileScopeId": "backend",
+  "sourceProjectPosition": 12,
+  "taskContract": {
+    "id": "task:implement-auth",
+    "scopeId": "backend",
+    "lifecycle": "READY",
+    "goal": "Implement the authentication policy.",
+    "acceptanceCriteria": [
+      "auth policy verifier passes",
+      "frontend state remains out of scope"
+    ],
+    "allowedScope": "backend"
+  },
+  "authorityContext": {
+    "agent": {
+      "id": "agent:coding",
+      "kind": "Agent",
+      "scopeId": "backend",
+      "version": 1,
+      "current": true,
+      "invalid": false,
+      "lifecycle": null,
+      "data": {
+        "capabilities": [
+          "code",
+          "test"
+        ],
+        "roles": [
+          "implementer"
+        ]
+      }
+    },
+    "rules": []
+  },
+  "decisions": [
+    {
+      "id": "decision:auth",
+      "kind": "Decision",
+      "scopeId": "backend",
+      "version": 2,
+      "current": true,
+      "invalid": false,
+      "lifecycle": "ACTIVE",
+      "data": {
+        "statement": "Use OAuth2 authorization-code flow with PKCE S256 and DPoP."
+      }
+    }
+  ],
+  "dependencies": [
+    {
+      "id": "rel:task-requires-auth",
+      "kind": "requires",
+      "source": "task:implement-auth",
+      "target": "decision:auth",
+      "scopeId": "backend",
+      "active": true,
+      "version": 1,
+      "watchedDimensions": null,
+      "impactOnChange": null,
+      "data": {}
+    },
+    {
+      "id": "rel:task-uses-auth-policy",
+      "kind": "uses",
+      "source": "task:implement-auth",
+      "target": "artifact:auth-policy",
+      "scopeId": "backend",
+      "active": true,
+      "version": 1,
+      "watchedDimensions": null,
+      "impactOnChange": null,
+      "data": {}
+    }
+  ],
+  "evidence": [],
+  "claims": [],
+  "assumptions": [],
+  "unknowns": [],
+  "artifacts": [
+    {
+      "id": "artifact:auth-policy",
+      "kind": "Artifact",
+      "scopeId": "backend",
+      "version": 1,
+      "current": true,
+      "invalid": false,
+      "lifecycle": null,
+      "data": {
+        "path": "VALIDATION/x01/work/auth-policy.js"
+      }
+    }
+  ],
+  "other": [],
+  "warnings": [],
+  "blockers": [],
+  "dependencyManifest": [
+    {
+      "refType": "node",
+      "ref": "agent:coding",
+      "kind": "Agent",
+      "observedVersion": 1,
+      "watchedDimensions": [
+        "current",
+        "data.capabilities",
+        "data.roles",
+        "invalid"
+      ],
+      "semanticFingerprint": "1b3d2143b0e013995dbeab605f6a1e9a6fb8fb3c2fd36f9961ba7cc90e9ceef2",
+      "inclusionClass": "MANDATORY",
+      "impactOnChange": "BLOCK",
+      "selectedBecause": [
+        "EXECUTING_AGENT"
+      ]
+    },
+    {
+      "refType": "node",
+      "ref": "artifact:auth-policy",
+      "kind": "Artifact",
+      "observedVersion": 1,
+      "watchedDimensions": [
+        "current",
+        "data",
+        "invalid"
+      ],
+      "semanticFingerprint": "af04c257da4e528d2f0595479912d34fa560fdfae5c691ccfc175c506558e55d",
+      "inclusionClass": "SUPPORTING",
+      "impactOnChange": "REVIEW",
+      "selectedBecause": [
+        "uses:rel:task-uses-auth-policy"
+      ]
+    },
+    {
+      "refType": "node",
+      "ref": "decision:auth",
+      "kind": "Decision",
+      "observedVersion": 2,
+      "watchedDimensions": [
+        "current",
+        "data",
+        "invalid",
+        "lifecycle"
+      ],
+      "semanticFingerprint": "577cbda9f066cc96e236f1fca4f10bdc79ef43191317544dc7dddde1ebbc0a90",
+      "inclusionClass": "MANDATORY",
+      "impactOnChange": "BLOCK",
+      "selectedBecause": [
+        "requires:rel:task-requires-auth"
+      ]
+    },
+    {
+      "refType": "node",
+      "ref": "task:implement-auth",
+      "kind": "Task",
+      "observedVersion": 1,
+      "watchedDimensions": [
+        "current",
+        "data.acceptanceCriteria",
+        "data.allowedScope",
+        "data.goal",
+        "invalid",
+        "lifecycle"
+      ],
+      "semanticFingerprint": "066b339de49d2a2552671b2e9df52d699e1ba7a8a66b2f3c00c81cd86f797146",
+      "inclusionClass": "MANDATORY",
+      "impactOnChange": "BLOCK",
+      "selectedBecause": [
+        "TASK_CONTRACT"
+      ]
+    },
+    {
+      "refType": "relation",
+      "ref": "rel:task-requires-auth",
+      "kind": "requires",
+      "observedVersion": 1,
+      "watchedDimensions": [
+        "active",
+        "data",
+        "kind",
+        "source",
+        "target"
+      ],
+      "semanticFingerprint": "efdf1f816615fa16bcf8b68be29145141437dd26c764559b9a66637b242c1225",
+      "inclusionClass": "STRUCTURAL",
+      "impactOnChange": "BLOCK",
+      "selectedBecause": [
+        "requires:task:implement-auth->decision:auth"
+      ]
+    },
+    {
+      "refType": "relation",
+      "ref": "rel:task-uses-auth-policy",
+      "kind": "uses",
+      "observedVersion": 1,
+      "watchedDimensions": [
+        "active",
+        "data",
+        "kind",
+        "source",
+        "target"
+      ],
+      "semanticFingerprint": "aecea1085f6e06ed50c722735c26d8fa0f6c29a35bf3207b3c9c89ddf63532a1",
+      "inclusionClass": "STRUCTURAL",
+      "impactOnChange": "REVIEW",
+      "selectedBecause": [
+        "uses:task:implement-auth->artifact:auth-policy"
+      ]
+    },
+    {
+      "refType": "scope",
+      "ref": "backend",
+      "kind": "Scope",
+      "observedVersion": 1,
+      "watchedDimensions": [
+        "parentId",
+        "data"
+      ],
+      "semanticFingerprint": "bb3f479e2c1b77390a23320ee64c13f1211ddaf87c8f6e04518f2c164fbd1811",
+      "inclusionClass": "STRUCTURAL",
+      "impactOnChange": "BLOCK",
+      "selectedBecause": [
+        "SCOPE_VISIBILITY_CHAIN"
+      ]
+    },
+    {
+      "refType": "scope",
+      "ref": "root",
+      "kind": "Scope",
+      "observedVersion": 1,
+      "watchedDimensions": [
+        "parentId",
+        "data"
+      ],
+      "semanticFingerprint": "99b9c36d2ffe3acc646fd8050bd9aca5319d022481e79074e3b6fa6ceaab9b5c",
+      "inclusionClass": "STRUCTURAL",
+      "impactOnChange": "BLOCK",
+      "selectedBecause": [
+        "SCOPE_VISIBILITY_CHAIN"
+      ]
+    }
+  ],
+  "selectionTrace": [
+    {
+      "refType": "node",
+      "ref": "agent:coding",
+      "selectedBecause": [
+        "EXECUTING_AGENT"
+      ]
+    },
+    {
+      "refType": "node",
+      "ref": "artifact:auth-policy",
+      "selectedBecause": [
+        "uses:rel:task-uses-auth-policy"
+      ]
+    },
+    {
+      "refType": "node",
+      "ref": "decision:auth",
+      "selectedBecause": [
+        "requires:rel:task-requires-auth"
+      ]
+    },
+    {
+      "refType": "node",
+      "ref": "task:implement-auth",
+      "selectedBecause": [
+        "TASK_CONTRACT"
+      ]
+    },
+    {
+      "refType": "relation",
+      "ref": "rel:task-requires-auth",
+      "selectedBecause": [
+        "requires:task:implement-auth->decision:auth"
+      ]
+    },
+    {
+      "refType": "relation",
+      "ref": "rel:task-uses-auth-policy",
+      "selectedBecause": [
+        "uses:task:implement-auth->artifact:auth-policy"
+      ]
+    },
+    {
+      "refType": "scope",
+      "ref": "backend",
+      "selectedBecause": [
+        "SCOPE_VISIBILITY_CHAIN"
+      ]
+    },
+    {
+      "refType": "scope",
+      "ref": "root",
+      "selectedBecause": [
+        "SCOPE_VISIBILITY_CHAIN"
+      ]
+    }
+  ],
+  "omissionManifest": [
+    {
+      "ref": "authority:human-approval",
+      "kind": "Authority",
+      "reason": "NOT_RELEVANT"
+    },
+    {
+      "ref": "decision:frontend-theme",
+      "kind": "Decision",
+      "reason": "INVISIBLE"
+    }
+  ],
+  "inputFingerprint": "3041d9bef7f1bfa8e6cccda1b3866459f35c8cde5f223ee1697a54fb6d9b2f4c",
+  "bundleFingerprint": "25eac33f7253d2cce67dc20ee35c7cf3d5d3b425eb012b343ae1418ad1676e33"
+}

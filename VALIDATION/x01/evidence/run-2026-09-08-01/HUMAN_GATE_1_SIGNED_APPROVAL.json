@@ -1,0 +1,17 @@
+{
+  "approvalId": "approval:x01-human-gate-1",
+  "proposalId": "proposal:9a16a05e-ddfe-45e1-a10d-f954d35d5520",
+  "approved": true,
+  "actor": {
+    "kind": "HUMAN",
+    "id": "human:x01-owner",
+    "name": "External X-01 Human"
+  },
+  "reason": "Explicit external approval for X-01 HUMAN Gate 1",
+  "provenance": {
+    "scheme": "digital-signature",
+    "algorithm": "Ed25519",
+    "keyId": "human:x01-owner",
+    "signature": "0BV2hHOKq4gSF1srOjGSiq9nYyWtFZntBpW9zAfFjGluSFpS1kbHC/JBVz2rq3L62kO8Jz1+wk5qJVhGpiCrCw=="
+  }
+}

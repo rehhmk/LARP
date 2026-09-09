@@ -1,0 +1,44 @@
+{
+  "status": "CRYPTOGRAPHIC_PREFLIGHT_ACCEPTED",
+  "proposalId": "proposal:9a16a05e-ddfe-45e1-a10d-f954d35d5520",
+  "approvalId": "approval:x01-human-gate-1",
+  "suppliedTrustStoreFingerprint": "0e298f9a4223237ba68c16ff7e681d04a7922baf6173ef9b08e4299f11862d8a",
+  "canonicalTrustStoreFingerprint": "0e298f9a4223237ba68c16ff7e681d04a7922baf6173ef9b08e4299f11862d8a",
+  "validation": {
+    "result": "ACCEPTED",
+    "proposalId": "proposal:9a16a05e-ddfe-45e1-a10d-f954d35d5520",
+    "approvalId": "approval:x01-human-gate-1",
+    "targetId": "decision:auth",
+    "previousStreamVersion": 1,
+    "nextStreamVersion": 2,
+    "previousProjectPosition": 11,
+    "nextProjectPosition": 12,
+    "beforeStatement": "Use OAuth2 authorization-code flow with PKCE S256.",
+    "afterStatement": "Use OAuth2 authorization-code flow with PKCE S256 and DPoP.",
+    "actor": {
+      "kind": "HUMAN",
+      "id": "human:x01-owner",
+      "name": "External X-01 Human"
+    },
+    "approvalProvenance": {
+      "scheme": "digital-signature",
+      "algorithm": "Ed25519",
+      "keyId": "human:x01-owner",
+      "trustStoreFingerprint": "0e298f9a4223237ba68c16ff7e681d04a7922baf6173ef9b08e4299f11862d8a",
+      "publicKeyFingerprint": "a89af804a2ebc194813544bd1848e66dd9d4093b24e7c7e71dc9e8a0cdd3d450",
+      "verified": true
+    },
+    "authorityBinding": {
+      "taskId": "task:implement-auth",
+      "taskScopeId": "backend",
+      "taskAllowedScopeId": "backend",
+      "agentId": "agent:coding",
+      "agentScopeId": "backend",
+      "compileScopeId": "backend",
+      "targetId": "decision:auth",
+      "targetScopeId": "backend",
+      "decision": "ALLOW"
+    }
+  },
+  "semanticMutationApplied": false
+}

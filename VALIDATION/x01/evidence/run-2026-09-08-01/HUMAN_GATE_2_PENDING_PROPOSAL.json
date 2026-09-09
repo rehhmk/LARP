@@ -1,0 +1,107 @@
+{
+  "status": "PENDING_EXTERNAL_HUMAN_APPROVAL",
+  "exactLocalInput": {
+    "interface": "LarpAdapterRuntime.propose",
+    "args": {
+      "commandType": "decision.propose_change",
+      "targetId": "decision:auth",
+      "expectedStreamVersion": 2,
+      "payload": {
+        "statement": "Use OAuth2 authorization-code flow with PKCE S256, DPoP, and enforce RFC 7636 verifier syntax."
+      },
+      "reason": "X-01 final liveness proof using a fresh CURRENT ContextBundle.",
+      "contextBundleFingerprint": "25eac33f7253d2cce67dc20ee35c7cf3d5d3b425eb012b343ae1418ad1676e33"
+    },
+    "meta": {
+      "clientName": "x01-real-agent-run-01",
+      "clientVersion": "phase1-gate2"
+    }
+  },
+  "proposalReceipt": {
+    "proposalId": "proposal:dc89147b-7d01-426c-95dd-41e89366d234",
+    "projectId": "x01-phase0-demo",
+    "projectPositionObserved": 12,
+    "projectFileHashObserved": "3af31c6441a69ebe38fd58748f3df07a89769577335d0acd47fe7ea0a54f5aef",
+    "commandType": "decision.propose_change",
+    "targetId": "decision:auth",
+    "payload": {
+      "statement": "Use OAuth2 authorization-code flow with PKCE S256, DPoP, and enforce RFC 7636 verifier syntax."
+    },
+    "expectedStreamVersion": 2,
+    "reason": "X-01 final liveness proof using a fresh CURRENT ContextBundle.",
+    "contextBundleFingerprint": "25eac33f7253d2cce67dc20ee35c7cf3d5d3b425eb012b343ae1418ad1676e33",
+    "contextSourceProjectPosition": 12,
+    "contextFreshnessAtProposal": "CURRENT",
+    "contextSeverityAtProposal": "NONE",
+    "contextDrift": [],
+    "authorityBinding": {
+      "taskId": "task:implement-auth",
+      "taskScopeId": "backend",
+      "taskAllowedScopeId": "backend",
+      "agentId": "agent:coding",
+      "agentScopeId": "backend",
+      "compileScopeId": "backend",
+      "targetId": "decision:auth",
+      "targetScopeId": "backend",
+      "decision": "ALLOW"
+    },
+    "actor": {
+      "kind": "MCP_CLIENT",
+      "name": "x01-real-agent-run-01",
+      "version": "phase1-gate2"
+    },
+    "status": "PROPOSED",
+    "semanticMutationApplied": false,
+    "governanceRequired": true
+  },
+  "freshContextBundleFingerprint": "25eac33f7253d2cce67dc20ee35c7cf3d5d3b425eb012b343ae1418ad1676e33",
+  "freshContextVerification": {
+    "bundleFingerprint": "25eac33f7253d2cce67dc20ee35c7cf3d5d3b425eb012b343ae1418ad1676e33",
+    "freshness": "CURRENT",
+    "severity": "NONE",
+    "changes": [],
+    "checkedAgainstProjectPosition": 12
+  },
+  "approvalCreatedByWorker": false,
+  "approvalSimulatedByWorker": false,
+  "semanticMutationApplied": false,
+  "before": {
+    "projectPosition": 12,
+    "projectionSha256": "3af31c6441a69ebe38fd58748f3df07a89769577335d0acd47fe7ea0a54f5aef",
+    "semanticEventCount": 12,
+    "semanticEventJournalSha256": "5f2c52b5c03e156354a27b98a20ece6a5ed79ba2eed9ec52c8bccdfe23c5f985",
+    "semanticTransactionCount": 1,
+    "semanticTransactionJournalSha256": "fa0939b423e84dc75c312d1b742aa6c8377b2ba4f990b7f3808dd13f10d31779",
+    "semanticValidationCount": 1,
+    "semanticValidationJournalSha256": "6092c1a82c461bde4348309f7e8847e8cd91428f6b7415d4d6bf779416f836b7",
+    "proposalCount": 2,
+    "proposalJournalSha256": "f85aa8d35a1f8a0d0700d15cf893aa8e986555b107e2ed3115beddd3dad1b863",
+    "humanApprovalCount": 1,
+    "humanApprovalJournalSha256": "d8d65f9cd5a4bc85a8d974ac30c69c47e828a4143af93886fb2ef69b73b7ccf8"
+  },
+  "after": {
+    "projectPosition": 12,
+    "projectionSha256": "3af31c6441a69ebe38fd58748f3df07a89769577335d0acd47fe7ea0a54f5aef",
+    "semanticEventCount": 12,
+    "semanticEventJournalSha256": "5f2c52b5c03e156354a27b98a20ece6a5ed79ba2eed9ec52c8bccdfe23c5f985",
+    "semanticTransactionCount": 1,
+    "semanticTransactionJournalSha256": "fa0939b423e84dc75c312d1b742aa6c8377b2ba4f990b7f3808dd13f10d31779",
+    "semanticValidationCount": 1,
+    "semanticValidationJournalSha256": "6092c1a82c461bde4348309f7e8847e8cd91428f6b7415d4d6bf779416f836b7",
+    "proposalCount": 3,
+    "proposalJournalSha256": "0a6f61513ff219188dc908f78ff1ff70e7ce59bdbab7d333432a16784a3b35a9",
+    "humanApprovalCount": 1,
+    "humanApprovalJournalSha256": "d8d65f9cd5a4bc85a8d974ac30c69c47e828a4143af93886fb2ef69b73b7ccf8"
+  },
+  "delta": {
+    "semanticEventsDelta": 0,
+    "semanticTransactionsDelta": 0,
+    "semanticValidationsDelta": 0,
+    "proposalsDelta": 1,
+    "humanApprovalsDelta": 0,
+    "projectPositionDelta": 0,
+    "projectionHashUnchanged": true,
+    "semanticEventJournalHashUnchanged": true,
+    "semanticTransactionJournalHashUnchanged": true
+  }
+}

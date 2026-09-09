@@ -1,0 +1,16 @@
+{
+  "bundleFingerprint": "7f0f3318afb9592113c91b7b294c970d83fb362318270384665954275e8cc268",
+  "freshness": "STALE_BLOCKING",
+  "severity": "BLOCK",
+  "changes": [
+    {
+      "refType": "node",
+      "ref": "decision:auth",
+      "reason": "SEMANTIC_FINGERPRINT_CHANGED",
+      "severity": "BLOCK",
+      "before": "ec639b38fd094d6ef9448143adc77bf104bddabe82cea331e14ea857a0fb237c",
+      "after": "577cbda9f066cc96e236f1fca4f10bdc79ef43191317544dc7dddde1ebbc0a90"
+    }
+  ],
+  "checkedAgainstProjectPosition": 12
+}

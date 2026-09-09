@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "checks": {
+    "externalApprovalCryptographicallyVerified": true,
+    "gate1K01Accepted": true,
+    "gate1K02Committed": true,
+    "gate1ExactlyOneSemanticEvent": true,
+    "gate1ExactlyOneSemanticTransaction": true,
+    "gate1ProjectAdvancedOnce": true,
+    "preservedB0BecameStaleBlocking": true,
+    "staleAttemptRejected": true,
+    "staleAttemptZeroAcceptedSemanticMutation": true,
+    "freshContextIsCurrent": true,
+    "gate2ProposalIsUnapplied": true,
+    "gate2ProposalCreationDidNotMutateSemantics": true,
+    "exactlyOneHumanApprovalTotal": true,
+    "exactlyOneSemanticTransactionTotal": true,
+    "exactlyTwelveAcceptedSemanticEventsTotal": true,
+    "projectPositionIsTwelve": true,
+    "physicalBoundaryGapRemainsOpen": true
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "status": "X01 PHASE1 HUMAN GATE 2",
+  "branch": "validation/x01-real-agent-run-01",
+  "gate1HeadCommit": "22173ab4648aaf6c7de6107dfbd0f6a1e7be9c03",
+  "proposalId": "proposal:dc89147b-7d01-426c-95dd-41e89366d234",
+  "proposalStatement": "Use OAuth2 authorization-code flow with PKCE S256, DPoP, and enforce RFC 7636 verifier syntax.",
+  "freshContextBundle": "25eac33f7253d2cce67dc20ee35c7cf3d5d3b425eb012b343ae1418ad1676e33",
+  "attacksCompleted": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E"
+  ],
+  "forbiddenSemanticEvents": 0,
+  "gate1GovernedSemanticEvents": 1,
+  "physicalBoundaryGap": "OPEN",
+  "finalSnapshot": {
+    "projectPosition": 12,
+    "projectionSha256": "3af31c6441a69ebe38fd58748f3df07a89769577335d0acd47fe7ea0a54f5aef",
+    "semanticEventCount": 12,
+    "semanticEventJournalSha256": "5f2c52b5c03e156354a27b98a20ece6a5ed79ba2eed9ec52c8bccdfe23c5f985",
+    "semanticTransactionCount": 1,
+    "semanticTransactionJournalSha256": "fa0939b423e84dc75c312d1b742aa6c8377b2ba4f990b7f3808dd13f10d31779",
+    "semanticValidationCount": 1,
+    "semanticValidationJournalSha256": "6092c1a82c461bde4348309f7e8847e8cd91428f6b7415d4d6bf779416f836b7",
+    "proposalCount": 3,
+    "proposalJournalSha256": "0a6f61513ff219188dc908f78ff1ff70e7ce59bdbab7d333432a16784a3b35a9",
+    "humanApprovalCount": 1,
+    "humanApprovalJournalSha256": "d8d65f9cd5a4bc85a8d974ac30c69c47e828a4143af93886fb2ef69b73b7ccf8"
+  }
+}

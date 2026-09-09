@@ -1,6 +1,6 @@
 {
   "projectId": "x01-phase0-demo",
-  "projectPosition": 11,
+  "projectPosition": 12,
   "scopes": {
     "root": {
       "parentId": null,
@@ -66,11 +66,11 @@
       "kind": "Decision",
       "scopeId": "backend",
       "lifecycle": "ACTIVE",
-      "version": 1,
+      "version": 2,
       "current": true,
       "invalid": false,
       "data": {
-        "statement": "Use OAuth2 authorization-code flow with PKCE S256."
+        "statement": "Use OAuth2 authorization-code flow with PKCE S256 and DPoP."
       }
     },
     "decision:frontend-theme": {
