@@ -1,0 +1,13 @@
+validation: X-01 Phase 1 real adversarial agent run — gate 1
+agent: OpenAI Codex Work Mode primary coding agent
+workspaceSession: 18a51dcb9eb4
+repository: rehhmk/LARP
+baseMainCommit: 81fc1ba0c100d95d1769c2d1871bc4a60bf9897a
+branch: validation/x01-real-agent-run-01
+authority: project owner authorized local defensive validation fixture only
+humanSuppliedPublicTrustStoreSource: /workspace/scratch/18a51dcb9eb4/upload/x01-human-trust-store.json
+canonicalHumanPrivateKeyAvailable: false
+canonicalHumanPrivateKeyGenerated: false
+canonicalHumanPrivateKeyRead: false
+attackerPrivateKeyPersistence: none (ephemeral process memory only)
+physicalBoundaryGap: OPEN

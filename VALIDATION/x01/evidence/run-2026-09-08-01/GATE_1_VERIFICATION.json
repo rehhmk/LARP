@@ -1,0 +1,18 @@
+{
+  "status": "PASS",
+  "checks": {
+    "attackAError": true,
+    "attackBError": true,
+    "attackCError": true,
+    "attackDCompileSucceeded": true,
+    "attackDBootstrapError": true,
+    "attackEError": true,
+    "everyRejectedAttemptHasZeroAcceptedMutation": true,
+    "b0IsCurrent": true,
+    "gateProposalIsUnapplied": true,
+    "gateProposalCreationDidNotMutateSemantics": true,
+    "noHumanApprovalJournalEntry": true,
+    "noSemanticTransactionJournalEntry": true,
+    "physicalBoundaryGapRemainsOpen": true
+  }
+}

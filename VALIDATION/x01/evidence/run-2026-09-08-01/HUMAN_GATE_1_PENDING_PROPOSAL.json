@@ -1,0 +1,101 @@
+{
+  "status": "PENDING_EXTERNAL_HUMAN_APPROVAL",
+  "exactLocalInput": {
+    "interface": "LarpAdapterRuntime.propose",
+    "args": {
+      "commandType": "decision.propose_change",
+      "targetId": "decision:auth",
+      "expectedStreamVersion": 1,
+      "payload": {
+        "statement": "Use OAuth2 authorization-code flow with PKCE S256 and DPoP."
+      },
+      "reason": "X-01 Attack C setup: once externally approved, this governing Decision change makes preserved B0 STALE_BLOCKING.",
+      "contextBundleFingerprint": "7f0f3318afb9592113c91b7b294c970d83fb362318270384665954275e8cc268"
+    },
+    "meta": {
+      "clientName": "x01-real-agent-run-01",
+      "clientVersion": "phase1-gate1"
+    }
+  },
+  "proposalReceipt": {
+    "proposalId": "proposal:9a16a05e-ddfe-45e1-a10d-f954d35d5520",
+    "projectId": "x01-phase0-demo",
+    "projectPositionObserved": 11,
+    "projectFileHashObserved": "d792a3eda8729655e3b526e1a1dfec7d80402e92b696b8c7f2cfc0b71d5b550b",
+    "commandType": "decision.propose_change",
+    "targetId": "decision:auth",
+    "payload": {
+      "statement": "Use OAuth2 authorization-code flow with PKCE S256 and DPoP."
+    },
+    "expectedStreamVersion": 1,
+    "reason": "X-01 Attack C setup: once externally approved, this governing Decision change makes preserved B0 STALE_BLOCKING.",
+    "contextBundleFingerprint": "7f0f3318afb9592113c91b7b294c970d83fb362318270384665954275e8cc268",
+    "contextSourceProjectPosition": 11,
+    "contextFreshnessAtProposal": "CURRENT",
+    "contextSeverityAtProposal": "NONE",
+    "contextDrift": [],
+    "authorityBinding": {
+      "taskId": "task:implement-auth",
+      "taskScopeId": "backend",
+      "taskAllowedScopeId": "backend",
+      "agentId": "agent:coding",
+      "agentScopeId": "backend",
+      "compileScopeId": "backend",
+      "targetId": "decision:auth",
+      "targetScopeId": "backend",
+      "decision": "ALLOW"
+    },
+    "actor": {
+      "kind": "MCP_CLIENT",
+      "name": "x01-real-agent-run-01",
+      "version": "phase1-gate1"
+    },
+    "status": "PROPOSED",
+    "semanticMutationApplied": false,
+    "governanceRequired": true
+  },
+  "preservedContextBundleFingerprint": "7f0f3318afb9592113c91b7b294c970d83fb362318270384665954275e8cc268",
+  "preservedContextFreshness": "CURRENT",
+  "expectedEffectAfterFutureAcceptedApply": "decision:auth stream version 1 -> 2 and project position +1; preserved B0 then verifies STALE_BLOCKING",
+  "approvalCreatedByWorker": false,
+  "approvalSimulatedByWorker": false,
+  "semanticMutationApplied": false,
+  "before": {
+    "projectPosition": 11,
+    "projectionSha256": "d792a3eda8729655e3b526e1a1dfec7d80402e92b696b8c7f2cfc0b71d5b550b",
+    "semanticEventCount": 11,
+    "semanticEventJournalSha256": "c5eff6d82bd9740ce49ca161fa3f3469f8a561616d76cb22fa48ed65b211be29",
+    "semanticTransactionCount": 0,
+    "semanticTransactionJournalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "semanticValidationCount": 0,
+    "semanticValidationJournalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "proposalCount": 1,
+    "proposalJournalSha256": "75fb5c16d7b8211e1a99539eb64ddeee8d29017d060e956f694fd12c4b1dd08c",
+    "humanApprovalCount": 0,
+    "humanApprovalJournalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "after": {
+    "projectPosition": 11,
+    "projectionSha256": "d792a3eda8729655e3b526e1a1dfec7d80402e92b696b8c7f2cfc0b71d5b550b",
+    "semanticEventCount": 11,
+    "semanticEventJournalSha256": "c5eff6d82bd9740ce49ca161fa3f3469f8a561616d76cb22fa48ed65b211be29",
+    "semanticTransactionCount": 0,
+    "semanticTransactionJournalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "semanticValidationCount": 0,
+    "semanticValidationJournalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "proposalCount": 2,
+    "proposalJournalSha256": "f85aa8d35a1f8a0d0700d15cf893aa8e986555b107e2ed3115beddd3dad1b863",
+    "humanApprovalCount": 0,
+    "humanApprovalJournalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "semanticInvariant": {
+    "semanticEventsDelta": 0,
+    "semanticTransactionsDelta": 0,
+    "semanticValidationsDelta": 0,
+    "projectPositionDelta": 0,
+    "projectionHashUnchanged": true,
+    "semanticEventJournalHashUnchanged": true,
+    "semanticTransactionJournalHashUnchanged": true,
+    "acceptedSemanticMutation": 0
+  }
+}

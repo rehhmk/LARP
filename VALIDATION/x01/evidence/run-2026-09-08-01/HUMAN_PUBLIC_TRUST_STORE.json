@@ -1,0 +1,10 @@
+{
+  "schemaVersion": "0.1",
+  "approvers": {
+    "human:x01-owner": {
+      "algorithm": "Ed25519",
+      "status": "ACTIVE",
+      "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAJIhNXQ+NVQLDS1YlbbzNKusRenCGXkQcNhmWxnoALrY=\n-----END PUBLIC KEY-----\n"
+    }
+  }
+}

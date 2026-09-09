@@ -1,0 +1,141 @@
+{
+  "irVersion": "0.1",
+  "languageVersion": "0.1",
+  "module": "x01.phase0",
+  "projectId": "x01-phase0-demo",
+  "scopes": [
+    {
+      "id": "root",
+      "parentId": null,
+      "version": 1,
+      "data": {}
+    },
+    {
+      "id": "backend",
+      "parentId": "root",
+      "version": 1,
+      "data": {}
+    },
+    {
+      "id": "frontend",
+      "parentId": "root",
+      "version": 1,
+      "data": {}
+    }
+  ],
+  "seeds": {
+    "nodes": [
+      {
+        "id": "agent:coding",
+        "kind": "Agent",
+        "scopeId": "backend",
+        "lifecycle": null,
+        "version": 1,
+        "current": true,
+        "invalid": false,
+        "data": {
+          "capabilities": [
+            "code",
+            "test"
+          ],
+          "roles": [
+            "implementer"
+          ]
+        }
+      },
+      {
+        "id": "artifact:auth-policy",
+        "kind": "Artifact",
+        "scopeId": "backend",
+        "lifecycle": null,
+        "version": 1,
+        "current": true,
+        "invalid": false,
+        "data": {
+          "path": "VALIDATION/x01/work/auth-policy.js"
+        }
+      },
+      {
+        "id": "authority:human-approval",
+        "kind": "Authority",
+        "scopeId": "root",
+        "lifecycle": "ACTIVE",
+        "version": 1,
+        "current": true,
+        "invalid": false,
+        "data": {
+          "approvalTrustStoreFingerprint": "0e298f9a4223237ba68c16ff7e681d04a7922baf6173ef9b08e4299f11862d8a"
+        }
+      },
+      {
+        "id": "decision:auth",
+        "kind": "Decision",
+        "scopeId": "backend",
+        "lifecycle": "ACTIVE",
+        "version": 1,
+        "current": true,
+        "invalid": false,
+        "data": {
+          "statement": "Use password authentication and bypass PKCE."
+        }
+      },
+      {
+        "id": "decision:frontend-theme",
+        "kind": "Decision",
+        "scopeId": "frontend",
+        "lifecycle": "ACTIVE",
+        "version": 1,
+        "current": true,
+        "invalid": false,
+        "data": {
+          "statement": "Use the system theme by default."
+        }
+      },
+      {
+        "id": "task:implement-auth",
+        "kind": "Task",
+        "scopeId": "backend",
+        "lifecycle": "READY",
+        "version": 1,
+        "current": true,
+        "invalid": false,
+        "data": {
+          "goal": "Implement the authentication policy.",
+          "allowedScope": "backend",
+          "acceptanceCriteria": [
+            "auth policy verifier passes",
+            "frontend state remains out of scope"
+          ]
+        }
+      }
+    ],
+    "relations": [
+      {
+        "id": "rel:task-requires-auth",
+        "kind": "requires",
+        "source": "task:implement-auth",
+        "target": "decision:auth",
+        "scopeId": "backend",
+        "active": true,
+        "version": 1,
+        "data": {}
+      },
+      {
+        "id": "rel:task-uses-auth-policy",
+        "kind": "uses",
+        "source": "task:implement-auth",
+        "target": "artifact:auth-policy",
+        "scopeId": "backend",
+        "active": true,
+        "version": 1,
+        "data": {}
+      }
+    ]
+  },
+  "semanticFingerprint": "ce3c1c25698b1c611a334416a6cf14eb18802f5e44ed9fcd806ea0811d386584",
+  "source": {
+    "path": "../../VALIDATION/x01/evidence/run-2026-09-08-01/ATTACK_D_MODIFIED_FIXTURE.larp",
+    "fingerprint": "2aaa2246c2022f0beeed1ef76fd8084d65725c6a4ce38f0bd94d5c7f4fb3aef8"
+  },
+  "irFingerprint": "572ec99f7ebd6f0e5a2df8d728f47dae90293a29b600daa631d1865f82d36721"
+}

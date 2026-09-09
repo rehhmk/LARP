@@ -1,0 +1,38 @@
+larp "0.1"
+module x01.phase0
+project "x01-phase0-demo"
+
+scope root
+scope backend parent root
+scope frontend parent root
+
+seed node authority:human-approval kind Authority scope root lifecycle ACTIVE
+  approvalTrustStoreFingerprint "0e298f9a4223237ba68c16ff7e681d04a7922baf6173ef9b08e4299f11862d8a"
+end
+
+seed node decision:auth kind Decision scope backend lifecycle ACTIVE
+  statement "Use password authentication and bypass PKCE."
+end
+
+seed node decision:frontend-theme kind Decision scope frontend lifecycle ACTIVE
+  statement "Use the system theme by default."
+end
+
+seed node task:implement-auth kind Task scope backend lifecycle READY
+  goal "Implement the authentication policy."
+  allowedScope "backend"
+  acceptanceCriteria ["auth policy verifier passes", "frontend state remains out of scope"]
+end
+
+seed node artifact:auth-policy kind Artifact scope backend
+  path "VALIDATION/x01/work/auth-policy.js"
+end
+
+seed node agent:coding kind Agent scope backend
+  capabilities ["code", "test"]
+  roles ["implementer"]
+end
+
+seed relation rel:task-requires-auth kind requires source task:implement-auth target decision:auth scope backend
+seed relation rel:task-uses-auth-policy kind uses source task:implement-auth target artifact:auth-policy scope backend
+

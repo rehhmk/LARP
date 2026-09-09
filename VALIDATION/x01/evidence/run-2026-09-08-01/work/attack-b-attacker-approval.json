@@ -1,0 +1,17 @@
+{
+  "approvalId": "approval:attacker-signed",
+  "proposalId": "proposal:f733be2c-e303-468d-998c-328ae7ebf0d8",
+  "approved": true,
+  "actor": {
+    "kind": "HUMAN",
+    "id": "human:x01-owner",
+    "name": "Attacker-Controlled Claim"
+  },
+  "reason": "Attacker-controlled ephemeral key and replacement trust store",
+  "provenance": {
+    "scheme": "digital-signature",
+    "algorithm": "Ed25519",
+    "keyId": "human:x01-owner",
+    "signature": "2VRvsHk4i7mtMvRtBPEYTllLn7TZdKBmaVUunwWAbO5KAORNHlZ9oJpcQ8lv8mypiz1cNE0K1m2EqoHmqieEDg=="
+  }
+}

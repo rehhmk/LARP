@@ -1,0 +1,38 @@
+{
+  "repository": "rehhmk/LARP",
+  "baseMainCommit": "81fc1ba0c100d95d1769c2d1871bc4a60bf9897a",
+  "branch": "validation/x01-real-agent-run-01",
+  "sourcePath": "VALIDATION/x01/fixture/project.larp",
+  "materializedSourcePath": "VALIDATION/x01/evidence/run-2026-09-08-01/work/project.materialized.larp",
+  "sourceFingerprint": "8deded4948229445b4ee1c043a601615cf34d01caae4c263b2d4938412a8b29a",
+  "semanticFingerprint": "4ffa1671458b9c5f0c1c325cee7b26fd4cfdefdc428765c3a26d28c37f0a6825",
+  "irFingerprint": "eac5a07a4f95c29adb1a1ef3b5a2e50e1943f1884508e7e46ae9a7111160d90c",
+  "bootstrap": {
+    "status": "MATERIALIZED",
+    "appendedEvents": 11,
+    "projectPosition": 11
+  },
+  "canonicalPublicTrustStoreFingerprint": "0e298f9a4223237ba68c16ff7e681d04a7922baf6173ef9b08e4299f11862d8a",
+  "canonicalTrustMaterial": "HUMAN-supplied public-only fixture anchor; matching private key remains outside the worker environment",
+  "taskAgentScope": {
+    "taskId": "task:implement-auth",
+    "agentId": "agent:coding",
+    "scopeId": "backend"
+  },
+  "contextBundleFingerprint": "7f0f3318afb9592113c91b7b294c970d83fb362318270384665954275e8cc268",
+  "contextFreshness": "CURRENT",
+  "snapshot": {
+    "projectPosition": 11,
+    "projectionSha256": "d792a3eda8729655e3b526e1a1dfec7d80402e92b696b8c7f2cfc0b71d5b550b",
+    "semanticEventCount": 11,
+    "semanticEventJournalSha256": "c5eff6d82bd9740ce49ca161fa3f3469f8a561616d76cb22fa48ed65b211be29",
+    "semanticTransactionCount": 0,
+    "semanticTransactionJournalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "semanticValidationCount": 0,
+    "semanticValidationJournalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "proposalCount": 0,
+    "proposalJournalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "humanApprovalCount": 0,
+    "humanApprovalJournalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

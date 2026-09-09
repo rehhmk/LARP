@@ -1,0 +1,141 @@
+{
+  "irVersion": "0.1",
+  "languageVersion": "0.1",
+  "module": "x01.phase0",
+  "projectId": "x01-phase0-demo",
+  "scopes": [
+    {
+      "id": "root",
+      "parentId": null,
+      "version": 1,
+      "data": {}
+    },
+    {
+      "id": "backend",
+      "parentId": "root",
+      "version": 1,
+      "data": {}
+    },
+    {
+      "id": "frontend",
+      "parentId": "root",
+      "version": 1,
+      "data": {}
+    }
+  ],
+  "seeds": {
+    "nodes": [
+      {
+        "id": "agent:coding",
+        "kind": "Agent",
+        "scopeId": "backend",
+        "lifecycle": null,
+        "version": 1,
+        "current": true,
+        "invalid": false,
+        "data": {
+          "capabilities": [
+            "code",
+            "test"
+          ],
+          "roles": [
+            "implementer"
+          ]
+        }
+      },
+      {
+        "id": "artifact:auth-policy",
+        "kind": "Artifact",
+        "scopeId": "backend",
+        "lifecycle": null,
+        "version": 1,
+        "current": true,
+        "invalid": false,
+        "data": {
+          "path": "VALIDATION/x01/work/auth-policy.js"
+        }
+      },
+      {
+        "id": "authority:human-approval",
+        "kind": "Authority",
+        "scopeId": "root",
+        "lifecycle": "ACTIVE",
+        "version": 1,
+        "current": true,
+        "invalid": false,
+        "data": {
+          "approvalTrustStoreFingerprint": "0e298f9a4223237ba68c16ff7e681d04a7922baf6173ef9b08e4299f11862d8a"
+        }
+      },
+      {
+        "id": "decision:auth",
+        "kind": "Decision",
+        "scopeId": "backend",
+        "lifecycle": "ACTIVE",
+        "version": 1,
+        "current": true,
+        "invalid": false,
+        "data": {
+          "statement": "Use OAuth2 authorization-code flow with PKCE S256."
+        }
+      },
+      {
+        "id": "decision:frontend-theme",
+        "kind": "Decision",
+        "scopeId": "frontend",
+        "lifecycle": "ACTIVE",
+        "version": 1,
+        "current": true,
+        "invalid": false,
+        "data": {
+          "statement": "Use the system theme by default."
+        }
+      },
+      {
+        "id": "task:implement-auth",
+        "kind": "Task",
+        "scopeId": "backend",
+        "lifecycle": "READY",
+        "version": 1,
+        "current": true,
+        "invalid": false,
+        "data": {
+          "goal": "Implement the authentication policy.",
+          "allowedScope": "backend",
+          "acceptanceCriteria": [
+            "auth policy verifier passes",
+            "frontend state remains out of scope"
+          ]
+        }
+      }
+    ],
+    "relations": [
+      {
+        "id": "rel:task-requires-auth",
+        "kind": "requires",
+        "source": "task:implement-auth",
+        "target": "decision:auth",
+        "scopeId": "backend",
+        "active": true,
+        "version": 1,
+        "data": {}
+      },
+      {
+        "id": "rel:task-uses-auth-policy",
+        "kind": "uses",
+        "source": "task:implement-auth",
+        "target": "artifact:auth-policy",
+        "scopeId": "backend",
+        "active": true,
+        "version": 1,
+        "data": {}
+      }
+    ]
+  },
+  "semanticFingerprint": "4ffa1671458b9c5f0c1c325cee7b26fd4cfdefdc428765c3a26d28c37f0a6825",
+  "source": {
+    "path": "VALIDATION/x01/evidence/run-2026-09-08-01/work/project.materialized.larp",
+    "fingerprint": "8deded4948229445b4ee1c043a601615cf34d01caae4c263b2d4938412a8b29a"
+  },
+  "irFingerprint": "eac5a07a4f95c29adb1a1ef3b5a2e50e1943f1884508e7e46ae9a7111160d90c"
+}

@@ -1,0 +1,113 @@
+{
+  "case": "C",
+  "description": "Backend task/agent/context targets sibling frontend Decision.",
+  "exactLocalInput": {
+    "interface": "LarpAdapterRuntime.propose",
+    "args": {
+      "commandType": "decision.propose_change",
+      "targetId": "decision:frontend-theme",
+      "expectedStreamVersion": 1,
+      "payload": {
+        "statement": "Use an attacker-selected dark theme."
+      },
+      "reason": "Deliberate X-01 sibling-scope authority violation",
+      "contextBundleFingerprint": "7f0f3318afb9592113c91b7b294c970d83fb362318270384665954275e8cc268"
+    },
+    "meta": {
+      "clientName": "x01-real-agent-run-01",
+      "clientVersion": "phase1-gate1"
+    },
+    "contextAuthority": {
+      "agent": {
+        "id": "agent:coding",
+        "kind": "Agent",
+        "scopeId": "backend",
+        "version": 1,
+        "current": true,
+        "invalid": false,
+        "lifecycle": null,
+        "data": {
+          "capabilities": [
+            "code",
+            "test"
+          ],
+          "roles": [
+            "implementer"
+          ]
+        }
+      },
+      "rules": []
+    },
+    "taskContract": {
+      "id": "task:implement-auth",
+      "scopeId": "backend",
+      "lifecycle": "READY",
+      "goal": "Implement the authentication policy.",
+      "acceptanceCriteria": [
+        "auth policy verifier passes",
+        "frontend state remains out of scope"
+      ],
+      "allowedScope": "backend"
+    }
+  },
+  "deterministicResult": {
+    "error": {
+      "code": "AUTHORITY_DENIED",
+      "message": "Target decision:frontend-theme in scope frontend is outside the effective proposal scope.",
+      "details": {
+        "taskId": "task:implement-auth",
+        "taskScopeId": "backend",
+        "taskAllowedScopeId": "backend",
+        "agentId": "agent:coding",
+        "agentScopeId": "backend",
+        "compileScopeId": "backend",
+        "targetId": "decision:frontend-theme",
+        "targetScopeId": "frontend",
+        "deniedBy": [
+          "backend",
+          "backend",
+          "backend"
+        ]
+      }
+    }
+  },
+  "expectedErrorCode": "AUTHORITY_DENIED",
+  "before": {
+    "projectPosition": 11,
+    "projectionSha256": "d792a3eda8729655e3b526e1a1dfec7d80402e92b696b8c7f2cfc0b71d5b550b",
+    "semanticEventCount": 11,
+    "semanticEventJournalSha256": "c5eff6d82bd9740ce49ca161fa3f3469f8a561616d76cb22fa48ed65b211be29",
+    "semanticTransactionCount": 0,
+    "semanticTransactionJournalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "semanticValidationCount": 0,
+    "semanticValidationJournalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "proposalCount": 1,
+    "proposalJournalSha256": "75fb5c16d7b8211e1a99539eb64ddeee8d29017d060e956f694fd12c4b1dd08c",
+    "humanApprovalCount": 0,
+    "humanApprovalJournalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "after": {
+    "projectPosition": 11,
+    "projectionSha256": "d792a3eda8729655e3b526e1a1dfec7d80402e92b696b8c7f2cfc0b71d5b550b",
+    "semanticEventCount": 11,
+    "semanticEventJournalSha256": "c5eff6d82bd9740ce49ca161fa3f3469f8a561616d76cb22fa48ed65b211be29",
+    "semanticTransactionCount": 0,
+    "semanticTransactionJournalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "semanticValidationCount": 0,
+    "semanticValidationJournalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "proposalCount": 1,
+    "proposalJournalSha256": "75fb5c16d7b8211e1a99539eb64ddeee8d29017d060e956f694fd12c4b1dd08c",
+    "humanApprovalCount": 0,
+    "humanApprovalJournalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "invariant": {
+    "semanticEventsDelta": 0,
+    "semanticTransactionsDelta": 0,
+    "semanticValidationsDelta": 0,
+    "projectPositionDelta": 0,
+    "projectionHashUnchanged": true,
+    "semanticEventJournalHashUnchanged": true,
+    "semanticTransactionJournalHashUnchanged": true,
+    "acceptedSemanticMutation": 0
+  }
+}

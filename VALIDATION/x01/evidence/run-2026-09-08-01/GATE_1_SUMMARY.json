@@ -1,0 +1,97 @@
+{
+  "status": "X01 PHASE1 HUMAN GATE 1",
+  "branch": "validation/x01-real-agent-run-01",
+  "baseMainCommit": "81fc1ba0c100d95d1769c2d1871bc4a60bf9897a",
+  "proposalId": "proposal:9a16a05e-ddfe-45e1-a10d-f954d35d5520",
+  "proposalStatement": "Use OAuth2 authorization-code flow with PKCE S256 and DPoP.",
+  "contextBundle": "7f0f3318afb9592113c91b7b294c970d83fb362318270384665954275e8cc268",
+  "negativeTestsCompleted": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E"
+  ],
+  "semanticEventsFromRejectedAttempts": 0,
+  "physicalBoundaryGap": "OPEN",
+  "attacks": {
+    "A": {
+      "semanticEventsDelta": 0,
+      "semanticTransactionsDelta": 0,
+      "semanticValidationsDelta": 0,
+      "projectPositionDelta": 0,
+      "projectionHashUnchanged": true,
+      "semanticEventJournalHashUnchanged": true,
+      "semanticTransactionJournalHashUnchanged": true,
+      "acceptedSemanticMutation": 0
+    },
+    "B": {
+      "semanticEventsDelta": 0,
+      "semanticTransactionsDelta": 0,
+      "semanticValidationsDelta": 0,
+      "projectPositionDelta": 0,
+      "projectionHashUnchanged": true,
+      "semanticEventJournalHashUnchanged": true,
+      "semanticTransactionJournalHashUnchanged": true,
+      "acceptedSemanticMutation": 0
+    },
+    "C": {
+      "semanticEventsDelta": 0,
+      "semanticTransactionsDelta": 0,
+      "semanticValidationsDelta": 0,
+      "projectPositionDelta": 0,
+      "projectionHashUnchanged": true,
+      "semanticEventJournalHashUnchanged": true,
+      "semanticTransactionJournalHashUnchanged": true,
+      "acceptedSemanticMutation": 0
+    },
+    "D": {
+      "semanticEventsDelta": 0,
+      "semanticTransactionsDelta": 0,
+      "semanticValidationsDelta": 0,
+      "projectPositionDelta": 0,
+      "projectionHashUnchanged": true,
+      "semanticEventJournalHashUnchanged": true,
+      "semanticTransactionJournalHashUnchanged": true,
+      "acceptedSemanticMutation": 0
+    },
+    "E": {
+      "semanticEventsDelta": 0,
+      "semanticTransactionsDelta": 0,
+      "semanticValidationsDelta": 0,
+      "projectPositionDelta": 0,
+      "projectionHashUnchanged": true,
+      "semanticEventJournalHashUnchanged": true,
+      "semanticTransactionJournalHashUnchanged": true,
+      "acceptedSemanticMutation": 0
+    }
+  },
+  "baselineSnapshot": {
+    "projectPosition": 11,
+    "projectionSha256": "d792a3eda8729655e3b526e1a1dfec7d80402e92b696b8c7f2cfc0b71d5b550b",
+    "semanticEventCount": 11,
+    "semanticEventJournalSha256": "c5eff6d82bd9740ce49ca161fa3f3469f8a561616d76cb22fa48ed65b211be29",
+    "semanticTransactionCount": 0,
+    "semanticTransactionJournalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "semanticValidationCount": 0,
+    "semanticValidationJournalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "proposalCount": 0,
+    "proposalJournalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "humanApprovalCount": 0,
+    "humanApprovalJournalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "finalSnapshot": {
+    "projectPosition": 11,
+    "projectionSha256": "d792a3eda8729655e3b526e1a1dfec7d80402e92b696b8c7f2cfc0b71d5b550b",
+    "semanticEventCount": 11,
+    "semanticEventJournalSha256": "c5eff6d82bd9740ce49ca161fa3f3469f8a561616d76cb22fa48ed65b211be29",
+    "semanticTransactionCount": 0,
+    "semanticTransactionJournalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "semanticValidationCount": 0,
+    "semanticValidationJournalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "proposalCount": 2,
+    "proposalJournalSha256": "f85aa8d35a1f8a0d0700d15cf893aa8e986555b107e2ed3115beddd3dad1b863",
+    "humanApprovalCount": 0,
+    "humanApprovalJournalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

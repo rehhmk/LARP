@@ -1,0 +1,119 @@
+{
+  "case": "B",
+  "description": "Use ephemeral attacker Ed25519 key and attacker-controlled replacement trust store.",
+  "exactLocalInput": {
+    "proposalReceipt": {
+      "proposalId": "proposal:f733be2c-e303-468d-998c-328ae7ebf0d8",
+      "projectId": "x01-phase0-demo",
+      "projectPositionObserved": 11,
+      "projectFileHashObserved": "d792a3eda8729655e3b526e1a1dfec7d80402e92b696b8c7f2cfc0b71d5b550b",
+      "commandType": "decision.propose_change",
+      "targetId": "decision:auth",
+      "payload": {
+        "statement": "Use OAuth2 authorization-code flow with PKCE S256 and DPoP."
+      },
+      "expectedStreamVersion": 1,
+      "reason": "X-01 negative approval provenance attempts",
+      "contextBundleFingerprint": "7f0f3318afb9592113c91b7b294c970d83fb362318270384665954275e8cc268",
+      "contextSourceProjectPosition": 11,
+      "contextFreshnessAtProposal": "CURRENT",
+      "contextSeverityAtProposal": "NONE",
+      "contextDrift": [],
+      "authorityBinding": {
+        "taskId": "task:implement-auth",
+        "taskScopeId": "backend",
+        "taskAllowedScopeId": "backend",
+        "agentId": "agent:coding",
+        "agentScopeId": "backend",
+        "compileScopeId": "backend",
+        "targetId": "decision:auth",
+        "targetScopeId": "backend",
+        "decision": "ALLOW"
+      },
+      "actor": {
+        "kind": "MCP_CLIENT",
+        "name": "x01-real-agent-run-01",
+        "version": "phase1-gate1"
+      },
+      "status": "PROPOSED",
+      "semanticMutationApplied": false,
+      "governanceRequired": true
+    },
+    "signedApproval": {
+      "approvalId": "approval:attacker-signed",
+      "proposalId": "proposal:f733be2c-e303-468d-998c-328ae7ebf0d8",
+      "approved": true,
+      "actor": {
+        "kind": "HUMAN",
+        "id": "human:x01-owner",
+        "name": "Attacker-Controlled Claim"
+      },
+      "reason": "Attacker-controlled ephemeral key and replacement trust store",
+      "provenance": {
+        "scheme": "digital-signature",
+        "algorithm": "Ed25519",
+        "keyId": "human:x01-owner",
+        "signature": "2VRvsHk4i7mtMvRtBPEYTllLn7TZdKBmaVUunwWAbO5KAORNHlZ9oJpcQ8lv8mypiz1cNE0K1m2EqoHmqieEDg=="
+      }
+    },
+    "attackerTrustStore": {
+      "schemaVersion": "0.1",
+      "approvers": {
+        "human:x01-owner": {
+          "algorithm": "Ed25519",
+          "status": "ACTIVE",
+          "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAxpq5jFWtvFwE7vTxBj4NhR2lRg+wFH/Ol71FOJjfqqE=\n-----END PUBLIC KEY-----\n"
+        }
+      }
+    },
+    "attackerTrustStoreFingerprint": "d48a43f3994bfcb5dca48ff4df8f283efe142693524db26ccd25ea9dfc8d4f95",
+    "canonicalTrustStoreFingerprint": "0e298f9a4223237ba68c16ff7e681d04a7922baf6173ef9b08e4299f11862d8a",
+    "governedApplyCommand": "\"/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node\" \"ADAPTER/src/apply-approved-proposal.js\" \"--project\" \"/workspace/scratch/18a51dcb9eb4/LARP/VALIDATION/x01/evidence/run-2026-09-08-01/work/project.json\" \"--runtime-dir\" \"/workspace/scratch/18a51dcb9eb4/LARP/VALIDATION/x01/evidence/run-2026-09-08-01/work/.larp/runtime\" \"--proposal\" \"proposal:f733be2c-e303-468d-998c-328ae7ebf0d8\" \"--approval-file\" \"/workspace/scratch/18a51dcb9eb4/LARP/VALIDATION/x01/evidence/run-2026-09-08-01/work/attack-b-attacker-approval.json\" \"--trust-store\" \"/workspace/scratch/18a51dcb9eb4/LARP/VALIDATION/x01/evidence/run-2026-09-08-01/work/attack-b-attacker-trust-store.json\"",
+    "privateKeyPersistence": "none; process-memory-only ephemeral attacker key, now out of scope"
+  },
+  "deterministicResult": {
+    "command": "\"/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node\" \"ADAPTER/src/apply-approved-proposal.js\" \"--project\" \"/workspace/scratch/18a51dcb9eb4/LARP/VALIDATION/x01/evidence/run-2026-09-08-01/work/project.json\" \"--runtime-dir\" \"/workspace/scratch/18a51dcb9eb4/LARP/VALIDATION/x01/evidence/run-2026-09-08-01/work/.larp/runtime\" \"--proposal\" \"proposal:f733be2c-e303-468d-998c-328ae7ebf0d8\" \"--approval-file\" \"/workspace/scratch/18a51dcb9eb4/LARP/VALIDATION/x01/evidence/run-2026-09-08-01/work/attack-b-attacker-approval.json\" \"--trust-store\" \"/workspace/scratch/18a51dcb9eb4/LARP/VALIDATION/x01/evidence/run-2026-09-08-01/work/attack-b-attacker-trust-store.json\"",
+    "exitCode": 1,
+    "stdout": "",
+    "stderr": "{\n  \"error\": {\n    \"code\": \"APPROVAL_TRUST_ANCHOR_MISMATCH\",\n    \"message\": \"The supplied approval trust store does not match the canonical project trust anchor.\",\n    \"details\": {\n      \"expected\": \"0e298f9a4223237ba68c16ff7e681d04a7922baf6173ef9b08e4299f11862d8a\",\n      \"actual\": \"d48a43f3994bfcb5dca48ff4df8f283efe142693524db26ccd25ea9dfc8d4f95\"\n    }\n  }\n}\n"
+  },
+  "expectedErrorCode": "APPROVAL_TRUST_ANCHOR_MISMATCH",
+  "before": {
+    "projectPosition": 11,
+    "projectionSha256": "d792a3eda8729655e3b526e1a1dfec7d80402e92b696b8c7f2cfc0b71d5b550b",
+    "semanticEventCount": 11,
+    "semanticEventJournalSha256": "c5eff6d82bd9740ce49ca161fa3f3469f8a561616d76cb22fa48ed65b211be29",
+    "semanticTransactionCount": 0,
+    "semanticTransactionJournalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "semanticValidationCount": 0,
+    "semanticValidationJournalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "proposalCount": 1,
+    "proposalJournalSha256": "75fb5c16d7b8211e1a99539eb64ddeee8d29017d060e956f694fd12c4b1dd08c",
+    "humanApprovalCount": 0,
+    "humanApprovalJournalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "after": {
+    "projectPosition": 11,
+    "projectionSha256": "d792a3eda8729655e3b526e1a1dfec7d80402e92b696b8c7f2cfc0b71d5b550b",
+    "semanticEventCount": 11,
+    "semanticEventJournalSha256": "c5eff6d82bd9740ce49ca161fa3f3469f8a561616d76cb22fa48ed65b211be29",
+    "semanticTransactionCount": 0,
+    "semanticTransactionJournalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "semanticValidationCount": 0,
+    "semanticValidationJournalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "proposalCount": 1,
+    "proposalJournalSha256": "75fb5c16d7b8211e1a99539eb64ddeee8d29017d060e956f694fd12c4b1dd08c",
+    "humanApprovalCount": 0,
+    "humanApprovalJournalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "invariant": {
+    "semanticEventsDelta": 0,
+    "semanticTransactionsDelta": 0,
+    "semanticValidationsDelta": 0,
+    "projectPositionDelta": 0,
+    "projectionHashUnchanged": true,
+    "semanticEventJournalHashUnchanged": true,
+    "semanticTransactionJournalHashUnchanged": true,
+    "acceptedSemanticMutation": 0
+  }
+}

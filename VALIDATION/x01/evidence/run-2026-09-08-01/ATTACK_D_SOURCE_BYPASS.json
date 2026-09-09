@@ -1,0 +1,95 @@
+{
+  "case": "D",
+  "description": "Compile modified copy of local .larp fixture and attempt bootstrap against accepted history.",
+  "exactLocalInput": {
+    "originalSourcePath": "VALIDATION/x01/evidence/run-2026-09-08-01/work/project.materialized.larp",
+    "modifiedSourcePath": "VALIDATION/x01/evidence/run-2026-09-08-01/ATTACK_D_MODIFIED_FIXTURE.larp",
+    "exactChangedStatement": {
+      "before": "Use OAuth2 authorization-code flow with PKCE S256.",
+      "after": "Use password authentication and bypass PKCE."
+    },
+    "compileCommand": "\"/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node\" \"VERTICAL_SLICE/v02/scripts/compile.js\" \"/workspace/scratch/18a51dcb9eb4/LARP/VALIDATION/x01/evidence/run-2026-09-08-01/ATTACK_D_MODIFIED_FIXTURE.larp\" \"/workspace/scratch/18a51dcb9eb4/LARP/VALIDATION/x01/evidence/run-2026-09-08-01/ATTACK_D_MODIFIED_FIXTURE.ir.json\"",
+    "bootstrapCommand": "\"/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node\" \"VERTICAL_SLICE/v02/scripts/bootstrap.js\" \"/workspace/scratch/18a51dcb9eb4/LARP/VALIDATION/x01/evidence/run-2026-09-08-01/ATTACK_D_MODIFIED_FIXTURE.ir.json\" \"/workspace/scratch/18a51dcb9eb4/LARP/VALIDATION/x01/evidence/run-2026-09-08-01/work/project.json\" \"/workspace/scratch/18a51dcb9eb4/LARP/VALIDATION/x01/evidence/run-2026-09-08-01/work/.larp/runtime\"",
+    "originalSourceFingerprint": "8deded4948229445b4ee1c043a601615cf34d01caae4c263b2d4938412a8b29a",
+    "modifiedSourceFingerprint": "2aaa2246c2022f0beeed1ef76fd8084d65725c6a4ce38f0bd94d5c7f4fb3aef8",
+    "originalIrFingerprint": "eac5a07a4f95c29adb1a1ef3b5a2e50e1943f1884508e7e46ae9a7111160d90c",
+    "modifiedIrFingerprint": "572ec99f7ebd6f0e5a2df8d728f47dae90293a29b600daa631d1865f82d36721"
+  },
+  "deterministicResult": {
+    "compile": {
+      "command": "\"/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node\" \"VERTICAL_SLICE/v02/scripts/compile.js\" \"/workspace/scratch/18a51dcb9eb4/LARP/VALIDATION/x01/evidence/run-2026-09-08-01/ATTACK_D_MODIFIED_FIXTURE.larp\" \"/workspace/scratch/18a51dcb9eb4/LARP/VALIDATION/x01/evidence/run-2026-09-08-01/ATTACK_D_MODIFIED_FIXTURE.ir.json\"",
+      "exitCode": 0,
+      "stdout": "{\n  \"status\": \"COMPILED\",\n  \"sourcePath\": \"../../VALIDATION/x01/evidence/run-2026-09-08-01/ATTACK_D_MODIFIED_FIXTURE.larp\",\n  \"outputPath\": \"/workspace/scratch/18a51dcb9eb4/LARP/VALIDATION/x01/evidence/run-2026-09-08-01/ATTACK_D_MODIFIED_FIXTURE.ir.json\",\n  \"sourceFingerprint\": \"2aaa2246c2022f0beeed1ef76fd8084d65725c6a4ce38f0bd94d5c7f4fb3aef8\",\n  \"semanticFingerprint\": \"ce3c1c25698b1c611a334416a6cf14eb18802f5e44ed9fcd806ea0811d386584\",\n  \"irFingerprint\": \"572ec99f7ebd6f0e5a2df8d728f47dae90293a29b600daa631d1865f82d36721\",\n  \"diagnostics\": []\n}\n",
+      "stderr": ""
+    },
+    "bootstrap": {
+      "command": "\"/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node\" \"VERTICAL_SLICE/v02/scripts/bootstrap.js\" \"/workspace/scratch/18a51dcb9eb4/LARP/VALIDATION/x01/evidence/run-2026-09-08-01/ATTACK_D_MODIFIED_FIXTURE.ir.json\" \"/workspace/scratch/18a51dcb9eb4/LARP/VALIDATION/x01/evidence/run-2026-09-08-01/work/project.json\" \"/workspace/scratch/18a51dcb9eb4/LARP/VALIDATION/x01/evidence/run-2026-09-08-01/work/.larp/runtime\"",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "{\n  \"status\": \"BOOTSTRAP_FAILED\",\n  \"code\": \"SEED_DIVERGENCE\",\n  \"message\": \"Seed node:decision:auth was already materialized with a different fingerprint.\",\n  \"details\": {\n    \"seedId\": \"node:decision:auth\",\n    \"previousFingerprint\": \"1792ab43ed04a10fbcfa844b674ba8a97a48ff4d2d241a96f2c9089104dd9fbe\",\n    \"nextFingerprint\": \"31370b51e3aa3d553d011f6f4be1bb18a51b0d5177dc1948f6bfafaa6be3e125\"\n  },\n  \"root\": \"/workspace/scratch/18a51dcb9eb4/LARP/VERTICAL_SLICE/v02\"\n}\n"
+    },
+    "expectedBootstrapErrorCode": "SEED_DIVERGENCE"
+  },
+  "before": {
+    "projectPosition": 11,
+    "projectionSha256": "d792a3eda8729655e3b526e1a1dfec7d80402e92b696b8c7f2cfc0b71d5b550b",
+    "semanticEventCount": 11,
+    "semanticEventJournalSha256": "c5eff6d82bd9740ce49ca161fa3f3469f8a561616d76cb22fa48ed65b211be29",
+    "semanticTransactionCount": 0,
+    "semanticTransactionJournalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "semanticValidationCount": 0,
+    "semanticValidationJournalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "proposalCount": 1,
+    "proposalJournalSha256": "75fb5c16d7b8211e1a99539eb64ddeee8d29017d060e956f694fd12c4b1dd08c",
+    "humanApprovalCount": 0,
+    "humanApprovalJournalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "afterCompile": {
+    "projectPosition": 11,
+    "projectionSha256": "d792a3eda8729655e3b526e1a1dfec7d80402e92b696b8c7f2cfc0b71d5b550b",
+    "semanticEventCount": 11,
+    "semanticEventJournalSha256": "c5eff6d82bd9740ce49ca161fa3f3469f8a561616d76cb22fa48ed65b211be29",
+    "semanticTransactionCount": 0,
+    "semanticTransactionJournalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "semanticValidationCount": 0,
+    "semanticValidationJournalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "proposalCount": 1,
+    "proposalJournalSha256": "75fb5c16d7b8211e1a99539eb64ddeee8d29017d060e956f694fd12c4b1dd08c",
+    "humanApprovalCount": 0,
+    "humanApprovalJournalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "after": {
+    "projectPosition": 11,
+    "projectionSha256": "d792a3eda8729655e3b526e1a1dfec7d80402e92b696b8c7f2cfc0b71d5b550b",
+    "semanticEventCount": 11,
+    "semanticEventJournalSha256": "c5eff6d82bd9740ce49ca161fa3f3469f8a561616d76cb22fa48ed65b211be29",
+    "semanticTransactionCount": 0,
+    "semanticTransactionJournalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "semanticValidationCount": 0,
+    "semanticValidationJournalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "proposalCount": 1,
+    "proposalJournalSha256": "75fb5c16d7b8211e1a99539eb64ddeee8d29017d060e956f694fd12c4b1dd08c",
+    "humanApprovalCount": 0,
+    "humanApprovalJournalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "compileInvariant": {
+    "semanticEventsDelta": 0,
+    "semanticTransactionsDelta": 0,
+    "semanticValidationsDelta": 0,
+    "projectPositionDelta": 0,
+    "projectionHashUnchanged": true,
+    "semanticEventJournalHashUnchanged": true,
+    "semanticTransactionJournalHashUnchanged": true,
+    "acceptedSemanticMutation": 0
+  },
+  "bootstrapInvariant": {
+    "semanticEventsDelta": 0,
+    "semanticTransactionsDelta": 0,
+    "semanticValidationsDelta": 0,
+    "projectPositionDelta": 0,
+    "projectionHashUnchanged": true,
+    "semanticEventJournalHashUnchanged": true,
+    "semanticTransactionJournalHashUnchanged": true,
+    "acceptedSemanticMutation": 0
+  }
+}
