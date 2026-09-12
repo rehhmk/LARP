@@ -15,7 +15,7 @@ Policy: `TESTING_SOURCE_OF_TRUTH.md`
 - V-02: **VERIFIED**
 - X-01: **VERIFIED**
 - M7 Validation: **ACTIVE**
-- Remaining criterion: **X-02**
+- Remaining criterion: **X-02 — PROPOSED / HUMAN APPROVAL REQUIRED**
 
 Roadmap/spec authority remains Google Drive. GitHub is authoritative for executable evidence. Drive reconciliation remains separate coordination work.
 
@@ -126,12 +126,34 @@ Coverage effect: **23/25 → 24/25; 92/100 → 96/100**.
 
 ---
 
+## X-02 — Cross-Worker Cold-Start Continuity
+
+**Status: PROPOSED / HUMAN APPROVAL REQUIRED**
+
+Proposal:
+- `VALIDATION/X02_PROPOSAL.md`
+- proposal commit: `371e82a343daf69456b0c72f53717aaaddd96975`
+
+Proposed continuity property:
+
+> The worker is disposable; governed project state is durable.
+
+Proposed criterion:
+
+> Prove that a LARP project survives worker/session loss and can continue correctly on a fresh independent coding agent without transferring the previous conversation transcript: the new worker hydrates from persisted LARP state, reconstructs active task/decisions/authority/dependencies, continues from a CURRENT ContextBundle, completes concrete work dependent on the post-handoff state, and replay still matches the final canonical projection.
+
+No implementation or verification credit is granted until X-02 is explicitly accepted by the HUMAN project owner.
+
+If accepted and later verified, coverage would move **24/25 → 25/25; 96/100 → 100/100**.
+
+---
+
 ## M7 — Validation
 
 **Status: ACTIVE**
 
 - X-01 — **VERIFIED**
-- X-02 — **UNDEFINED / PLANNED** pending a separately accepted definition.
+- X-02 — **PROPOSED / HUMAN APPROVAL REQUIRED**
 
 ---
 
