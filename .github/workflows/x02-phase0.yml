@@ -1,0 +1,43 @@
+name: X02 Phase 0 Continuity Readiness
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [build/x02-phase0-readiness]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Context compiler regressions
+        working-directory: COMPILER
+        run: npm test
+      - name: MCP adapter regressions
+        working-directory: ADAPTER
+        run: npm test
+      - name: Governance and X-01 unit tests
+        working-directory: ADAPTER
+        run: node --test test/governance.test.js
+      - name: V-01 regressions
+        working-directory: VERTICAL_SLICE/v01
+        run: npm test
+      - name: V-02 regressions
+        working-directory: VERTICAL_SLICE/v02
+        run: npm test
+      - name: X-01 deterministic harness
+        working-directory: VALIDATION/x01
+        run: npm test
+      - name: X-02 Phase 0 deterministic readiness harness
+        working-directory: VALIDATION/x02
+        run: npm test

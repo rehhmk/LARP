@@ -1,0 +1,32 @@
+larp "0.1"
+module x02.continuity
+project "x02-continuity-demo"
+
+scope root
+scope backend parent root
+
+seed node authority:human-approval kind Authority scope root lifecycle ACTIVE
+  approvalTrustStoreFingerprint "__EXTERNAL_TRUST_STORE_FINGERPRINT__"
+end
+
+seed node decision:auth kind Decision scope backend lifecycle ACTIVE
+  statement "Use OAuth2 authorization-code flow with PKCE S256 and Bearer access-token authorization."
+end
+
+seed node task:implement-auth kind Task scope backend lifecycle READY
+  goal "Implement the authentication policy artifact from the current governed decision."
+  allowedScope "backend"
+  acceptanceCriteria ["auth policy verifier passes", "artifact reflects the current accepted decision rather than seed source"]
+end
+
+seed node artifact:auth-policy kind Artifact scope backend
+  path "VALIDATION/x02/work/auth-policy.js"
+end
+
+seed node agent:coding kind Agent scope backend
+  capabilities ["code", "test"]
+  roles ["implementer"]
+end
+
+seed relation rel:task-requires-auth kind requires source task:implement-auth target decision:auth scope backend
+seed relation rel:task-uses-auth-policy kind uses source task:implement-auth target artifact:auth-policy scope backend
