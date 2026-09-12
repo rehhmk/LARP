@@ -15,6 +15,7 @@ Policy: `TESTING_SOURCE_OF_TRUTH.md`
 - V-02: **VERIFIED**
 - X-01: **VERIFIED**
 - X-02: **ACCEPTED / ACTIVE / NOT VERIFIED**
+- X-02 Phase 0 deterministic readiness: **PASS**
 - M7 Validation: **ACTIVE**
 
 Roadmap/spec authority remains Google Drive. GitHub is authoritative for executable evidence. Drive reconciliation remains separate coordination work.
@@ -123,6 +124,10 @@ Accepted decision:
 - decision commit: `223d4800bd7a08daa2c9cd941e70c7ed93e7baaa`
 - HUMAN decision: `::approve X-02`
 
+Execution protocol:
+- `VALIDATION/X02_CROSS_WORKER_CONTINUITY_PROTOCOL.md`
+- protocol commit: `733f6513159911a8d7890a4f448c03449d457a45`
+
 Accepted continuity property:
 
 > The worker is disposable; governed project state is durable.
@@ -131,7 +136,38 @@ Accepted criterion:
 
 > Prove that a LARP project survives worker/session loss and can continue correctly on a fresh independent coding agent without transferring the previous conversation transcript: the new worker hydrates from persisted LARP state, reconstructs active task/decisions/authority/dependencies, continues from a CURRENT ContextBundle, completes concrete work dependent on the post-handoff state, and replay still matches the final canonical projection.
 
-X-02 remains NOT VERIFIED until immutable real-agent continuity evidence is committed and independently inspected.
+### Phase 0 deterministic readiness
+
+**Status: PASS — readiness only, no X-02 verification credit**
+
+Evidence anchors:
+- readiness PR: `#8`
+- implementation head tested by CI: `d9bc313595820a735dde523e6b349f55a57c764b`
+- merge commit: `c666f9be8da77b7c56c1119f19d8aaa623a23618`
+- readiness report: `VALIDATION/x02/X02_PHASE0_READINESS_REPORT.md`
+- CI run: `34721991617`
+- CI job: `103629473177`
+
+Readiness proof:
+- dedicated X-02 fixture seeds the old Bearer policy;
+- accepted semantic transition can move the live Decision to DPoP without editing `.larp` source;
+- Worker-A ContextBundle becomes `STALE_BLOCKING` after the governed transition;
+- verifier derives expected behavior from live canonical projection;
+- stale Bearer artifact passes before transition and fails after transition;
+- current DPoP artifact passes after transition;
+- replay matches the live logical projection.
+
+Regression result:
+- Context compiler: **12/12 PASS**
+- MCP adapter: **15/15 PASS**
+- governance + X-01 unit tests: **14/14 PASS**
+- V-01: **5/5 PASS**
+- V-02: **11/11 PASS**
+- X-01 deterministic harness: **6/6 PASS**
+- X-02 Phase 0 readiness: **5/5 PASS**
+- aggregate: **68/68 PASS**
+
+X-02 remains NOT VERIFIED until immutable real-agent continuity evidence is committed and independently inspected. The next real gate is Worker A.
 
 If verified, coverage moves **24/25 → 25/25; 96/100 → 100/100**.
 
@@ -142,7 +178,7 @@ If verified, coverage moves **24/25 → 25/25; 96/100 → 100/100**.
 **Status: ACTIVE**
 
 - X-01 — **VERIFIED**
-- X-02 — **ACCEPTED / ACTIVE / NOT VERIFIED**
+- X-02 — **ACCEPTED / ACTIVE / NOT VERIFIED; PHASE 0 READY**
 
 ---
 
