@@ -14,7 +14,7 @@ Checkpoint date: 2026-09-12
 - V-02: **VERIFIED**
 - M7 Validation: **ACTIVE**
 - X-01: **VERIFIED**
-- X-02: **UNDEFINED / PLANNED**
+- X-02: **PROPOSED / HUMAN APPROVAL REQUIRED**
 
 ## Verified executable evidence
 
@@ -67,6 +67,22 @@ Final accepted state for the X-01 fixture:
 
 `GAP-X01-PHYSICAL-BOUNDARY` remains **OPEN**. The verified claim is deterministic semantic acceptance through LARP authoritative interfaces, not OS/filesystem tamper resistance.
 
+## X-02 proposed definition
+
+Proposal: `VALIDATION/X02_PROPOSAL.md`
+Proposal commit: `371e82a343daf69456b0c72f53717aaaddd96975`
+Status: **PROPOSED / NOT ACCEPTED**
+
+Proposed criterion:
+
+> Prove that a LARP project survives worker/session loss and can continue correctly on a fresh independent coding agent without transferring the previous conversation transcript: the new worker hydrates from persisted LARP state, reconstructs active task/decisions/authority/dependencies, continues from a CURRENT ContextBundle, completes concrete work dependent on the post-handoff state, and replay still matches the final canonical projection.
+
+Proposed governing continuity property:
+
+> The worker is disposable; governed project state is durable.
+
+No X-02 implementation may begin until explicit HUMAN approval.
+
 ## Human-flow semantics preserved
 
 ```text
@@ -95,7 +111,7 @@ projection
 
 GitHub remains authoritative for executable code, fixtures, test outputs, real-agent evidence, and independent verification artifacts.
 
-Google Drive remains the long-lived authority for roadmap/spec/current project context, but Drive has not yet been reconciled from this session. The Drive copy therefore remains **unconfirmed / pending reconciliation**.
+Google Drive remains the long-lived authority for roadmap/spec/current project context, but Drive could not be accessed from this session. The Drive copy therefore remains **unconfirmed / pending reconciliation**.
 
 ## Pending Google Drive synchronization
 
@@ -109,11 +125,13 @@ When Drive is accessible, reconcile at minimum:
 6. X-01 = VERIFIED.
 7. X-01 final evidence commit = `2fcef26af46c050dfd066223daabffa1e92a70e6`.
 8. `GAP-X01-PHYSICAL-BOUNDARY` = OPEN.
-9. X-02 = UNDEFINED / PLANNED until separately proposed and accepted.
+9. X-02 = PROPOSED / HUMAN APPROVAL REQUIRED; proposal commit `371e82a343daf69456b0c72f53717aaaddd96975`.
 10. `LARP_CURRENT_CONTEXT`: persist the same normalized state.
 
 Do not regress to X-01 Phase 0 or Phase 1 as the active gate after hydrating an older Drive revision.
 
 ## Next execution unit
 
-Define X-02 concretely before implementation. X-02 must be separately proposed and explicitly human-approved before work begins.
+Human review of `VALIDATION/X02_PROPOSAL.md`.
+
+If accepted, persist `VALIDATION/X02_DECISION.md` and then design the minimum executable cross-worker continuity protocol. Until then, do not implement X-02.
