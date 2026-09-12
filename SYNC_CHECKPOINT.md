@@ -15,6 +15,7 @@ Checkpoint date: 2026-09-12
 - M7 Validation: **ACTIVE**
 - X-01: **VERIFIED**
 - X-02: **ACCEPTED / ACTIVE / NOT VERIFIED**
+- X-02 Phase 0 deterministic readiness: **PASS**
 
 ## Verified executable evidence
 
@@ -70,8 +71,6 @@ If verified:
 
 ## X-02 executable protocol
 
-The accepted criterion has now been translated into an executable protocol:
-
 - `VALIDATION/X02_CROSS_WORKER_CONTINUITY_PROTOCOL.md`
 - protocol commit: `733f6513159911a8d7890a4f448c03449d457a45`
 
@@ -96,13 +95,41 @@ fresh Worker B
 → replay MATCH
 ```
 
-Important continuity control:
-- the `.larp` seed retains the pre-handoff Decision;
-- the accepted runtime SemanticEvent changes the live Decision;
-- Worker B therefore cannot pass merely by rereading edited seed source;
-- the deterministic verifier must reject stale/pre-handoff behavior and accept only current post-handoff behavior.
+## X-02 Phase 0 deterministic readiness
 
-The protocol explicitly forbids transferring Worker-A transcript, free-form semantic handoff summaries, chain-of-thought, the current Decision answer, expected code change, or verifier answer to Worker B.
+Phase 0 is now implemented and PASS.
+
+Evidence:
+- readiness branch: `build/x02-phase0-readiness`
+- readiness PR: `#8`
+- implementation head tested by CI: `d9bc313595820a735dde523e6b349f55a57c764b`
+- merge commit on main: `c666f9be8da77b7c56c1119f19d8aaa623a23618`
+- readiness report: `VALIDATION/x02/X02_PHASE0_READINESS_REPORT.md`
+- CI run: `34721991617`
+- CI job: `103629473177`
+
+Readiness guarantees:
+- dedicated `.larp` fixture compiles and bootstraps the pre-handoff Bearer Decision;
+- initial task context is `CURRENT`;
+- signed governed HUMAN path changes accepted semantic state to DPoP without editing seed source;
+- old Worker-A ContextBundle becomes `STALE_BLOCKING`;
+- deterministic verifier derives expected behavior from live canonical projection;
+- stale Bearer artifact fails after transition;
+- current DPoP artifact passes;
+- replay matches live logical projection;
+- all regressions remain green.
+
+Test counts:
+- Context compiler: 12/12
+- MCP adapter: 15/15
+- governance + X-01 unit: 14/14
+- V-01: 5/5
+- V-02: 11/11
+- X-01 harness: 6/6
+- X-02 readiness: 5/5
+- aggregate: **68/68 PASS**
+
+This does not verify X-02. It only establishes that the real continuity experiment can distinguish stale from current behavior.
 
 ## Human-flow semantics preserved
 
@@ -143,12 +170,13 @@ When Drive is accessible, reconcile at minimum:
 5. X-02 = ACCEPTED / ACTIVE / NOT VERIFIED.
 6. X-02 proposal commit = `371e82a343daf69456b0c72f53717aaaddd96975`.
 7. X-02 decision commit = `223d4800bd7a08daa2c9cd941e70c7ed93e7baaa`.
-8. X-02 executable protocol commit = `733f6513159911a8d7890a4f448c03449d457a45`.
-9. `GAP-X01-PHYSICAL-BOUNDARY` = OPEN.
-10. `LARP_CURRENT_CONTEXT`: persist the same normalized state.
+8. X-02 protocol commit = `733f6513159911a8d7890a4f448c03449d457a45`.
+9. X-02 Phase 0 merge = `c666f9be8da77b7c56c1119f19d8aaa623a23618`; readiness **68/68 PASS**.
+10. `GAP-X01-PHYSICAL-BOUNDARY` = OPEN.
+11. `LARP_CURRENT_CONTEXT`: persist the same normalized state.
 
-Do not regress to X-02 proposal review as the active gate after hydrating an older Drive revision.
+Do not regress to X-02 proposal review or Phase 0 build as the active gate after hydrating an older Drive revision.
 
 ## Next execution unit
 
-Build X-02 Phase 0 deterministic readiness: dedicated fixture, governed semantic-change path, stale-vs-current artifact verifier, replay proof, and full regressions. This build does not verify X-02; it only prepares the real Worker-A → loss → Worker-B continuity run.
+Run **Phase 1 / Worker A** using the dedicated X-02 fixture. Worker A must hydrate from LARP, obtain CURRENT A0, create the exact context-bound post-handoff proposal with zero semantic mutation, and stop at HUMAN GATE A. The real continuity test must not transfer Worker A's conversation or semantic answer to Worker B.
