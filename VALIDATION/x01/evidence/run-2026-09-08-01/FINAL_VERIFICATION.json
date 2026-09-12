@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "checks": {
+    "gate2ExternalApprovalVerified": true,
+    "finalK01Accepted": true,
+    "finalK02Committed": true,
+    "finalLivenessExactlyOneSemanticEvent": true,
+    "finalLivenessExactlyOneSemanticTransaction": true,
+    "finalLivenessProjectAdvancedOnce": true,
+    "finalDecisionStatementApplied": true,
+    "finalDecisionStreamVersionThree": true,
+    "finalProjectPositionThirteen": true,
+    "finalAcceptedEventCountThirteen": true,
+    "exactlyTwoGovernedSemanticTransactions": true,
+    "exactlyTwoHumanApprovalReceipts": true,
+    "forbiddenAcceptedSemanticEventsZero": true,
+    "replayMatchesCanonicalProjection": true,
+    "allRegressionsPassed": true,
+    "aggregateRegressionCountSixtyThree": true,
+    "parserInterruptionRecoveredWithoutReapply": true,
+    "physicalBoundaryGapRemainsOpen": true
+  }
+}

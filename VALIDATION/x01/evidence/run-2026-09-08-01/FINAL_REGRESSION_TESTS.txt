@@ -1,0 +1,128 @@
+===== Context compiler =====
+"/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node" "--test" "COMPILER/test/context-compiler.test.js"
+✔ JCS-like canonicalization is stable under object key order (1.315949ms)
+✔ same canonical inputs produce identical fingerprints (9.188034ms)
+✔ unknowns remain a distinct semantic section (1.203232ms)
+✔ required decision is selected while sibling-scope unrelated state is omitted (0.549409ms)
+✔ irrelevant project change does not stale context or change fingerprints after recompile (2.109878ms)
+✔ relevant required dependency change yields STALE_BLOCKING (0.606163ms)
+✔ supporting evidence change yields STALE_NON_BLOCKING (3.881688ms)
+✔ supersession makes old bundle stale-blocking and new bundle exposes old + replacement (1.15366ms)
+✔ unknown change is relevant but non-blocking (0.574256ms)
+✔ recompiling after relevant change produces a CURRENT bundle (0.818526ms)
+✔ removing a structural requires relation makes the old bundle stale-blocking (0.542439ms)
+✔ mandatory invisible dependency fails compilation instead of silently omitting it (0.377747ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 103.361118
+
+===== MCP adapter =====
+"/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node" "--test" "ADAPTER/test/adapter.test.js"
+✔ T01 initializes over MCP legacy stdio and reports tool capability (71.877321ms)
+✔ T02 tools/list exposes exactly context, status, proposal, and verification tools (72.108171ms)
+✔ T03 larp_status is read-only and exposes project position/coverage (65.420479ms)
+✔ T04 larp_get_context returns governed ContextBundle with Decision/Evidence/Unknown (83.026609ms)
+✔ T05 freshly issued context verifies CURRENT (78.020696ms)
+✔ T06 unrelated project drift stays CURRENT (80.657764ms)
+✔ T07 required Decision drift becomes STALE_BLOCKING (87.477751ms)
+✔ T08 larp_propose records a context-bound proposal but does not mutate semantic fixture (82.100934ms)
+✔ T09 proposal tool cannot be mistaken for accepted SemanticEvent (71.67311ms)
+✔ T10 tool argument errors return MCP tool error without crashing server (59.76284ms)
+✔ T11 unknown tool returns an ordinary MCP tool error result (65.665424ms)
+✔ T12 stdout contains JSON-RPC only (66.840431ms)
+✔ T13 current 2026 discovery probe receives Method not found for documented legacy fallback (63.815891ms)
+✔ T14 verification can accept full bundle, not only process-local cache (79.956021ms)
+✔ T15 unbound proposal is rejected before proposal journal creation (61.719297ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1170.392215
+
+===== Governance and Phase 0 unit tests =====
+"/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node" "--test" "ADAPTER/test/governance.test.js"
+✔ A02-T01 no approval means zero semantic mutation (10.991176ms)
+✔ A02-T02 MCP/agent actor cannot approve its own proposal (2.330792ms)
+✔ A02-T03 stale project position is rejected before mutation (3.012156ms)
+✔ A02-T04 stale stream version is rejected before mutation (2.898619ms)
+✔ A02-T05 explicit human approval yields validated semantic event and projection update (4.713642ms)
+✔ A02-T06 accepted path writes approval, validation, transaction and event journals (3.548416ms)
+✔ A02-T07 same canonical input with injected ids/time produces same logical event (6.989273ms)
+✔ A02-T08 unsupported command is rejected even with human approval (2.978036ms)
+✔ A02-T09 control CLI consumes an existing approval receipt file; it does not synthesize approval (66.573094ms)
+✔ X01-P0-T01 fabricated HUMAN JSON without trusted provenance is rejected with zero mutation (3.712007ms)
+✔ X01-P0-T02 approval signed by an untrusted key is rejected with zero mutation (3.184039ms)
+✔ X01-P0-T03 attacker cannot replace the canonically pinned trust store (2.779042ms)
+✔ X01-P0-T04 backend-bound proposal cannot apply to sibling frontend target (2.905979ms)
+✔ X01-P0-T05 changed authority binding is rejected before semantic append (4.451305ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 193.758054
+
+===== V-01 =====
+"/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node" "--test" "VERTICAL_SLICE/v01/test/v01-local.test.js"
+✔ V01-L01 full local causal chain enforces stale blocking and requires rehydrate (276.632968ms)
+✔ V01-L02 unbound proposal is rejected with zero journal append (67.797311ms)
+✔ V01-L03 STALE_NON_BLOCKING context may propose but receipt carries drift (84.071088ms)
+✔ V01-L04 explicit ContextBundle fingerprint mismatch is rejected before append (79.040159ms)
+✔ V01-L05 full ContextBundle can bind proposal after MCP server restart (143.597724ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 736.041617
+
+===== V-02 =====
+"/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node" "--test" "VERTICAL_SLICE/v02/test/v02-local.test.js"
+✔ V02-L01 real *.larp compiles deterministically to canonical IR and fingerprints (15.472075ms)
+✔ V02-L02 invalid source emits diagnostics and leaves no bootstrap-loadable IR (67.992059ms)
+✔ V02-L03 explicit bootstrap materializes accepted seed events and a derived projection (12.961928ms)
+✔ V02-L04 identical bootstrap is ALREADY_MATERIALIZED and performs zero writes (10.429599ms)
+✔ V02-L05 changed materialized seed yields SEED_DIVERGENCE with zero semantic rewrite (8.25056ms)
+✔ V02-L06 compiling changed source alone cannot mutate accepted history or projection (17.705254ms)
+✔ V02-L07 ContextBundle from bootstrapped projection includes governing dependencies and is CURRENT (14.685351ms)
+✔ V02-L08 replay from accepted semantic history reconstructs the same logical projection and versions (10.979709ms)
+✔ V02-L09 reset-real-run derives runtime from *.larp and never consumes a semantic JSON fixture (149.022629ms)
+✔ V02-L10 generated projection is directly usable by the existing MCP adapter server (85.333016ms)
+✔ V02-L11 tampered IR is rejected before runtime materialization (1.316979ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 483.401663
+
+===== X-01 Phase 0 isolated harness =====
+"/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node" "--test" "VALIDATION/x01/test/phase0.test.js"
+✔ X01-P0-L01 fixture has sibling scopes while backend context excludes frontend target (24.295779ms)
+✔ X01-P0-L02 proposal-time scope authorization rejects frontend target with zero append (11.807283ms)
+✔ X01-P0-L03 fabricated HUMAN JSON rejects with zero semantic mutation (13.547782ms)
+✔ X01-P0-L04 attacker-signed approval cannot substitute its own trust store (13.174366ms)
+✔ X01-P0-L05 apply re-check rejects an injected backend-to-frontend proposal (10.45068ms)
+✔ X01-P0-L06 legitimate externally signed human approval still applies (15.202263ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 179.779653

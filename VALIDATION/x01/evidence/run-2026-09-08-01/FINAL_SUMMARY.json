@@ -1,0 +1,33 @@
+{
+  "status": "X01 FINAL ADVERSARIAL EVIDENCE READY TO COMMIT",
+  "branch": "validation/x01-real-agent-run-01",
+  "gate2HeadCommit": "45eb3dcd86f5ab800842eae6fb3b15af70e38cf7",
+  "attacks": {
+    "A": "PASS",
+    "B": "PASS",
+    "C": "PASS",
+    "D": "PASS",
+    "E": "PASS"
+  },
+  "forbiddenSemanticEvents": 0,
+  "liveness": "PASS",
+  "replay": "MATCH",
+  "regressionTests": "63/63 PASS",
+  "physicalBoundaryGap": "OPEN",
+  "finalProposalId": "proposal:dc89147b-7d01-426c-95dd-41e89366d234",
+  "finalStatement": "Use OAuth2 authorization-code flow with PKCE S256, DPoP, and enforce RFC 7636 verifier syntax.",
+  "finalSnapshot": {
+    "projectPosition": 13,
+    "projectionSha256": "7241749c7a2b9dca44be09f928b92ec8578d53370f336054228d60d0f4498f40",
+    "semanticEventCount": 13,
+    "semanticEventJournalSha256": "1a2419f301e58c50f9b8a15bd4111dc03d577326df84f64ce70a551d4b33192c",
+    "semanticTransactionCount": 2,
+    "semanticTransactionJournalSha256": "39a22f66bc785505f77538d52d4271e44519a3c7b3ed33c68f678c56ac1ce324",
+    "semanticValidationCount": 2,
+    "semanticValidationJournalSha256": "9e1405db014917bd3fe5f7d1deeb072526a92f9224bfe511990e4f35075d75c0",
+    "proposalCount": 3,
+    "proposalJournalSha256": "0a6f61513ff219188dc908f78ff1ff70e7ce59bdbab7d333432a16784a3b35a9",
+    "humanApprovalCount": 2,
+    "humanApprovalJournalSha256": "04ac90df631d6b0cd19e79e2076a9edfbd5247f885708563886aca6b38e75fde"
+  }
+}

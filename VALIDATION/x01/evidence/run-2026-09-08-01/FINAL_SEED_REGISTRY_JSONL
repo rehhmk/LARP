@@ -1,0 +1,11 @@
+{"seedId":"scope:root","fingerprint":"dce73a2cda43faa3e6d402b91bb7e605c5321789ce12857db538f2bd50e47166","eventId":"event:seed:f55b16edb6f9a152148c89a2c21f8957"}
+{"seedId":"scope:backend","fingerprint":"ed111298b85cc868fc7e4ac7f306da8ec00738f5d0d91891aad0fd3d46573056","eventId":"event:seed:2dffeb68b0797e894b00917fc459d1d4"}
+{"seedId":"scope:frontend","fingerprint":"47cd6372deea425d95f37d14a469cf30d61e04a4091cca8cd56bcd5caa8ee058","eventId":"event:seed:edd92c6da39eab2155187f1cbb4e724a"}
+{"seedId":"node:agent:coding","fingerprint":"3f1bc100c268ac0840a3f6eaf035850868524edf3535c95533db2b4f8c4da96f","eventId":"event:seed:74837b3a82511ddd1f8e1171adb74749"}
+{"seedId":"node:artifact:auth-policy","fingerprint":"58d8f477b5ba611137b8497b025c780c500a547593db02a958c93d036b72244e","eventId":"event:seed:a02b64865debb0909efd5647f9481350"}
+{"seedId":"node:authority:human-approval","fingerprint":"fcb97716edb454c9adc72c8e7d26992a93675429ff7928861484150b7859826a","eventId":"event:seed:c7a759503b9c7f5dae32fa4fd94cd34c"}
+{"seedId":"node:decision:auth","fingerprint":"1792ab43ed04a10fbcfa844b674ba8a97a48ff4d2d241a96f2c9089104dd9fbe","eventId":"event:seed:e2f74d98231e7f68e0c1633d93a896ac"}
+{"seedId":"node:decision:frontend-theme","fingerprint":"9b80b51259f6bf887875106c466b4e8588fea82434e6cc0ec717ad0fb4aa135f","eventId":"event:seed:8962cba4d941614d68bf3a3437052d35"}
+{"seedId":"node:task:implement-auth","fingerprint":"14d7bb511caf0cbb54848d46a095903345259de3d0f8c87e3b150fefadfeef16","eventId":"event:seed:6f640e5e7a6885f893b9be417148b353"}
+{"seedId":"relation:rel:task-requires-auth","fingerprint":"9d6cb22be4f1362353255bf17c56f18b37d0485b36812481af3ccfe9925fd4a5","eventId":"event:seed:3ac305198e9593be90f99a0a3c5e9808"}
+{"seedId":"relation:rel:task-uses-auth-policy","fingerprint":"c92fe511f2ff7f65e2ed2089da47d751126cc125d57ab49ab17d6f731272c01d","eventId":"event:seed:0096e0c2a14b81a534fb9051ae51e6c0"}

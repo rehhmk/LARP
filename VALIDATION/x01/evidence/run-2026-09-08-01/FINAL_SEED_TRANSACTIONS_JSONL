@@ -1,0 +1,11 @@
+{"transactionId":"tx:seed:f55b16edb6f9a152148c89a2c21f8957","projectId":"x01-phase0-demo","commandId":"bootstrap:scope:root","status":"COMMITTED","eventCount":1}
+{"transactionId":"tx:seed:2dffeb68b0797e894b00917fc459d1d4","projectId":"x01-phase0-demo","commandId":"bootstrap:scope:backend","status":"COMMITTED","eventCount":1}
+{"transactionId":"tx:seed:edd92c6da39eab2155187f1cbb4e724a","projectId":"x01-phase0-demo","commandId":"bootstrap:scope:frontend","status":"COMMITTED","eventCount":1}
+{"transactionId":"tx:seed:74837b3a82511ddd1f8e1171adb74749","projectId":"x01-phase0-demo","commandId":"bootstrap:node:agent:coding","status":"COMMITTED","eventCount":1}
+{"transactionId":"tx:seed:a02b64865debb0909efd5647f9481350","projectId":"x01-phase0-demo","commandId":"bootstrap:node:artifact:auth-policy","status":"COMMITTED","eventCount":1}
+{"transactionId":"tx:seed:c7a759503b9c7f5dae32fa4fd94cd34c","projectId":"x01-phase0-demo","commandId":"bootstrap:node:authority:human-approval","status":"COMMITTED","eventCount":1}
+{"transactionId":"tx:seed:e2f74d98231e7f68e0c1633d93a896ac","projectId":"x01-phase0-demo","commandId":"bootstrap:node:decision:auth","status":"COMMITTED","eventCount":1}
+{"transactionId":"tx:seed:8962cba4d941614d68bf3a3437052d35","projectId":"x01-phase0-demo","commandId":"bootstrap:node:decision:frontend-theme","status":"COMMITTED","eventCount":1}
+{"transactionId":"tx:seed:6f640e5e7a6885f893b9be417148b353","projectId":"x01-phase0-demo","commandId":"bootstrap:node:task:implement-auth","status":"COMMITTED","eventCount":1}
+{"transactionId":"tx:seed:3ac305198e9593be90f99a0a3c5e9808","projectId":"x01-phase0-demo","commandId":"bootstrap:relation:rel:task-requires-auth","status":"COMMITTED","eventCount":1}
+{"transactionId":"tx:seed:0096e0c2a14b81a534fb9051ae51e6c0","projectId":"x01-phase0-demo","commandId":"bootstrap:relation:rel:task-uses-auth-policy","status":"COMMITTED","eventCount":1}

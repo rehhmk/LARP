@@ -1,0 +1,201 @@
+{
+  "exactLocalInput": {
+    "proposal": {
+      "proposalId": "proposal:dc89147b-7d01-426c-95dd-41e89366d234",
+      "projectId": "x01-phase0-demo",
+      "projectPositionObserved": 12,
+      "projectFileHashObserved": "3af31c6441a69ebe38fd58748f3df07a89769577335d0acd47fe7ea0a54f5aef",
+      "commandType": "decision.propose_change",
+      "targetId": "decision:auth",
+      "payload": {
+        "statement": "Use OAuth2 authorization-code flow with PKCE S256, DPoP, and enforce RFC 7636 verifier syntax."
+      },
+      "expectedStreamVersion": 2,
+      "reason": "X-01 final liveness proof using a fresh CURRENT ContextBundle.",
+      "contextBundleFingerprint": "25eac33f7253d2cce67dc20ee35c7cf3d5d3b425eb012b343ae1418ad1676e33",
+      "contextSourceProjectPosition": 12,
+      "contextFreshnessAtProposal": "CURRENT",
+      "contextSeverityAtProposal": "NONE",
+      "contextDrift": [],
+      "authorityBinding": {
+        "taskId": "task:implement-auth",
+        "taskScopeId": "backend",
+        "taskAllowedScopeId": "backend",
+        "agentId": "agent:coding",
+        "agentScopeId": "backend",
+        "compileScopeId": "backend",
+        "targetId": "decision:auth",
+        "targetScopeId": "backend",
+        "decision": "ALLOW"
+      },
+      "actor": {
+        "kind": "MCP_CLIENT",
+        "name": "x01-real-agent-run-01",
+        "version": "phase1-gate2"
+      },
+      "status": "PROPOSED",
+      "semanticMutationApplied": false,
+      "governanceRequired": true
+    },
+    "signedApproval": {
+      "approvalId": "approval:x01-human-gate-2",
+      "proposalId": "proposal:dc89147b-7d01-426c-95dd-41e89366d234",
+      "approved": true,
+      "actor": {
+        "kind": "HUMAN",
+        "id": "human:x01-owner",
+        "name": "External X-01 Human"
+      },
+      "reason": "Explicit external approval for X-01 HUMAN Gate 2 final liveness proof",
+      "provenance": {
+        "scheme": "digital-signature",
+        "algorithm": "Ed25519",
+        "keyId": "human:x01-owner",
+        "signature": "cmgA50Qd2gmCvsM1bBE+OEtJU2B+QvW7gjRPZwqas7M4D/4g2B2RbwGA4vTKXBq4fkElpoRjogWaVF+ZgMxIBQ=="
+      }
+    },
+    "publicTrustStore": {
+      "schemaVersion": "0.1",
+      "approvers": {
+        "human:x01-owner": {
+          "algorithm": "Ed25519",
+          "status": "ACTIVE",
+          "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAJIhNXQ+NVQLDS1YlbbzNKusRenCGXkQcNhmWxnoALrY=\n-----END PUBLIC KEY-----\n"
+        }
+      }
+    },
+    "command": "\"/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node\" \"ADAPTER/src/apply-approved-proposal.js\" \"--project\" \"/workspace/scratch/18a51dcb9eb4/LARP/VALIDATION/x01/evidence/run-2026-09-08-01/work/project.json\" \"--runtime-dir\" \"/workspace/scratch/18a51dcb9eb4/LARP/VALIDATION/x01/evidence/run-2026-09-08-01/work/.larp/runtime\" \"--proposal\" \"proposal:dc89147b-7d01-426c-95dd-41e89366d234\" \"--approval-file\" \"/workspace/scratch/18a51dcb9eb4/LARP/VALIDATION/x01/evidence/run-2026-09-08-01/HUMAN_GATE_2_SIGNED_APPROVAL.json\" \"--trust-store\" \"/workspace/scratch/18a51dcb9eb4/LARP/VALIDATION/x01/evidence/run-2026-09-08-01/HUMAN_PUBLIC_TRUST_STORE.json\""
+  },
+  "deterministicResult": {
+    "command": "\"/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node\" \"ADAPTER/src/apply-approved-proposal.js\" \"--project\" \"/workspace/scratch/18a51dcb9eb4/LARP/VALIDATION/x01/evidence/run-2026-09-08-01/work/project.json\" \"--runtime-dir\" \"/workspace/scratch/18a51dcb9eb4/LARP/VALIDATION/x01/evidence/run-2026-09-08-01/work/.larp/runtime\" \"--proposal\" \"proposal:dc89147b-7d01-426c-95dd-41e89366d234\" \"--approval-file\" \"/workspace/scratch/18a51dcb9eb4/LARP/VALIDATION/x01/evidence/run-2026-09-08-01/HUMAN_GATE_2_SIGNED_APPROVAL.json\" \"--trust-store\" \"/workspace/scratch/18a51dcb9eb4/LARP/VALIDATION/x01/evidence/run-2026-09-08-01/HUMAN_PUBLIC_TRUST_STORE.json\"",
+    "cwd": "/workspace/scratch/18a51dcb9eb4/LARP",
+    "exitCode": 0,
+    "stdout": "{\n  \"status\": \"APPLIED\",\n  \"proposalId\": \"proposal:dc89147b-7d01-426c-95dd-41e89366d234\",\n  \"approvalId\": \"approval:x01-human-gate-2\",\n  \"semanticMutationApplied\": true,\n  \"projectPosition\": 13,\n  \"targetStreamVersion\": 3,\n  \"event\": {\n    \"event_id\": \"event:5b9e13fe-6d23-4a5e-a65f-8cd9f6bf7caf\",\n    \"project_id\": \"x01-phase0-demo\",\n    \"event_type\": \"decision.changed\",\n    \"schema_version\": 1,\n    \"stream_id\": \"decision:auth\",\n    \"stream_version\": 3,\n    \"transaction_id\": \"tx:5b9e13fe-6d23-4a5e-a65f-8cd9f6bf7caf\",\n    \"transaction_index\": 0,\n    \"project_position\": 13,\n    \"command_id\": \"proposal:dc89147b-7d01-426c-95dd-41e89366d234\",\n    \"causation_ref\": \"proposal:dc89147b-7d01-426c-95dd-41e89366d234\",\n    \"correlation_id\": \"approval:x01-human-gate-2\",\n    \"actor_ref\": \"human:x01-owner\",\n    \"machine_id\": \"decision.lifecycle\",\n    \"machine_version\": \"0.1\",\n    \"validation_receipt_ref\": \"validation:5b9e13fe-6d23-4a5e-a65f-8cd9f6bf7caf\",\n    \"recorded_at\": \"2026-09-12T16:50:07.424Z\",\n    \"payload\": {\n      \"targetId\": \"decision:auth\",\n      \"before\": {\n        \"statement\": \"Use OAuth2 authorization-code flow with PKCE S256 and DPoP.\"\n      },\n      \"after\": {\n        \"statement\": \"Use OAuth2 authorization-code flow with PKCE S256, DPoP, and enforce RFC 7636 verifier syntax.\"\n      }\n    }\n  },\n  \"transaction\": {\n    \"transactionId\": \"tx:5b9e13fe-6d23-4a5e-a65f-8cd9f6bf7caf\",\n    \"projectId\": \"x01-phase0-demo\",\n    \"proposalId\": \"proposal:dc89147b-7d01-426c-95dd-41e89366d234\",\n    \"approvalId\": \"approval:x01-human-gate-2\",\n    \"status\": \"COMMITTED\",\n    \"eventCount\": 1,\n    \"recordedAt\": \"2026-09-12T16:50:07.424Z\"\n  },\n  \"validationReceipt\": {\n    \"validationReceiptId\": \"validation:5b9e13fe-6d23-4a5e-a65f-8cd9f6bf7caf\",\n    \"result\": \"ACCEPTED\",\n    \"proposalId\": \"proposal:dc89147b-7d01-426c-95dd-41e89366d234\",\n    \"approvalId\": \"approval:x01-human-gate-2\",\n    \"targetId\": \"decision:auth\",\n    \"previousStreamVersion\": 2,\n    \"nextStreamVersion\": 3,\n    \"previousProjectPosition\": 12,\n    \"nextProjectPosition\": 13,\n    \"beforeStatement\": \"Use OAuth2 authorization-code flow with PKCE S256 and DPoP.\",\n    \"afterStatement\": \"Use OAuth2 authorization-code flow with PKCE S256, DPoP, and enforce RFC 7636 verifier syntax.\",\n    \"actor\": {\n      \"kind\": \"HUMAN\",\n      \"id\": \"human:x01-owner\",\n      \"name\": \"External X-01 Human\"\n    },\n    \"approvalProvenance\": {\n      \"scheme\": \"digital-signature\",\n      \"algorithm\": \"Ed25519\",\n      \"keyId\": \"human:x01-owner\",\n      \"trustStoreFingerprint\": \"0e298f9a4223237ba68c16ff7e681d04a7922baf6173ef9b08e4299f11862d8a\",\n      \"publicKeyFingerprint\": \"a89af804a2ebc194813544bd1848e66dd9d4093b24e7c7e71dc9e8a0cdd3d450\",\n      \"verified\": true\n    },\n    \"authorityBinding\": {\n      \"taskId\": \"task:implement-auth\",\n      \"taskScopeId\": \"backend\",\n      \"taskAllowedScopeId\": \"backend\",\n      \"agentId\": \"agent:coding\",\n      \"agentScopeId\": \"backend\",\n      \"compileScopeId\": \"backend\",\n      \"targetId\": \"decision:auth\",\n      \"targetScopeId\": \"backend\",\n      \"decision\": \"ALLOW\"\n    },\n    \"recordedAt\": \"2026-09-12T16:50:07.424Z\"\n  },\n  \"projectFileHashAfter\": \"7241749c7a2b9dca44be09f928b92ec8578d53370f336054228d60d0f4498f40\"\n}\n",
+    "stderr": ""
+  },
+  "parsedResult": {
+    "status": "APPLIED",
+    "proposalId": "proposal:dc89147b-7d01-426c-95dd-41e89366d234",
+    "approvalId": "approval:x01-human-gate-2",
+    "semanticMutationApplied": true,
+    "projectPosition": 13,
+    "targetStreamVersion": 3,
+    "event": {
+      "event_id": "event:5b9e13fe-6d23-4a5e-a65f-8cd9f6bf7caf",
+      "project_id": "x01-phase0-demo",
+      "event_type": "decision.changed",
+      "schema_version": 1,
+      "stream_id": "decision:auth",
+      "stream_version": 3,
+      "transaction_id": "tx:5b9e13fe-6d23-4a5e-a65f-8cd9f6bf7caf",
+      "transaction_index": 0,
+      "project_position": 13,
+      "command_id": "proposal:dc89147b-7d01-426c-95dd-41e89366d234",
+      "causation_ref": "proposal:dc89147b-7d01-426c-95dd-41e89366d234",
+      "correlation_id": "approval:x01-human-gate-2",
+      "actor_ref": "human:x01-owner",
+      "machine_id": "decision.lifecycle",
+      "machine_version": "0.1",
+      "validation_receipt_ref": "validation:5b9e13fe-6d23-4a5e-a65f-8cd9f6bf7caf",
+      "recorded_at": "2026-09-12T16:50:07.424Z",
+      "payload": {
+        "targetId": "decision:auth",
+        "before": {
+          "statement": "Use OAuth2 authorization-code flow with PKCE S256 and DPoP."
+        },
+        "after": {
+          "statement": "Use OAuth2 authorization-code flow with PKCE S256, DPoP, and enforce RFC 7636 verifier syntax."
+        }
+      }
+    },
+    "transaction": {
+      "transactionId": "tx:5b9e13fe-6d23-4a5e-a65f-8cd9f6bf7caf",
+      "projectId": "x01-phase0-demo",
+      "proposalId": "proposal:dc89147b-7d01-426c-95dd-41e89366d234",
+      "approvalId": "approval:x01-human-gate-2",
+      "status": "COMMITTED",
+      "eventCount": 1,
+      "recordedAt": "2026-09-12T16:50:07.424Z"
+    },
+    "validationReceipt": {
+      "validationReceiptId": "validation:5b9e13fe-6d23-4a5e-a65f-8cd9f6bf7caf",
+      "result": "ACCEPTED",
+      "proposalId": "proposal:dc89147b-7d01-426c-95dd-41e89366d234",
+      "approvalId": "approval:x01-human-gate-2",
+      "targetId": "decision:auth",
+      "previousStreamVersion": 2,
+      "nextStreamVersion": 3,
+      "previousProjectPosition": 12,
+      "nextProjectPosition": 13,
+      "beforeStatement": "Use OAuth2 authorization-code flow with PKCE S256 and DPoP.",
+      "afterStatement": "Use OAuth2 authorization-code flow with PKCE S256, DPoP, and enforce RFC 7636 verifier syntax.",
+      "actor": {
+        "kind": "HUMAN",
+        "id": "human:x01-owner",
+        "name": "External X-01 Human"
+      },
+      "approvalProvenance": {
+        "scheme": "digital-signature",
+        "algorithm": "Ed25519",
+        "keyId": "human:x01-owner",
+        "trustStoreFingerprint": "0e298f9a4223237ba68c16ff7e681d04a7922baf6173ef9b08e4299f11862d8a",
+        "publicKeyFingerprint": "a89af804a2ebc194813544bd1848e66dd9d4093b24e7c7e71dc9e8a0cdd3d450",
+        "verified": true
+      },
+      "authorityBinding": {
+        "taskId": "task:implement-auth",
+        "taskScopeId": "backend",
+        "taskAllowedScopeId": "backend",
+        "agentId": "agent:coding",
+        "agentScopeId": "backend",
+        "compileScopeId": "backend",
+        "targetId": "decision:auth",
+        "targetScopeId": "backend",
+        "decision": "ALLOW"
+      },
+      "recordedAt": "2026-09-12T16:50:07.424Z"
+    },
+    "projectFileHashAfter": "7241749c7a2b9dca44be09f928b92ec8578d53370f336054228d60d0f4498f40"
+  },
+  "before": {
+    "projectPosition": 12,
+    "projectionSha256": "3af31c6441a69ebe38fd58748f3df07a89769577335d0acd47fe7ea0a54f5aef",
+    "semanticEventCount": 12,
+    "semanticEventJournalSha256": "5f2c52b5c03e156354a27b98a20ece6a5ed79ba2eed9ec52c8bccdfe23c5f985",
+    "semanticTransactionCount": 1,
+    "semanticTransactionJournalSha256": "fa0939b423e84dc75c312d1b742aa6c8377b2ba4f990b7f3808dd13f10d31779",
+    "semanticValidationCount": 1,
+    "semanticValidationJournalSha256": "6092c1a82c461bde4348309f7e8847e8cd91428f6b7415d4d6bf779416f836b7",
+    "proposalCount": 3,
+    "proposalJournalSha256": "0a6f61513ff219188dc908f78ff1ff70e7ce59bdbab7d333432a16784a3b35a9",
+    "humanApprovalCount": 1,
+    "humanApprovalJournalSha256": "d8d65f9cd5a4bc85a8d974ac30c69c47e828a4143af93886fb2ef69b73b7ccf8"
+  },
+  "after": {
+    "projectPosition": 13,
+    "projectionSha256": "7241749c7a2b9dca44be09f928b92ec8578d53370f336054228d60d0f4498f40",
+    "semanticEventCount": 13,
+    "semanticEventJournalSha256": "1a2419f301e58c50f9b8a15bd4111dc03d577326df84f64ce70a551d4b33192c",
+    "semanticTransactionCount": 2,
+    "semanticTransactionJournalSha256": "39a22f66bc785505f77538d52d4271e44519a3c7b3ed33c68f678c56ac1ce324",
+    "semanticValidationCount": 2,
+    "semanticValidationJournalSha256": "9e1405db014917bd3fe5f7d1deeb072526a92f9224bfe511990e4f35075d75c0",
+    "proposalCount": 3,
+    "proposalJournalSha256": "0a6f61513ff219188dc908f78ff1ff70e7ce59bdbab7d333432a16784a3b35a9",
+    "humanApprovalCount": 2,
+    "humanApprovalJournalSha256": "04ac90df631d6b0cd19e79e2076a9edfbd5247f885708563886aca6b38e75fde"
+  },
+  "delta": {
+    "semanticEventsDelta": 1,
+    "semanticTransactionsDelta": 1,
+    "semanticValidationsDelta": 1,
+    "proposalsDelta": 0,
+    "humanApprovalsDelta": 1,
+    "projectPositionDelta": 1,
+    "projectionHashUnchanged": false,
+    "semanticEventJournalHashUnchanged": false,
+    "semanticTransactionJournalHashUnchanged": false
+  },
+  "k01": "ACCEPTED",
+  "k02": "COMMITTED"
+}

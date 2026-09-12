@@ -1,0 +1,18 @@
+{
+  "status": "MATCH",
+  "projectId": "x01-phase0-demo",
+  "liveProjectPosition": 13,
+  "replayedProjectPosition": 13,
+  "liveLogicalFingerprint": "ff9f0e2b5958a52bc08c66c80bd443a7c45e19b1569b754c696c734d05aca7ea",
+  "replayLogicalFingerprint": "ff9f0e2b5958a52bc08c66c80bd443a7c45e19b1569b754c696c734d05aca7ea",
+  "logicalProjectionEqual": true,
+  "acceptedSemanticEventCount": 13,
+  "seedEventCount": 11,
+  "governedDecisionEventCount": 2,
+  "governedDecisionCommandIds": [
+    "proposal:9a16a05e-ddfe-45e1-a10d-f954d35d5520",
+    "proposal:dc89147b-7d01-426c-95dd-41e89366d234"
+  ],
+  "forbiddenAcceptedEventCount": 0,
+  "forbiddenAcceptedEvents": []
+}

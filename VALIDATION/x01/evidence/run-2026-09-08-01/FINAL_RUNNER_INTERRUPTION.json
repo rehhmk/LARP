@@ -1,0 +1,48 @@
+{
+  "status": "RECOVERED_WITHOUT_REAPPLY",
+  "stage": "post-apply regression output parsing",
+  "semanticApplyAlreadyCompleted": true,
+  "replayAlreadyMatched": true,
+  "secondApplyAttempted": false,
+  "cause": "The initial evidence parser recognized TAP lines beginning with #, while Node emitted Unicode information-marker lines such as ℹ pass 12.",
+  "initialRegressionCommandsAllExitedZero": true,
+  "initialObservedCountsBeforeParserFix": [
+    {
+      "name": "Context compiler",
+      "expected": 12,
+      "parsed": null,
+      "exitCode": 0
+    },
+    {
+      "name": "MCP adapter",
+      "expected": 15,
+      "parsed": null,
+      "exitCode": 0
+    },
+    {
+      "name": "Governance and Phase 0 unit tests",
+      "expected": 14,
+      "parsed": null,
+      "exitCode": 0
+    },
+    {
+      "name": "V-01",
+      "expected": 5,
+      "parsed": null,
+      "exitCode": 0
+    },
+    {
+      "name": "V-02",
+      "expected": 11,
+      "parsed": null,
+      "exitCode": 0
+    },
+    {
+      "name": "X-01 Phase 0 isolated harness",
+      "expected": 6,
+      "parsed": null,
+      "exitCode": 0
+    }
+  ],
+  "remediation": "Expanded the evidence-only TAP parser, resumed from validated project position 13, reran replay and regressions, and never invoked applyApprovedProposal again."
+}

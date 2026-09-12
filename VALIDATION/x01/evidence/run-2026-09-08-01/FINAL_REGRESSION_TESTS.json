@@ -1,0 +1,97 @@
+{
+  "status": "PASS",
+  "aggregateExpected": 63,
+  "aggregateObserved": 63,
+  "suites": [
+    {
+      "name": "Context compiler",
+      "args": [
+        "--test",
+        "COMPILER/test/context-compiler.test.js"
+      ],
+      "expected": 12,
+      "command": "\"/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node\" \"--test\" \"COMPILER/test/context-compiler.test.js\"",
+      "cwd": "/workspace/scratch/18a51dcb9eb4/LARP",
+      "exitCode": 0,
+      "stdout": "✔ JCS-like canonicalization is stable under object key order (1.315949ms)\n✔ same canonical inputs produce identical fingerprints (9.188034ms)\n✔ unknowns remain a distinct semantic section (1.203232ms)\n✔ required decision is selected while sibling-scope unrelated state is omitted (0.549409ms)\n✔ irrelevant project change does not stale context or change fingerprints after recompile (2.109878ms)\n✔ relevant required dependency change yields STALE_BLOCKING (0.606163ms)\n✔ supporting evidence change yields STALE_NON_BLOCKING (3.881688ms)\n✔ supersession makes old bundle stale-blocking and new bundle exposes old + replacement (1.15366ms)\n✔ unknown change is relevant but non-blocking (0.574256ms)\n✔ recompiling after relevant change produces a CURRENT bundle (0.818526ms)\n✔ removing a structural requires relation makes the old bundle stale-blocking (0.542439ms)\n✔ mandatory invisible dependency fails compilation instead of silently omitting it (0.377747ms)\nℹ tests 12\nℹ suites 0\nℹ pass 12\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 103.361118\n",
+      "stderr": "",
+      "observedPassCount": 12,
+      "passed": true
+    },
+    {
+      "name": "MCP adapter",
+      "args": [
+        "--test",
+        "ADAPTER/test/adapter.test.js"
+      ],
+      "expected": 15,
+      "command": "\"/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node\" \"--test\" \"ADAPTER/test/adapter.test.js\"",
+      "cwd": "/workspace/scratch/18a51dcb9eb4/LARP",
+      "exitCode": 0,
+      "stdout": "✔ T01 initializes over MCP legacy stdio and reports tool capability (71.877321ms)\n✔ T02 tools/list exposes exactly context, status, proposal, and verification tools (72.108171ms)\n✔ T03 larp_status is read-only and exposes project position/coverage (65.420479ms)\n✔ T04 larp_get_context returns governed ContextBundle with Decision/Evidence/Unknown (83.026609ms)\n✔ T05 freshly issued context verifies CURRENT (78.020696ms)\n✔ T06 unrelated project drift stays CURRENT (80.657764ms)\n✔ T07 required Decision drift becomes STALE_BLOCKING (87.477751ms)\n✔ T08 larp_propose records a context-bound proposal but does not mutate semantic fixture (82.100934ms)\n✔ T09 proposal tool cannot be mistaken for accepted SemanticEvent (71.67311ms)\n✔ T10 tool argument errors return MCP tool error without crashing server (59.76284ms)\n✔ T11 unknown tool returns an ordinary MCP tool error result (65.665424ms)\n✔ T12 stdout contains JSON-RPC only (66.840431ms)\n✔ T13 current 2026 discovery probe receives Method not found for documented legacy fallback (63.815891ms)\n✔ T14 verification can accept full bundle, not only process-local cache (79.956021ms)\n✔ T15 unbound proposal is rejected before proposal journal creation (61.719297ms)\nℹ tests 15\nℹ suites 0\nℹ pass 15\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 1170.392215\n",
+      "stderr": "",
+      "observedPassCount": 15,
+      "passed": true
+    },
+    {
+      "name": "Governance and Phase 0 unit tests",
+      "args": [
+        "--test",
+        "ADAPTER/test/governance.test.js"
+      ],
+      "expected": 14,
+      "command": "\"/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node\" \"--test\" \"ADAPTER/test/governance.test.js\"",
+      "cwd": "/workspace/scratch/18a51dcb9eb4/LARP",
+      "exitCode": 0,
+      "stdout": "✔ A02-T01 no approval means zero semantic mutation (10.991176ms)\n✔ A02-T02 MCP/agent actor cannot approve its own proposal (2.330792ms)\n✔ A02-T03 stale project position is rejected before mutation (3.012156ms)\n✔ A02-T04 stale stream version is rejected before mutation (2.898619ms)\n✔ A02-T05 explicit human approval yields validated semantic event and projection update (4.713642ms)\n✔ A02-T06 accepted path writes approval, validation, transaction and event journals (3.548416ms)\n✔ A02-T07 same canonical input with injected ids/time produces same logical event (6.989273ms)\n✔ A02-T08 unsupported command is rejected even with human approval (2.978036ms)\n✔ A02-T09 control CLI consumes an existing approval receipt file; it does not synthesize approval (66.573094ms)\n✔ X01-P0-T01 fabricated HUMAN JSON without trusted provenance is rejected with zero mutation (3.712007ms)\n✔ X01-P0-T02 approval signed by an untrusted key is rejected with zero mutation (3.184039ms)\n✔ X01-P0-T03 attacker cannot replace the canonically pinned trust store (2.779042ms)\n✔ X01-P0-T04 backend-bound proposal cannot apply to sibling frontend target (2.905979ms)\n✔ X01-P0-T05 changed authority binding is rejected before semantic append (4.451305ms)\nℹ tests 14\nℹ suites 0\nℹ pass 14\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 193.758054\n",
+      "stderr": "",
+      "observedPassCount": 14,
+      "passed": true
+    },
+    {
+      "name": "V-01",
+      "args": [
+        "--test",
+        "VERTICAL_SLICE/v01/test/v01-local.test.js"
+      ],
+      "expected": 5,
+      "command": "\"/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node\" \"--test\" \"VERTICAL_SLICE/v01/test/v01-local.test.js\"",
+      "cwd": "/workspace/scratch/18a51dcb9eb4/LARP",
+      "exitCode": 0,
+      "stdout": "✔ V01-L01 full local causal chain enforces stale blocking and requires rehydrate (276.632968ms)\n✔ V01-L02 unbound proposal is rejected with zero journal append (67.797311ms)\n✔ V01-L03 STALE_NON_BLOCKING context may propose but receipt carries drift (84.071088ms)\n✔ V01-L04 explicit ContextBundle fingerprint mismatch is rejected before append (79.040159ms)\n✔ V01-L05 full ContextBundle can bind proposal after MCP server restart (143.597724ms)\nℹ tests 5\nℹ suites 0\nℹ pass 5\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 736.041617\n",
+      "stderr": "",
+      "observedPassCount": 5,
+      "passed": true
+    },
+    {
+      "name": "V-02",
+      "args": [
+        "--test",
+        "VERTICAL_SLICE/v02/test/v02-local.test.js"
+      ],
+      "expected": 11,
+      "command": "\"/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node\" \"--test\" \"VERTICAL_SLICE/v02/test/v02-local.test.js\"",
+      "cwd": "/workspace/scratch/18a51dcb9eb4/LARP",
+      "exitCode": 0,
+      "stdout": "✔ V02-L01 real *.larp compiles deterministically to canonical IR and fingerprints (15.472075ms)\n✔ V02-L02 invalid source emits diagnostics and leaves no bootstrap-loadable IR (67.992059ms)\n✔ V02-L03 explicit bootstrap materializes accepted seed events and a derived projection (12.961928ms)\n✔ V02-L04 identical bootstrap is ALREADY_MATERIALIZED and performs zero writes (10.429599ms)\n✔ V02-L05 changed materialized seed yields SEED_DIVERGENCE with zero semantic rewrite (8.25056ms)\n✔ V02-L06 compiling changed source alone cannot mutate accepted history or projection (17.705254ms)\n✔ V02-L07 ContextBundle from bootstrapped projection includes governing dependencies and is CURRENT (14.685351ms)\n✔ V02-L08 replay from accepted semantic history reconstructs the same logical projection and versions (10.979709ms)\n✔ V02-L09 reset-real-run derives runtime from *.larp and never consumes a semantic JSON fixture (149.022629ms)\n✔ V02-L10 generated projection is directly usable by the existing MCP adapter server (85.333016ms)\n✔ V02-L11 tampered IR is rejected before runtime materialization (1.316979ms)\nℹ tests 11\nℹ suites 0\nℹ pass 11\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 483.401663\n",
+      "stderr": "",
+      "observedPassCount": 11,
+      "passed": true
+    },
+    {
+      "name": "X-01 Phase 0 isolated harness",
+      "args": [
+        "--test",
+        "VALIDATION/x01/test/phase0.test.js"
+      ],
+      "expected": 6,
+      "command": "\"/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node\" \"--test\" \"VALIDATION/x01/test/phase0.test.js\"",
+      "cwd": "/workspace/scratch/18a51dcb9eb4/LARP",
+      "exitCode": 0,
+      "stdout": "✔ X01-P0-L01 fixture has sibling scopes while backend context excludes frontend target (24.295779ms)\n✔ X01-P0-L02 proposal-time scope authorization rejects frontend target with zero append (11.807283ms)\n✔ X01-P0-L03 fabricated HUMAN JSON rejects with zero semantic mutation (13.547782ms)\n✔ X01-P0-L04 attacker-signed approval cannot substitute its own trust store (13.174366ms)\n✔ X01-P0-L05 apply re-check rejects an injected backend-to-frontend proposal (10.45068ms)\n✔ X01-P0-L06 legitimate externally signed human approval still applies (15.202263ms)\nℹ tests 6\nℹ suites 0\nℹ pass 6\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 179.779653\n",
+      "stderr": "",
+      "observedPassCount": 6,
+      "passed": true
+    }
+  ]
+}
