@@ -2,7 +2,7 @@
 
 Status: PARTIAL_SYNC — GOOGLE_DRIVE_PENDING
 
-Checkpoint date: 2026-09-12
+Checkpoint date: 2026-09-14
 
 ## Canonical technical state recoverable from executable evidence
 
@@ -97,10 +97,10 @@ fresh Worker B
 
 ## X-02 Phase 0 deterministic readiness
 
-Phase 0 is now implemented and PASS.
+Phase 0 is implemented and PASS.
 
 Evidence:
-- readiness branch: `build/x02-phase0-readiness`
+- readiness branch: `build/x02-phase0-readiness` — merged; no longer the active work branch
 - readiness PR: `#8`
 - implementation head tested by CI: `d9bc313595820a735dde523e6b349f55a57c764b`
 - merge commit on main: `c666f9be8da77b7c56c1119f19d8aaa623a23618`
@@ -108,7 +108,7 @@ Evidence:
 - CI run: `34721991617`
 - CI job: `103629473177`
 
-Readiness guarantees:
+Readiness result:
 - dedicated `.larp` fixture compiles and bootstraps the pre-handoff Bearer Decision;
 - initial task context is `CURRENT`;
 - signed governed HUMAN path changes accepted semantic state to DPoP without editing seed source;
@@ -117,19 +117,32 @@ Readiness guarantees:
 - stale Bearer artifact fails after transition;
 - current DPoP artifact passes;
 - replay matches live logical projection;
-- all regressions remain green.
-
-Test counts:
-- Context compiler: 12/12
-- MCP adapter: 15/15
-- governance + X-01 unit: 14/14
-- V-01: 5/5
-- V-02: 11/11
-- X-01 harness: 6/6
-- X-02 readiness: 5/5
-- aggregate: **68/68 PASS**
+- aggregate regressions: **68 / 68 PASS**.
 
 This does not verify X-02. It only establishes that the real continuity experiment can distinguish stale from current behavior.
+
+## X-02 Phase 1 — Worker A prepared
+
+Worker-A execution prompt is now persisted:
+
+- `VALIDATION/X02_PHASE1_WORKER_A_PROMPT.md`
+- prompt commit: `bea91fae1ece579e4ea9e537cba4339e63247a95`
+- intended branch: `validation/x02-worker-a-run-01`
+- intended evidence directory: `VALIDATION/x02/evidence/run-2026-09-14-01/`
+
+Worker A must:
+
+1. consume only the HUMAN-supplied **public** trust store;
+2. initialize the dedicated X-02 run from the real `.larp` fixture;
+3. hydrate `task:implement-auth` and obtain CURRENT ContextBundle A0;
+4. create exactly one context-bound proposal changing the accepted auth Decision from Bearer to DPoP-bound authorization;
+5. prove proposal creation caused **zero semantic mutation**;
+6. commit pre-gate evidence;
+7. stop at **X02 WORKER A HUMAN GATE A**.
+
+No HUMAN ApprovalReceipt may be synthesized by Worker A. The matching private key remains outside the worker environment.
+
+After HUMAN Gate A is eventually approved and applied, Worker A must persist the stale-A0 and handoff-boundary evidence and then stop permanently for the run. Worker B must later receive no Worker-A transcript, reasoning, handoff summary, proposal statement, or semantic answer in its bootstrap prompt.
 
 ## Human-flow semantics preserved
 
@@ -157,7 +170,7 @@ projection
 
 GitHub remains authoritative for executable code, fixtures, test outputs, real-agent evidence, and independent verification artifacts.
 
-Google Drive remains the long-lived authority for roadmap/spec/current project context, but Drive has not yet been reconciled from this session. The Drive copy remains **unconfirmed / pending reconciliation**.
+Google Drive remains the long-lived authority for roadmap/spec/current project context. A Drive reconciliation was attempted from this session on 2026-09-14, but the Drive tool became unavailable before the documents could be read or written. Drive therefore remains **unconfirmed / pending reconciliation**; no Drive write is claimed.
 
 ## Pending Google Drive synchronization
 
@@ -172,11 +185,12 @@ When Drive is accessible, reconcile at minimum:
 7. X-02 decision commit = `223d4800bd7a08daa2c9cd941e70c7ed93e7baaa`.
 8. X-02 protocol commit = `733f6513159911a8d7890a4f448c03449d457a45`.
 9. X-02 Phase 0 merge = `c666f9be8da77b7c56c1119f19d8aaa623a23618`; readiness **68/68 PASS**.
-10. `GAP-X01-PHYSICAL-BOUNDARY` = OPEN.
-11. `LARP_CURRENT_CONTEXT`: persist the same normalized state.
+10. Worker-A prompt commit = `bea91fae1ece579e4ea9e537cba4339e63247a95`.
+11. `GAP-X01-PHYSICAL-BOUNDARY` = OPEN.
+12. `LARP_CURRENT_CONTEXT`: persist the same normalized state.
 
 Do not regress to X-02 proposal review or Phase 0 build as the active gate after hydrating an older Drive revision.
 
 ## Next execution unit
 
-Run **Phase 1 / Worker A** using the dedicated X-02 fixture. Worker A must hydrate from LARP, obtain CURRENT A0, create the exact context-bound post-handoff proposal with zero semantic mutation, and stop at HUMAN GATE A. The real continuity test must not transfer Worker A's conversation or semantic answer to Worker B.
+Run **Phase 1 / Worker A** with `VALIDATION/X02_PHASE1_WORKER_A_PROMPT.md` and the HUMAN-supplied public trust store. Stop at `X02 WORKER A HUMAN GATE A`; independently inspect the immutable pre-gate evidence before any HUMAN approval is signed.
