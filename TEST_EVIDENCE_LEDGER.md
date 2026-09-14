@@ -16,6 +16,7 @@ Policy: `TESTING_SOURCE_OF_TRUTH.md`
 - X-01: **VERIFIED**
 - X-02: **ACCEPTED / ACTIVE / NOT VERIFIED**
 - X-02 Phase 0 deterministic readiness: **PASS**
+- X-02 Phase 1 Worker A: **READY / NOT RUN**
 - M7 Validation: **ACTIVE**
 
 Roadmap/spec authority remains Google Drive. GitHub is authoritative for executable evidence. Drive reconciliation remains separate coordination work.
@@ -167,7 +168,17 @@ Regression result:
 - X-02 Phase 0 readiness: **5/5 PASS**
 - aggregate: **68/68 PASS**
 
-X-02 remains NOT VERIFIED until immutable real-agent continuity evidence is committed and independently inspected. The next real gate is Worker A.
+### Phase 1 Worker A
+
+**Status: READY / NOT RUN**
+
+Execution prompt:
+- `VALIDATION/X02_PHASE1_WORKER_A_PROMPT.md`
+- prompt commit: `bea91fae1ece579e4ea9e537cba4339e63247a95`
+
+The real Worker-A run must hydrate CURRENT A0, create the exact context-bound Bearer → DPoP-bound Decision proposal with zero semantic mutation, commit pre-gate evidence, and stop at `X02 WORKER A HUMAN GATE A`. Worker A may consume the HUMAN-supplied public trust store only and must never synthesize HUMAN authority or access the private signing key.
+
+X-02 remains NOT VERIFIED until immutable real-agent continuity evidence from Worker A → loss boundary → fresh Worker B is committed and independently inspected.
 
 If verified, coverage moves **24/25 → 25/25; 96/100 → 100/100**.
 
@@ -178,7 +189,7 @@ If verified, coverage moves **24/25 → 25/25; 96/100 → 100/100**.
 **Status: ACTIVE**
 
 - X-01 — **VERIFIED**
-- X-02 — **ACCEPTED / ACTIVE / NOT VERIFIED; PHASE 0 READY**
+- X-02 — **ACCEPTED / ACTIVE / NOT VERIFIED; PHASE 0 READY; WORKER A READY**
 
 ---
 
